@@ -1,3 +1,9 @@
+<!-- 本模板用于应用赛道作品。协议贡献赛道请前往 https://github.com/Open-Commerce-Protocol/OCP-Catalog/issues/new/choose 提交 Issue，或在 OCP-Catalog 提交修复 PR，无需在此重复投稿。普通仓库文档维护可删除不适用部分。 -->
+
+## 赛道
+
+应用赛道
+
 ## 作品名称与位置
 
 - 名称：
