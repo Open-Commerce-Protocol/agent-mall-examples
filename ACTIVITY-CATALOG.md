@@ -19,3 +19,11 @@
 | `project-play` | project_play | 多项目活动源码；已移除依赖目录 |
 
 本次仅做静态有效性检查：读取目录、入口、README、依赖清单和明显凭证/构建产物，不代表编译或端到端验证。
+
+## 外部 GitHub 作品
+
+- `github-commerce-mall-for-agents`：来源 `God-Arthur/Commerce-Mall-For-Agents`。
+- `github-team-meal-manager`：来源 `xxxxdxc/team-meal-manager`。
+- `github-ocp-food-demo`：来源 `Gao-Wenjing2004/ocp-food-demo`。
+
+上述三个仓库按 2026-10-12 静态检查结果收录；未执行构建或测试。

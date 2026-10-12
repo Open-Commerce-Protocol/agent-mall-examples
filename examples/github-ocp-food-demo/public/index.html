@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今天吃什么 · OCP 联邦点单</title>
+<style>
+  :root{
+    --cream:#fdf8f1; --paper:#fffdfa; --ink:#33302c; --ink-2:#7d766c; --ink-3:#b3aa9e;
+    --coral:#e8734a; --coral-2:#f2a181; --sage:#6c9a8b; --sage-2:#a8c7bb;
+    --gold:#d8a13a; --line:#ece4d9; --shadow:0 2px 4px rgba(120,100,80,.04), 0 12px 32px rgba(120,100,80,.08);
+    --shadow-lg:0 4px 8px rgba(120,100,80,.06), 0 24px 64px rgba(120,100,80,.14);
+    --r:20px; --r-sm:12px; --r-xs:9px;
+    --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{
+    font-family:var(--font); background:var(--cream); color:var(--ink);
+    -webkit-font-smoothing:antialiased; line-height:1.6;
+    display:flex; flex-direction:column; align-items:center;
+    padding:28px 20px 60px; min-height:100vh;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(900px 500px at 12% -8%, rgba(232,115,74,.09), transparent 60%),
+               radial-gradient(700px 400px at 92% 101%, rgba(108,154,139,.09), transparent 60%);
+  }
+  .wrap{position:relative; z-index:1; width:100%; max-width:760px}
+
+  /* ── 顶部 ── */
+  header{text-align:center; margin-bottom:26px}
+  .brand{
+    display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--ink-3); font-weight:600; margin-bottom:12px;
+  }
+  .brand .dot{width:6px; height:6px; border-radius:50%; background:var(--sage); box-shadow:0 0 0 3px rgba(108,154,139,.16)}
+  h1{font-size:31px; font-weight:700; letter-spacing:-.02em; line-height:1.24}
+  h1 .hl{background:linear-gradient(180deg,transparent 62%,rgba(232,115,74,.24) 62%); padding:0 2px}
+  .sub{color:var(--ink-2); font-size:13.5px; margin-top:9px}
+
+  /* ── 卡片通用 ── */
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow)}
+  .card-pad{padding:20px 22px}
+
+  /* ── 店铺栏（常驻） ── */
+  #shops{margin-bottom:16px; padding:15px 18px}
+  #shops .sh-head{display:flex; align-items:center; gap:8px; margin-bottom:11px}
+  #shops .sh-head .t{font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:600}
+  #shops .sh-head .n{margin-left:auto; font-size:11.5px; color:var(--ink-3)}
+  .sh-row{display:flex; gap:8px}
+  .sh-col{
+    flex:1; min-width:0; border:1.5px solid var(--line); border-radius:var(--r-sm);
+    padding:11px 12px; background:var(--paper); transition:all .28s cubic-bezier(.22,1,.36,1);
+  }
+  .sh-col .top{display:flex; align-items:center; gap:6px}
+  .sh-col .nm{font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .sh-col .st{font-size:10.5px; color:var(--ink-3); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .sh-col .bar2{height:2px; background:var(--line); border-radius:2px; margin-top:8px; overflow:hidden}
+  .sh-col .bar2 > i{display:block; height:100%; width:0; background:var(--sage); transition:width .5s}
+  .sh-col.pending{border-color:var(--coral-2); background:#fdf8f4}
+  .sh-col.pending .bar2 > i{width:55%; background:var(--coral); animation:pulse 1.1s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  .sh-col.ok{border-color:var(--sage-2); background:rgba(108,154,139,.07)}
+  .sh-col.ok .bar2 > i{width:100%}
+  .sh-col.skip{border-color:var(--line); background:rgba(179,170,158,.09); opacity:.62}
+  .sh-col.skip .bar2 > i{width:100%; background:var(--ink-3)}
+  .sh-col.hit{border-color:var(--coral); box-shadow:0 0 0 3px rgba(232,115,74,.13)}
+
+  /* ── 对话区 ── */
+  #chat{margin-bottom:16px; overflow:hidden}
+  .chat-log{padding:18px 20px 6px; display:flex; flex-direction:column; gap:11px}
+  .msg{display:flex; gap:9px; align-items:flex-start; animation:rise .34s cubic-bezier(.22,1,.36,1) both}
+  @keyframes rise{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+  .msg .av{
+    flex:0 0 26px; height:26px; border-radius:50%; display:grid; place-items:center;
+    font-size:13px; background:linear-gradient(135deg,var(--coral-2),var(--coral)); margin-top:1px;
+  }
+  .msg.ai .bubble{background:#f7f2ea; border-radius:4px 14px 14px 14px}
+  .msg.me{flex-direction:row-reverse}
+  .msg.me .bubble{background:linear-gradient(135deg,var(--sage),#5d8a7b); color:#fff; border-radius:14px 4px 14px 14px}
+  .msg.me .av{background:linear-gradient(135deg,var(--sage-2),var(--sage))}
+  .bubble{padding:9px 14px; font-size:14px; max-width:82%; border-radius:14px}
+  .bubble .tiny{display:block; font-size:11.5px; opacity:.62; margin-top:3px}
+
+  /* ── 选项按钮 ── */
+  .choices{padding:6px 20px 18px; display:flex; flex-wrap:wrap; gap:8px}
+  .chip{
+    border:1.5px solid var(--line); background:var(--paper); border-radius:999px;
+    padding:8px 17px; font-size:13.5px; font-family:inherit; color:var(--ink);
+    cursor:pointer; transition:all .17s cubic-bezier(.22,1,.36,1); font-weight:500;
+  }
+  .chip:hover{border-color:var(--coral-2); background:#fdf1eb; transform:translateY(-1px)}
+  .chip:active{transform:translateY(0) scale(.97)}
+  .chip.sel{background:var(--coral); border-color:var(--coral); color:#fff}
+
+  /* ── 主按钮 ── */
+  .btn{
+    font-family:inherit; font-size:15px; font-weight:600; border:none; border-radius:14px;
+    padding:14px 26px; cursor:pointer; transition:all .18s cubic-bezier(.22,1,.36,1);
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--coral),#dd6138); color:#fff; box-shadow:0 6px 18px rgba(232,115,74,.3)}
+  .btn-primary:hover:not(:disabled){transform:translateY(-2px); box-shadow:0 10px 26px rgba(232,115,74,.36)}
+  .btn-primary:disabled{opacity:.42; cursor:not-allowed; box-shadow:none; transform:none}
+  .btn-ghost{background:transparent; border:1.5px solid var(--line); color:var(--ink-2)}
+  .btn-ghost:hover:not(:disabled){border-color:var(--sage-2); color:var(--sage); background:rgba(108,154,139,.06)}
+  .btn-ghost:disabled{opacity:.4; cursor:not-allowed}
+  .btn-block{width:100%}
+  :focus-visible{outline:2.5px solid var(--coral-2); outline-offset:2px}
+
+  /* ── 探测进度 ── */
+  #probe{display:none; padding:18px 22px 20px; margin-bottom:16px}
+  #probe.on{display:block}
+  .probe-head{font-size:13px; color:var(--ink-2); margin-bottom:12px; display:flex; align-items:center; gap:8px}
+  .probe-head .spin{
+    width:13px; height:13px; border:2px solid var(--line); border-top-color:var(--coral);
+    border-radius:50%; animation:spin .7s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .probe-list{display:flex; flex-direction:column; gap:7px}
+  .probe-row{
+    display:flex; align-items:center; gap:10px; font-size:13.5px; padding:7px 11px;
+    border-radius:var(--r-xs); transition:all .3s; opacity:.42;
+  }
+  .probe-row.pending{opacity:.55}
+  .probe-row.ok{opacity:1; background:rgba(108,154,139,.09)}
+  .probe-row.skip{opacity:.62; background:rgba(179,170,158,.11)}
+  .probe-row .mark{width:17px; text-align:center; font-size:13px}
+  .probe-row .nm{font-weight:600}
+  .probe-row .why{margin-left:auto; font-size:11.5px; color:var(--ink-3); text-align:right}
+  .bar{height:2.5px; background:var(--line); border-radius:2px; margin-top:14px; overflow:hidden}
+  .bar > i{display:block; height:100%; background:linear-gradient(90deg,var(--coral),var(--coral-2)); width:0; transition:width .4s}
+
+  /* ── 定格舞台 ── */
+  #stage{display:none; margin-bottom:16px}
+  #stage.on{display:block; animation:rise .4s cubic-bezier(.22,1,.36,1) both}
+  .slot{
+    text-align:center; padding:34px 22px; border-bottom:1px dashed var(--line);
+  }
+  .slot .lbl{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:600}
+  .slot .val{
+    font-size:30px; font-weight:700; letter-spacing:-.02em; margin-top:10px; min-height:44px;
+    transition:opacity .08s;
+  }
+  .slot.rolling .val{color:var(--coral)}
+  .slot.done .val{animation:pop .5s cubic-bezier(.22,1,.36,1) both}
+  @keyframes pop{0%{transform:scale(.86); opacity:0; filter:blur(6px)} 60%{transform:scale(1.04)} 100%{transform:scale(1); opacity:1; filter:none}}
+
+  .pick{display:none}
+  .pick.on{display:block; animation:rise .44s cubic-bezier(.22,1,.36,1) both}
+  .pick-body{display:flex; gap:18px; padding:20px 22px}
+  .pick-img{
+    flex:0 0 108px; height:108px; border-radius:var(--r-sm); object-fit:cover;
+    background:linear-gradient(135deg,#f5efe6,#eae0d3); border:1px solid var(--line);
+  }
+  .pick-meta{flex:1; min-width:0}
+  .pick-name{font-size:19px; font-weight:700; letter-spacing:-.01em}
+  .pick-desc{font-size:13px; color:var(--ink-2); margin-top:4px}
+  .tags{display:flex; flex-wrap:wrap; gap:5px; margin-top:9px}
+  .tag{font-size:11px; padding:2.5px 9px; border-radius:999px; background:#f5efe6; color:var(--ink-2); font-weight:500}
+  .tag.price{background:rgba(232,115,74,.13); color:#c2502c; font-weight:700}
+  .price-row{display:flex; align-items:baseline; gap:10px; margin-top:11px}
+  .price{font-size:23px; font-weight:700; color:var(--coral)}
+  .price small{font-size:13px; font-weight:600}
+  .price-row .eta{font-size:12.5px; color:var(--ink-2)}
+  .price-row .was{font-size:12.5px; color:var(--ink-3); text-decoration:line-through}
+
+  .explain{
+    margin:0 22px; padding:12px 15px; background:#f7f2ea; border-radius:var(--r-sm);
+    font-size:13px; color:var(--ink-2); border-left:3px solid var(--sage-2);
+  }
+  .explain b{color:var(--ink); font-weight:600}
+  .explain ul{margin:6px 0 0; padding-left:17px}
+  .explain li{margin:2px 0}
+
+  /* ── 出处徽章 ── */
+  .prov{
+    margin:14px 22px 0; padding-top:13px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:6px; align-items:center;
+  }
+  .prov .lbl{font-size:11px; color:var(--ink-3); margin-right:2px; letter-spacing:.04em}
+  .badge{
+    font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:6px;
+    letter-spacing:.03em; display:inline-flex; align-items:center; gap:4px;
+  }
+  .badge.v{background:rgba(108,154,139,.14); color:#4d7a6b}
+  .badge.p{background:rgba(216,161,58,.16); color:#96701f}
+  .badge.u{background:rgba(179,170,158,.18); color:#8a8177}
+  .badge.t{background:rgba(232,115,74,.12); color:#c2502c}
+  .badge.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; background:#f5efe6; color:var(--ink-2); font-weight:600}
+
+  .actions{display:flex; gap:10px; padding:18px 22px 20px}
+  .actions .btn{flex:1}
+
+  /* ── 确认层 ── */
+  #confirm{display:none; margin-bottom:16px}
+  #confirm.on{display:block; animation:rise .35s cubic-bezier(.22,1,.36,1) both; border-color:var(--coral-2)}
+  .cf-head{
+    padding:16px 22px 14px; display:flex; align-items:center; gap:10px;
+    background:linear-gradient(135deg,rgba(232,115,74,.07),transparent); border-radius:var(--r) var(--r) 0 0;
+  }
+  .cf-head .warn{font-size:18px}
+  .cf-head .t{font-weight:700; font-size:15px}
+  .cf-head .s{font-size:12px; color:var(--ink-2); margin-top:1px}
+  .ttl{height:3px; background:var(--line); border-radius:0}
+  .ttl > i{display:block; height:100%; background:linear-gradient(90deg,var(--coral),var(--gold)); transform-origin:left; transition:transform .25s linear}
+  .ttl.warn > i{background:linear-gradient(90deg,#d64545,var(--coral))}
+  .cf-body{padding:18px 22px}
+  .kv{display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--line); font-size:13.5px}
+  .kv:last-child{border-bottom:none}
+  .kv .k{color:var(--ink-2)}
+  .kv .v{font-weight:600}
+  .seg{display:flex; gap:6px; background:#f5efe6; padding:3px; border-radius:10px}
+  .seg button{
+    font-family:inherit; font-size:12.5px; font-weight:600; border:none; background:transparent;
+    padding:6px 14px; border-radius:8px; cursor:pointer; color:var(--ink-2); transition:all .16s;
+  }
+  .seg button.on{background:var(--paper); color:var(--ink); box-shadow:0 1px 4px rgba(120,100,80,.14)}
+  .cf-note{
+    margin-top:14px; padding:10px 13px; background:#f7f2ea; border-radius:var(--r-xs);
+    font-size:11.5px; color:var(--ink-2); line-height:1.55;
+  }
+  .cf-note b{color:var(--ink)}
+
+  /* ── 结果 ── */
+  #done{display:none; margin-bottom:16px}
+  #done.on{display:block; animation:rise .4s cubic-bezier(.22,1,.36,1) both; border-color:var(--sage-2)}
+  .done-pad{padding:24px 22px; text-align:center}
+  .done-pad .big{font-size:36px; margin-bottom:8px; animation:pop .55s cubic-bezier(.22,1,.36,1) both}
+  .done-pad .t{font-size:17px; font-weight:700}
+  .done-pad .order{
+    display:inline-block; margin-top:11px; font-family:ui-monospace,Menlo,monospace; font-size:13px;
+    background:#f5efe6; padding:6px 14px; border-radius:8px; letter-spacing:.05em; font-weight:600;
+  }
+  .done-pad .meta{font-size:12.5px; color:var(--ink-2); margin-top:11px}
+
+  /* ── 记录 ── */
+  #records{margin-bottom:16px}
+  .sec-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px 10px;
+  }
+  .sec-head .t{font-size:12px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); font-weight:600}
+  .rec-count{font-size:11.5px; color:var(--ink-3)}
+  .rec-list{padding:0 20px 14px; display:flex; flex-direction:column; gap:7px}
+  .rec{
+    display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:var(--r-xs);
+    background:#fbf7f1; font-size:13.5px; animation:rise .3s cubic-bezier(.22,1,.36,1) both;
+  }
+  .rec img{width:34px; height:34px; border-radius:8px; object-fit:cover; background:#eee5d9; flex:0 0 34px}
+  .rec .n{font-weight:600}
+  .rec .m{font-size:11.5px; color:var(--ink-3)}
+  .rec .r{margin-left:auto; text-align:right; font-size:11.5px; color:var(--ink-2); font-family:ui-monospace,Menlo,monospace}
+  .rec-empty{padding:4px 20px 20px; font-size:13px; color:var(--ink-3)}
+
+  /* ── 瑞幸实时面板 ── */
+  #luckin{margin-bottom:16px}
+  .lk-head{display:flex; align-items:center; gap:9px; padding:15px 20px 0}
+  .lk-head .t{font-weight:700; font-size:14px}
+  .lk-head .live{
+    font-size:10px; font-weight:700; letter-spacing:.05em; padding:2px 7px; border-radius:5px;
+    background:rgba(108,154,139,.16); color:#4d7a6b;
+  }
+  .lk-head .live.off{background:rgba(179,170,158,.2); color:#8a8177}
+  .lk-body{padding:11px 20px 17px}
+  .lk-search{display:flex; gap:8px}
+  .lk-search input{
+    flex:1; font-family:inherit; font-size:14px; padding:11px 15px; border:1.5px solid var(--line);
+    border-radius:12px; background:var(--paper); color:var(--ink); transition:border-color .17s;
+  }
+  .lk-search input:focus{border-color:var(--coral-2); outline:none}
+  .lk-search input::placeholder{color:var(--ink-3)}
+  .lk-res{margin-top:11px; display:flex; flex-direction:column; gap:7px}
+  .lk-item{
+    display:flex; align-items:center; gap:11px; padding:9px 11px; border-radius:var(--r-xs);
+    background:#fbf7f1; cursor:pointer; transition:all .16s; border:1.5px solid transparent;
+  }
+  .lk-item:hover{background:#f7f2ea; border-color:var(--coral-2)}
+  .lk-item img{width:40px; height:40px; border-radius:8px; object-fit:cover; background:#eee5d9; flex:0 0 40px}
+  .lk-item .n{font-weight:600; font-size:13.5px}
+  .lk-item .p{font-size:12px; color:var(--coral); font-weight:700; margin-left:auto; white-space:nowrap}
+  .lk-item .r{font-size:11.5px; color:var(--ink-2); flex:1; min-width:0}
+  .lk-hint{font-size:11.5px; color:var(--ink-3); margin-top:9px; line-height:1.5}
+
+  /* ── 调试条 ── */
+  #devbar{
+    position:fixed; bottom:14px; left:50%; transform:translateX(-50%); z-index:50;
+    display:flex; gap:5px; padding:5px; background:rgba(51,48,44,.9); border-radius:11px;
+    backdrop-filter:blur(10px); box-shadow:0 8px 26px rgba(0,0,0,.2);
+  }
+  #devbar button{
+    font-family:inherit; font-size:11px; font-weight:600; border:none; background:transparent;
+    color:rgba(255,255,255,.7); padding:6px 11px; border-radius:7px; cursor:pointer; transition:all .15s;
+  }
+  #devbar button:hover{background:rgba(255,255,255,.13); color:#fff}
+  #devbar button.off{color:rgba(255,255,255,.35); text-decoration:line-through}
+
+  .fade-in{animation:rise .4s cubic-bezier(.22,1,.36,1) both}
+  @media (max-width:560px){
+    h1{font-size:25px} .pick-body{flex-direction:column} .pick-img{width:100%; height:158px; flex:none}
+    .slot .val{font-size:24px} body{padding:20px 14px 60px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span>Open Commerce Protocol · 联邦发现</div>
+    <h1>今天吃<span class="hl">什么</span>？</h1>
+    <p class="sub">让我替你逛完整条街，再替你拿一次主意 —— 但点不点，你说了算。</p>
+  </header>
+
+  <!-- 店铺栏：常驻，让评委一眼看到这里有几家店 -->
+  <section id="shops" class="card">
+    <div class="sh-head">
+      <span class="t">联邦网络 · 发现的 Catalog</span>
+      <span class="n" id="shCount">—</span>
+    </div>
+    <div class="sh-row" id="shRow"></div>
+  </section>
+
+  <!-- 对话 -->
+  <section id="chat" class="card">
+    <div class="chat-log" id="chatLog"></div>
+    <div class="choices" id="choices"></div>
+  </section>
+
+  <!-- 探测进度 -->
+  <section id="probe" class="card">
+    <div class="probe-head"><span class="spin"></span><span id="probeText">正在问附近的店…</span></div>
+    <div class="probe-list" id="probeList"></div>
+    <div class="bar"><i id="probeBar"></i></div>
+  </section>
+
+  <!-- 定格舞台 -->
+  <section id="stage" class="card">
+    <div class="slot" id="slot">
+      <div class="lbl">今天吃什么</div>
+      <div class="val" id="slotVal">…</div>
+    </div>
+
+    <div class="pick" id="pick">
+      <div class="pick-body">
+        <img class="pick-img" id="pickImg" alt="">
+        <div class="pick-meta">
+          <div class="pick-name" id="pickName"></div>
+          <div class="pick-desc" id="pickDesc"></div>
+          <div class="tags" id="pickTags"></div>
+          <div class="price-row">
+            <div class="price" id="pickPrice"></div>
+            <div class="eta" id="pickEta"></div>
+          </div>
+        </div>
+      </div>
+      <div class="explain" id="pickExplain"></div>
+      <div class="prov" id="pickProv"></div>
+      <div class="actions">
+        <button class="btn btn-ghost" id="btnView">看看这家</button>
+        <button class="btn btn-primary" id="btnCheckout">就要这个</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 确认层 -->
+  <section id="confirm" class="card">
+    <div class="cf-head">
+      <span class="warn">👀</span>
+      <div>
+        <div class="t">选好了。要不要，你说了算</div>
+        <div class="s" id="cfSub"></div>
+      </div>
+    </div>
+    <div class="ttl"><i id="ttlBar"></i></div>
+    <div class="cf-body">
+      <div class="kv"><span class="k">餐品</span><span class="v" id="cfItem"></span></div>
+      <div class="kv"><span class="k">门店</span><span class="v" id="cfShop"></span></div>
+      <div class="kv"><span class="k">金额</span><span class="v" id="cfPrice"></span></div>
+      <div class="kv"><span class="k">取餐方式</span>
+        <div class="seg" id="cfFulfill">
+          <button data-m="delivery" class="on">外卖</button>
+          <button data-m="dine_in">堂食</button>
+        </div>
+      </div>
+      <div class="kv"><span class="k">预计送达</span><span class="v" id="cfEta"></span></div>
+      <div class="cf-note" id="cfNote"></div>
+      <button class="btn btn-primary btn-block" id="btnConfirm" style="margin-top:15px">
+        确认下单 · 剩 <span id="cfLeft">90</span> 秒
+      </button>
+      <button class="btn btn-ghost btn-block" id="btnCancel" style="margin-top:8px">再想想</button>
+    </div>
+  </section>
+
+  <!-- 下单完成 -->
+  <section id="done" class="card">
+    <div class="done-pad">
+      <div class="big" id="doneIcon">🎉</div>
+      <div class="t" id="doneTitle"></div>
+      <div class="order" id="doneOrder"></div>
+      <div class="meta" id="doneMeta"></div>
+    </div>
+  </section>
+
+  <!-- 记录 -->
+  <section id="records" class="card">
+    <div class="sec-head">
+      <span class="t">今天的记录</span>
+      <span class="rec-count" id="recCount">0 单</span>
+    </div>
+    <div id="recList"></div>
+  </section>
+
+  <!-- 瑞幸实时 -->
+  <section id="luckin" class="card">
+    <div class="lk-head">
+      <span class="t">瑞幸咖啡 · 实时菜单</span>
+      <span class="live off" id="lkLive">检测中</span>
+    </div>
+    <div class="lk-body">
+      <div class="lk-search">
+        <input id="lkInput" placeholder="搜个饮品，比如「拿铁」" autocomplete="off">
+        <button class="btn btn-primary" id="lkBtn" style="padding:11px 20px; font-size:14px">搜</button>
+      </div>
+      <div class="lk-res" id="lkRes"></div>
+      <div class="lk-hint" id="lkHint">
+        这条链路走的是瑞幸官方 MCP，再经 OCP Catalog 包装 —— <b>叠上去，不是换掉</b>。
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- 调试条：现场演示用 -->
+<div id="devbar">
+  <button id="devKill" title="模拟门店掉线">模拟门店掉线</button>
+  <button id="devReset">重置</button>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   状态机
+   idle → chatting → discovering → rolling → revealed
+        → confirming → ordered
+   ════════════════════════════════════════════════════════════ */
+const S = {
+  phase:'idle',
+  qIndex:0,
+  constraints:{},
+  messages:[],
+  probe:[],
+  candidates:[],
+  winner:null,
+  pending:null,       // 当前 resolve 出来的动作
+  ttl:null,
+  records:[],
+  shopKilled:false,
+};
+
+const SHOPS = [
+  {id:'noodle', name:'楼下川面馆', lat:420},
+  {id:'bento',  name:'山谷便当屋', lat:1350},
+  {id:'bbq',    name:'炭火烤肉食堂', lat:700},
+  {id:'luckin', name:'瑞幸咖啡',   lat:600},
+];
+
+/* ── 三层问答：用对话收集约束，而不是让用户选菜 ── */
+const QUESTIONS = [
+  {key:'spicy', q:'今天想吃点有味道的吗？',
+   opts:[{v:'none',l:'清淡点'},{v:'mild',l:'微辣'},{v:'high',l:'要辣！'}]},
+  {key:'budget', q:'预算大概多少？',
+   opts:[{v:25,l:'25 元以内'},{v:40,l:'40 元以内'},{v:100,l:'随便，吃好点'}]},
+  {key:'minutes', q:'多久能吃上比较合适？',
+   opts:[{v:20,l:'20 分钟内'},{v:30,l:'半小时内'},{v:99,l:'不急'}]},
+];
+
+/* ── DOM ── */
+const $ = id => document.getElementById(id);
+const el = {
+  chatLog:$('chatLog'), choices:$('choices'),
+  shRow:$('shRow'), shCount:$('shCount'),
+  probe:$('probe'), probeText:$('probeText'), probeList:$('probeList'), probeBar:$('probeBar'),
+  stage:$('stage'), slot:$('slot'), slotVal:$('slotVal'), pick:$('pick'),
+  pickImg:$('pickImg'), pickName:$('pickName'), pickDesc:$('pickDesc'), pickTags:$('pickTags'),
+  pickPrice:$('pickPrice'), pickEta:$('pickEta'), pickExplain:$('pickExplain'), pickProv:$('pickProv'),
+  confirm:$('confirm'), cfSub:$('cfSub'), cfItem:$('cfItem'), cfShop:$('cfShop'), cfPrice:$('cfPrice'),
+  cfEta:$('cfEta'), cfNote:$('cfNote'), cfLeft:$('cfLeft'), ttlBar:$('ttlBar'),
+  done:$('done'), doneTitle:$('doneTitle'), doneOrder:$('doneOrder'), doneMeta:$('doneMeta'),
+  recList:$('recList'), recCount:$('recCount'),
+  lkLive:$('lkLive'), lkInput:$('lkInput'), lkRes:$('lkRes'), lkHint:$('lkHint'),
+};
+
+/* ══════════════ 对话 ══════════════ */
+function say(role, text, tiny){
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  div.innerHTML = `<div class="av">${role==='ai'?'🍜':'🙂'}</div>
+    <div class="bubble">${text}${tiny?`<span class="tiny">${tiny}</span>`:''}</div>`;
+  el.chatLog.appendChild(div);
+  div.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function askNext(){
+  if (S.qIndex >= QUESTIONS.length){
+    el.choices.innerHTML = '';
+    const b = document.createElement('button');
+    b.className = 'btn btn-primary btn-block';
+    b.textContent = '帮我决定 🎲';
+    b.onclick = () => { b.remove(); runDiscovery(); };
+    el.choices.appendChild(b);
+    say('ai', '约束收齐了。我去挨家问一圈 —— 你等我一下。', '即将同时查询 4 个 Catalog Node');
+    return;
+  }
+  const Q = QUESTIONS[S.qIndex];
+  say('ai', Q.q);
+  el.choices.innerHTML = '';
+  Q.opts.forEach(o => {
+    const c = document.createElement('button');
+    c.className = 'chip';
+    c.textContent = o.l;
+    c.onclick = () => {
+      S.constraints[Q.key] = o.v;
+      say('me', o.l);
+      S.qIndex++;
+      el.choices.innerHTML = '';
+      setTimeout(askNext, 260);
+    };
+    el.choices.appendChild(c);
+  });
+}
+
+/* ══════════════ 发现：并行探测 + 逐一亮起 ══════════════ */
+async function runDiscovery(){
+  S.phase = 'discovering';
+  el.probe.classList.add('on');
+  el.probeText.textContent = '正在同时问 4 家店…';
+  el.probeBar.style.width = '6%';
+
+  S.probe = SHOPS.map((s,i) => ({...s, state:'pending', why:'', delay: s.lat + i*40}));
+  renderProbe();
+
+  // 让每个探测有各自的「到达时间」，制造逐一亮起的节奏
+  const jobs = S.probe.map(p => new Promise(resolve => {
+    setTimeout(async () => {
+      const shopId = S.shopKilled && p.id === 'bento' ? 'bento_killed' : p.id;
+      try {
+        const r = await fetch(`/${shopId}/ocp/query`, {
+          method:'POST',
+          headers:{'content-type':'application/json'},
+          body: JSON.stringify({
+            query_pack:'ocp.query.meal.v1',
+            query:'',
+            constraints:{
+              spicy: S.constraints.spicy,
+              budget: S.constraints.budget,
+              minutes: S.constraints.minutes,
+            },
+          }),
+        });
+        const d = await r.json();
+        if (!r.ok){ p.state='skip'; p.why = d?.error?.message || '查询失败'; }
+        else if (!d.entries || d.entries.length === 0){
+          p.state='skip'; p.why = d.note ? shortWhy(d.note) : '没有合适的';
+        }
+        else {
+          p.state='ok'; p.hits = d.entries.length;
+          d.entries.forEach(e => S.candidates.push({...e, shopId:p.id, shopName:p.name, prov:d.provenance}));
+        }
+      } catch(e){
+        p.state='skip'; p.why='没有回应';
+      }
+      renderProbe();
+      resolve(null);
+    }, p.delay);
+  }));
+
+  await Promise.all(jobs);
+
+  el.probeBar.style.width = '100%';
+  const okCount = S.probe.filter(p=>p.state==='ok').length;
+
+  if (!S.candidates.length){
+    el.probeText.textContent = '都没结果…';
+    say('ai', '这条街今天没有满足条件的 😢 要不放宽一点预算？', `${okCount} 家有商品，但都不符合约束`);
+    setTimeout(reset, 1600);
+    return;
+  }
+
+  el.probeText.textContent = `${okCount} 家说有，我挑一个给你`;
+  setTimeout(() => { el.probe.classList.remove('on'); roll(); }, 520);
+}
+
+function shortWhy(t){ return String(t).replace(/门店|设备|暂不接单/g,'').slice(0,18) || '跳过'; }
+
+function renderProbe(){
+  el.probeList.innerHTML = '';
+  S.probe.forEach(p => {
+    const row = document.createElement('div');
+    row.className = 'probe-row ' + p.state;
+    const mark = p.state==='ok' ? '✓' : p.state==='skip' ? '✕' : '·';
+    row.innerHTML = `<span class="mark">${mark}</span><span class="nm">${p.name}</span>
+      <span class="why">${p.state==='ok'?'已返回':p.state==='skip'?p.why:'正在问…'}</span>`;
+    el.probeList.appendChild(row);
+  });
+  renderShops();
+}
+
+/* ── 常驻店铺栏：一眼看到联邦网络里有哪几家店 ── */
+const SHOP_META = {
+  noodle:{desc:'社区面馆',          kind:'mock'},
+  bento: {desc:'现做定食',          kind:'mock'},
+  bbq:   {desc:'炭火直烤',          kind:'离线示例'},
+  luckin:{desc:'官方 MCP 接入',     kind:'真实上游'},
+};
+
+function renderShops(){
+  const live = S.probe.length ? S.probe : SHOPS.map(s => ({...s, state:'idle', why:''}));
+  el.shRow.innerHTML = '';
+  live.forEach(p => {
+    const meta = SHOP_META[p.id] || {desc:'', kind:''};
+    const hit = S.winner && S.winner.shopId === p.id;
+    const col = document.createElement('div');
+    col.className = 'sh-col ' + (p.state || 'idle') + (hit ? ' hit' : '');
+    const st = p.state==='ok' ? `已返回 · ${p.hits ?? ''}`
+             : p.state==='skip' ? (p.why || '已跳过')
+             : p.state==='pending' ? '正在问…'
+             : meta.desc;
+    col.innerHTML = `<div class="top">
+        <span class="nm">${p.name}</span>
+      </div>
+      <div class="st">${st}</div>
+      <div class="bar2"><i></i></div>`;
+    el.shRow.appendChild(col);
+  });
+  const okN = live.filter(p => p.state === 'ok').length;
+  const realN = live.length;
+  el.shCount.textContent = S.probe.length
+    ? `${okN} / ${realN} 家已响应`
+    : `${realN} 家 Catalog`;
+}
+
+/* ══════════════ 定格：滚动 → 减速 → 揭晓 ══════════════ */
+function roll(){
+  el.stage.classList.add('on');
+  el.slot.classList.add('rolling');
+  el.slot.classList.remove('done');
+  el.pick.classList.remove('on');
+
+  const n = S.candidates.length;
+  let i = 0, delay = 75, total = 0;
+
+  function tick(){
+    el.slotVal.textContent = S.candidates[i % n].entry.title;
+    el.slotVal.style.opacity = String(0.5 + Math.random()*0.5);
+    i++; total += delay;
+    if (total > 820) delay *= 1.42;
+    if (total < 1900) setTimeout(tick, delay);
+    else revealPick();
+  }
+  tick();
+}
+
+/* B 层：商家侧已经给出 merchant_pick，这里优先用它，而不是自己随机 */
+function chooseWinner(){
+  const flagged = S.candidates.filter(c => c.score >= 1);
+  const pool = flagged.length ? flagged : S.candidates;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function revealPick(){
+  S.winner = chooseWinner();
+  S.phase = 'revealed';
+
+  el.slot.classList.remove('rolling');
+  el.slot.classList.add('done');
+  el.slotVal.style.opacity = '1';
+  el.slotVal.textContent = S.winner.entry.title;
+
+  const a = S.winner.entry.attributes;
+  el.pickImg.src = a.image_url || '';
+  el.pickName.textContent = a.name;
+  el.pickDesc.textContent = a.description || '';
+  el.pickTags.innerHTML = (a.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+  el.pickPrice.innerHTML = `<small>¥</small>${a.price.amount}`;
+  el.pickEta.textContent = `· 约 ${a.prep_minutes} 分钟`;
+
+  const p = S.winner.prov || {};
+  el.pickProv.innerHTML = `<span class="lbl">出处</span>
+    <span class="badge mono">${p.provider_id || '—'}</span>
+    <span class="badge ${verClass(p.verification_status)}">${p.verification_status || '—'}</span>
+    <span class="badge t">${p.trust_tier || '—'}</span>
+    <span class="badge mono">${p.source || '—'}</span>`;
+
+  el.pickExplain.innerHTML = `<b>${S.winner.shopName}</b> 说：${S.winner.explain?.[0] || ''}
+    <ul><li>候选集里符合你约束的有 <b>${S.candidates.filter(c=>c.shopId===S.winner.shopId).length}</b> 道</li>
+    <li>由商家侧 Catalog 决定推荐哪一道 —— <b>不是 Agent 随机挑的</b></li></ul>`;
+
+  setTimeout(() => el.pick.classList.add('on'), 130);
+  S.pending = null;
+}
+
+function verClass(v){
+  return v === 'verified' ? 'v' : v === 'pending' ? 'p' : 'u';
+}
+
+/* ══════════════ Resolve：view vs checkout ══════════════ */
+$('btnView').onclick = async () => {
+  const w = S.winner;
+  const r = await fetch(`/${w.shopId}/ocp/resolve`, {
+    method:'POST', headers:{'content-type':'application/json'},
+    body: JSON.stringify({ entry_id: w.entry.entry_id, purpose:'view' }),
+  });
+  const d = await r.json();
+  const b = d.action_bindings?.[0];
+  say('ai', `这是详情入口：<span class="badge ${verClass()}">url</span> ${b?.entrypoint?.url || '—'}`,
+      `purpose=view → 普通链接，不需要你确认`);
+  window.open(b?.entrypoint?.url, '_blank', 'noopener');
+};
+
+$('btnCheckout').onclick = async () => {
+  const w = S.winner;
+  const r = await fetch(`/${w.shopId}/ocp/resolve`, {
+    method:'POST', headers:{'content-type':'application/json'},
+    body: JSON.stringify({ entry_id: w.entry.entry_id, purpose:'checkout' }),
+  });
+  const d = await r.json();
+  if (!r.ok){ say('ai', '这家店暂时不能下单：' + (d?.error?.message || '')); return; }
+
+  const b = d.action_bindings[0];
+  S.pending = { resolve: d, binding: b, shopId: w.shopId };
+  S.phase = 'confirming';
+
+  const a = w.entry.attributes;
+  el.cfItem.textContent = a.name;
+  el.cfShop.textContent = w.shopName;
+  el.cfPrice.textContent = `¥ ${a.price.amount}`;
+  el.cfSub.textContent = `${w.shopName} · ${a.name}`;
+  el.cfNote.innerHTML = `<b>为什么这一步必须停下来问你？</b>因为 checkout 动作带了
+    <span class="badge t">requires_user_confirmation</span>，而且 90 秒后就过期 ——
+    价格、库存、配送时段都会变，过期必须重新解析。`;
+  el.confirm.classList.add('on');
+
+  say('ai', '选好了。要不要，你说了算 👀',
+      `purpose=checkout → api 动作 + 强制确认 + 时效`);
+
+  // 只有外卖可用时才放开堂食
+  const f = a.fulfillment || {};
+  const segs = el.confirm.querySelectorAll('#cfFulfill button');
+  segs.forEach(btn => {
+    const m = btn.dataset.m;
+    const usable = m === 'delivery' ? f.delivery : f.dine_in;
+    btn.disabled = !usable;
+    btn.style.opacity = usable ? '1' : '.35';
+  });
+  const canDeliver = f.delivery !== false;
+  setFulfill(canDeliver ? 'delivery' : 'dine_in');
+
+  startTtl(Date.parse(d.expires_at));
+  el.confirm.scrollIntoView({behavior:'smooth', block:'center'});
+};
+
+let fulfill = 'delivery';
+function setFulfill(m){
+  fulfill = m;
+  el.confirm.querySelectorAll('#cfFulfill button').forEach(b => b.classList.toggle('on', b.dataset.m === m));
+  const a = S.winner.entry.attributes;
+  const eta = m === 'delivery' ? a.prep_minutes + 15 : a.prep_minutes;
+  el.cfEta.textContent = m === 'delivery' ? `${eta} 分钟送达` : `${eta} 分钟可堂食`;
+}
+el.confirm.querySelectorAll('#cfFulfill button').forEach(b => {
+  b.onclick = () => { if (!b.disabled) setFulfill(b.dataset.m); };
+});
+
+/* ── 倒计时：把 expires_at 变成看得见的东西 ── */
+function startTtl(expiresAt){
+  clearInterval(S.ttl);
+  const total = expiresAt - Date.now();
+  const tick = () => {
+    const left = expiresAt - Date.now();
+    const pct = Math.max(0, left / total);
+    el.ttlBar.style.transform = `scaleX(${pct})`;
+    el.cfLeft.textContent = Math.max(0, Math.ceil(left/1000));
+    el.confirm.querySelector('.ttl').classList.toggle('warn', left < total*0.3);
+    if (left <= 0){
+      clearInterval(S.ttl);
+      S.phase = 'expired';
+      el.cfLeft.textContent = '0';
+      el.cfNote.innerHTML = `<b>这个选择凉了 🧊</b> 动作已过期 —— 这正是
+        <span class="badge t">expires_at</span> 的意义。点「就要这个」重新解析一次即可。`;
+      $('btnConfirm').disabled = true;
+      $('btnConfirm').textContent = '已过期，请重新解析';
+    }
+  };
+  tick();
+  S.ttl = setInterval(tick, 250);
+}
+
+$('btnCancel').onclick = () => {
+  clearInterval(S.ttl);
+  el.confirm.classList.remove('on');
+  $('btnConfirm').disabled = false;
+  $('btnConfirm').innerHTML = '确认下单 · 剩 <span id="cfLeft">90</span> 秒';
+  el.cfLeft = $('cfLeft');
+  S.phase = 'revealed';
+  say('ai', '没问题，我再想想别的。', '动作已作废（未确认）');
+};
+
+/* ══════════════ 执行：边界之外 ══════════════ */
+$('btnConfirm').onclick = async () => {
+  const p = S.pending;
+  if (!p) return;
+  $('btnConfirm').disabled = true;
+  $('btnConfirm').textContent = '下单中…';
+
+  const w = S.winner;
+  try {
+    const r = await fetch(`/${p.shopId}/ocp/execute`, {
+      method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({
+        entry_id: w.entry.entry_id,
+        nonce: p.binding.entrypoint.nonce,
+        fulfillment: fulfill,
+        quantity: 1,
+        remark: '来自 OCP Demo',
+      }),
+    });
+    const d = await r.json();
+    clearInterval(S.ttl);
+    el.confirm.classList.remove('on');
+
+    if (!r.ok){
+      say('ai', '下单没成功：' + (d?.error?.message || '未知错误'));
+      $('btnConfirm').disabled = false;
+      return;
+    }
+
+    const real = String(d.source || '').includes('real');
+    el.doneTitle.textContent = real ? '已通过瑞幸官方 MCP 下单' : '搞定！剩下的交给店家';
+    el.doneOrder.textContent = d.order_no || (d.upstream_response ? JSON.stringify(d.upstream_response).slice(0,80) : '—');
+    el.doneMeta.innerHTML = `${w.shopName} · ${w.entry.attributes.name} ·
+      ${fulfill === 'delivery' ? `预计 ${d.fulfillment?.estimate_minutes ?? '—'} 分钟送达` : '堂食'}
+      <br><span style="color:var(--ink-3); font-size:11.5px">${d.note || ''}</span>`;
+    el.done.classList.add('on');
+    el.done.scrollIntoView({behavior:'smooth', block:'center'});
+
+    S.records.unshift({
+      name:w.entry.attributes.name, shop:w.shopName,
+      img:w.entry.attributes.image_url, no:d.order_no || 'MCP 订单',
+      price:w.entry.attributes.price.amount, mode:fulfill, ts:Date.now(),
+    });
+    renderRecords();
+    say('ai', real ? '瑞幸那边收到订单了 ☕' : '下单成功，剩下的交给店家 🎉',
+        '注意：/ocp/execute 不属于 OCP 协议，它是门店自己的执行入口');
+  } catch(e){
+    say('ai', '网络出问题了：' + e.message);
+    $('btnConfirm').disabled = false;
+  }
+};
+
+/* ══════════════ 记录 ══════════════ */
+function renderRecords(){
+  el.recCount.textContent = `${S.records.length} 单`;
+  if (!S.records.length){
+    el.recList.innerHTML = `<div class="rec-empty">还没有记录 —— 先点「帮我决定」试试。</div>`;
+    return;
+  }
+  el.recList.innerHTML = '';
+  S.records.forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'rec';
+    d.innerHTML = `<img src="${r.img||''}" alt="">
+      <div><div class="n">${r.name}</div><div class="m">${r.shop} · ${r.mode==='delivery'?'外卖':'堂食'} · ¥${r.price}</div></div>
+      <div class="r">${r.no}</div>`;
+    el.recList.appendChild(d);
+  });
+}
+
+/* ══════════════ 瑞幸实时面板 ══════════════ */
+async function lkCheck(){
+  try{
+    const r = await fetch('/api/luckin/shops');
+    if (!r.ok){
+      el.lkLive.textContent = '离线';
+      el.lkLive.classList.add('off');
+      el.lkHint.innerHTML = `未连上瑞幸 MCP（${(await r.json()).error?.message || ''}）。<b>页面其余部分完全不受影响</b> —— 这正是适配器层该有的样子。`;
+      return;
+    }
+    const d = await r.json();
+    el.lkLive.textContent = `${d.shops.length} 家门店`;
+    el.lkLive.classList.remove('off');
+    el.lkHint.innerHTML = `已连上 <b>${d.shops[0]?.deptName || ''}</b> 附近的 ${d.shops.length} 家门店。
+      这条链路走的是瑞幸官方 MCP，再经 OCP Catalog 包装 —— <b>叠上去，不是换掉</b>。`;
+  } catch(e){
+    el.lkLive.textContent = '离线';
+    el.lkLive.classList.add('off');
+  }
+}
+
+async function lkSearch(){
+  const q = el.lkInput.value.trim() || '拿铁';
+  el.lkRes.innerHTML = `<div class="lk-hint">正在问瑞幸…</div>`;
+  try{
+    const r = await fetch('/api/luckin/search?q=' + encodeURIComponent(q));
+    const d = await r.json();
+    if (!r.ok){
+      el.lkRes.innerHTML = `<div class="lk-hint">查不到：${d?.error?.message || '未知错误'}</div>`;
+      return;
+    }
+    el.lkRes.innerHTML = '';
+    d.entries.forEach(e => {
+      const a = e.attributes;
+      const div = document.createElement('div');
+      div.className = 'lk-item';
+      div.innerHTML = `<img src="${a.image_url||''}" alt="">
+        <div class="r"><div class="n">${e.title}</div>
+        <div style="font-size:11px;color:var(--ink-3)">${e.entry_id}</div></div>
+        <div class="p">¥${a.price.amount}</div>`;
+      div.onclick = () => {
+        // 把真实瑞幸商品塞进候选池，让它参与同一条 resolve 流程
+        S.candidates.push({ entry:e, shopId:'luckin', shopName:'瑞幸咖啡', score:1,
+          explain:[`你在瑞幸实时菜单里主动挑的。`],
+          prov:{provider_id:'provider.luckin.mcp', verification_status:'verified', trust_tier:'authority', source:'luckin-mcp'} });
+        S.winner = S.candidates[S.candidates.length-1];
+        el.stage.classList.add('on');
+        el.slot.classList.add('done'); el.slot.classList.remove('rolling');
+        el.slotVal.textContent = e.title;
+        const at = e.attributes;
+        el.pickImg.src = at.image_url||'';
+        el.pickName.textContent = at.name;
+        el.pickDesc.textContent = at.description||'';
+        el.pickTags.innerHTML = (at.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+        el.pickPrice.innerHTML = `<small>¥</small>${at.price.amount}`;
+        el.pickEta.textContent = '· 约 12 分钟';
+        el.pickProv.innerHTML = `<span class="lbl">出处</span>
+          <span class="badge mono">provider.luckin.mcp</span>
+          <span class="badge v">verified</span><span class="badge t">authority</span>
+          <span class="badge mono">luckin-mcp</span>`;
+        el.pickExplain.innerHTML = `<b>瑞幸咖啡</b>实时菜单里的商品，经 OCP Catalog 包装后
+          与其它店走的是同一条 query / resolve 流程。
+          <ul><li>上游是 <b>MCP</b>，对外是 <b>OCP</b> —— 适配器层</li></ul>`;
+        el.pick.classList.add('on');
+        el.stage.scrollIntoView({behavior:'smooth', block:'center'});
+        say('ai', `好，那就 ${e.title}。`, '来自瑞幸实时菜单（MCP 上游）');
+      };
+      el.lkRes.appendChild(div);
+    });
+  } catch(e){
+    el.lkRes.innerHTML = `<div class="lk-hint">网络错误：${e.message}</div>`;
+  }
+}
+$('lkBtn').onclick = lkSearch;
+el.lkInput.addEventListener('keydown', e => { if (e.key === 'Enter') lkSearch(); });
+
+/* ══════════════ 调试条 ══════════════ */
+let killed = false;
+$('devKill').onclick = () => {
+  killed = !killed;
+  S.shopKilled = killed;
+  // 让便当屋的探测直接跳过，模拟掉线
+  const orig = window.fetch;
+  window.fetch = killed
+    ? (u, o) => String(u).includes('/bento/') ? Promise.reject(new Error('offline')) : orig(u, o)
+    : orig;
+  $('devKill').classList.toggle('off', killed);
+  say('ai', killed ? '（演示）我把便当屋拔线了，再点一次「帮我决定」看看会发生什么。'
+                   : '（演示）便当屋已恢复连线。');
+};
+$('devReset').onclick = () => location.reload();
+
+/* ══════════════ 启动 ══════════════ */
+function reset(){
+  el.probe.classList.remove('on');
+  el.stage.classList.remove('on');
+  el.pick.classList.remove('on');
+  el.slot.classList.remove('done','rolling');
+  el.confirm.classList.remove('on');
+  el.done.classList.remove('on');
+  S.candidates = []; S.winner = null; S.qIndex = 0; S.constraints = {};
+  S.probe = []; S.shopKilled = false;
+  S.phase = 'chatting';
+  el.chatLog.innerHTML = '';
+  el.choices.innerHTML = '';
+  renderShops();
+  say('ai', '先别急 —— 告诉我几件事，我去替你逛一圈。');
+  setTimeout(askNext, 420);
+}
+
+renderRecords();
+renderShops();
+lkCheck();
+reset();
+</script>
+</body>
+</html>
