@@ -1,0 +1,22 @@
+{
+  "order_id": "CN04142860",
+  "catalog": "瑞幸咖啡铺(浙大紫金港店)",
+  "lines": [
+    {
+      "object_id": "lk-001",
+      "title": "生椰拿铁",
+      "amount": 18
+    }
+  ],
+  "total": 18,
+  "purpose": null,
+  "people_total": null,
+  "invoice": {
+    "id": "SIMINV-04142861",
+    "title": "浙江大学",
+    "email": "luckin@test.edu.cn",
+    "status": "本地模拟收据(回退)"
+  },
+  "archived_at": "2026-10-11T07:35:46.367Z",
+  "note": "CampusNow 演示数据;发票文件为测试文件,非正式税务凭证。"
+}

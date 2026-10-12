@@ -1,0 +1,19 @@
+{
+  "package_name": "ocp.catalog.handshake.v1",
+  "version": "1.0.0",
+  "description": "Minimal handshake protocol package for OCP Catalog and Provider registration",
+  "schemas": {
+    "common": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json",
+    "CatalogManifest": "https://ocp.dev/schema/ocp.catalog.handshake.v1/catalog-manifest.schema.json",
+    "CatalogHealth": "https://ocp.dev/schema/ocp.catalog.handshake.v1/catalog-health.schema.json",
+    "ObjectContract": "https://ocp.dev/schema/ocp.catalog.handshake.v1/object-contract.schema.json",
+    "ProviderRegistration": "https://ocp.dev/schema/ocp.catalog.handshake.v1/provider-registration.schema.json",
+    "CommercialObject": "https://ocp.dev/schema/ocp.catalog.handshake.v1/commercial-object.schema.json",
+    "RegistrationResult": "https://ocp.dev/schema/ocp.catalog.handshake.v1/registration-result.schema.json"
+  },
+  "packs": {
+    "ocp.commerce.product.core.v1": "https://ocp.dev/schema/ocp.catalog.handshake.v1/pack.ocp.commerce.product.core.v1.schema.json",
+    "ocp.commerce.price.v1": "https://ocp.dev/schema/ocp.catalog.handshake.v1/pack.ocp.commerce.price.v1.schema.json",
+    "ocp.commerce.inventory.v1": "https://ocp.dev/schema/ocp.catalog.handshake.v1/pack.ocp.commerce.inventory.v1.schema.json"
+  }
+}

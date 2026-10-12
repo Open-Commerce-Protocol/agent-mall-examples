@@ -1,0 +1,23 @@
+{
+  "name": "order-hub",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "以本机为服务器的多品牌点单站：访客自带 MCP token，选品牌选规格后一键下单",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "dependencies": {},
+  "scripts": {
+    "start": "node src/start.ts",
+    "verify": "node scripts/verify-local.ts",
+    "verify:entry": "node scripts/verify-entry.ts",
+    "verify:flow": "node scripts/verify-flow.ts",
+    "verify:onboard": "node scripts/verify-onboard.ts",
+    "verify:chat": "node scripts/verify-chat.ts",
+    "verify:dsh": "node scripts/verify-dsh.ts",
+    "verify:decl": "node scripts/verify-declarative.ts",
+    "onboard": "node scripts/onboard.ts",
+    "tunnel": "ssh -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30 -R 80:127.0.0.1:8080 nokey@localhost.run"
+  }
+}

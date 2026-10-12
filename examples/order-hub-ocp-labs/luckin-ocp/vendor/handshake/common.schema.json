@@ -1,0 +1,422 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json",
+  "$defs": {
+    "Identifier": {
+      "type": "string",
+      "minLength": 1
+    },
+    "URL": {
+      "type": "string",
+      "format": "uri"
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "FieldRef": {
+      "type": "string",
+      "minLength": 1,
+      "examples": [
+        "provider#/display_name",
+        "provider#/homepage",
+        "system#/updated_at",
+        "ocp.commerce.product.core.v1#/title",
+        "ocp.commerce.price.v1#/amount"
+      ]
+    },
+    "FieldRule": {
+      "type": "object",
+      "required": ["field_ref", "requirement"],
+      "properties": {
+        "field_ref": {
+          "$ref": "#/$defs/FieldRef"
+        },
+        "requirement": {
+          "type": "string",
+          "enum": ["required", "optional", "accepted"]
+        },
+        "usage": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "identity",
+              "index",
+              "filter",
+              "rank",
+              "display",
+              "resolve",
+              "reference",
+              "explain",
+              "search_visible",
+              "resolve_visible",
+              "never_expose"
+            ]
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "accepted_aliases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldRef"
+          },
+          "uniqueItems": true
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "FieldRequirement": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/FieldRef"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/FieldRef"
+          },
+          "uniqueItems": true
+        }
+      ]
+    },
+    "Endpoint": {
+      "type": "object",
+      "required": ["url", "method"],
+      "properties": {
+        "url": {
+          "$ref": "#/$defs/URL"
+        },
+        "method": {
+          "type": "string",
+          "enum": ["GET", "POST", "PUT"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "QueryInputField": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["string", "number", "integer", "boolean", "array", "object"]
+        },
+        "required": {
+          "type": "boolean",
+          "default": false
+        },
+        "operators": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["eq", "neq", "gt", "gte", "lt", "lte", "in", "contains", "prefix"]
+          },
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AuthorityType": {
+      "type": "string",
+      "enum": ["provider_authoritative", "external_source", "imported_snapshot", "source_proxy"]
+    },
+    "VerificationStatus": {
+      "type": "string",
+      "enum": ["unknown", "unverified", "pending", "verified", "failed", "not_required"]
+    },
+    "TrustTier": {
+      "type": "string",
+      "enum": ["unknown", "unverified", "verified", "trusted"]
+    },
+    "IdentityKeyType": {
+      "type": "string",
+      "enum": ["provider_object_id", "provider_sku", "external_source_key", "canonical_url", "content_hash"]
+    },
+    "IdentityPolicy": {
+      "type": "object",
+      "required": ["accepted_identity_keys"],
+      "properties": {
+        "accepted_identity_keys": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/IdentityKeyType"
+          },
+          "uniqueItems": true
+        },
+        "dedupe_scope": {
+          "type": "string",
+          "enum": ["provider", "source", "catalog"],
+          "default": "provider"
+        },
+        "provider_sku_trust": {
+          "type": "string",
+          "enum": ["not_accepted", "accepted_as_claim", "requires_verified_provider"],
+          "default": "accepted_as_claim"
+        },
+        "requires_authority_verification": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "ResolvePolicy": {
+      "type": "object",
+      "required": ["strategies"],
+      "properties": {
+        "strategies": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": ["provider_api", "source_url", "catalog_cached", "unavailable"]
+          },
+          "uniqueItems": true
+        },
+        "requires_live_check": {
+          "type": "boolean",
+          "default": false
+        },
+        "provider_endpoint_required": {
+          "type": "boolean",
+          "default": false
+        },
+        "minimum_trust_tier": {
+          "$ref": "#/$defs/TrustTier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProvenanceRecord": {
+      "type": "object",
+      "required": ["authority_type"],
+      "properties": {
+        "authority_type": {
+          "$ref": "#/$defs/AuthorityType"
+        },
+        "provider_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_site": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_uri": {
+          "$ref": "#/$defs/URL"
+        },
+        "source_object_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_variant_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "collected_at": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "verified_at": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "verification_status": {
+          "$ref": "#/$defs/VerificationStatus"
+        },
+        "trust_tier": {
+          "$ref": "#/$defs/TrustTier"
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "SyncModel": {
+      "type": "object",
+      "required": ["snapshot", "delta", "stream"],
+      "properties": {
+        "snapshot": {
+          "type": "boolean"
+        },
+        "delta": {
+          "type": "boolean"
+        },
+        "stream": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "MutationSemantics": {
+      "type": "object",
+      "required": ["upsert", "delete"],
+      "properties": {
+        "upsert": {
+          "type": "boolean"
+        },
+        "delete": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProviderEndpoint": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "$ref": "#/$defs/URL"
+        }
+      },
+      "additionalProperties": true
+    },
+    "SelectedSyncCapability": {
+      "type": "object",
+      "required": ["capability_id", "reason"],
+      "properties": {
+        "capability_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "SyncCapability": {
+      "type": "object",
+      "required": [
+        "capability_id",
+        "direction",
+        "transport",
+        "sync_model",
+        "mutation_semantics"
+      ],
+      "properties": {
+        "capability_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "provider_to_catalog",
+            "catalog_pull_provider",
+            "provider_stream_to_catalog"
+          ]
+        },
+        "transport": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sync_model": {
+          "$ref": "#/$defs/SyncModel"
+        },
+        "mutation_semantics": {
+          "$ref": "#/$defs/MutationSemantics"
+        },
+        "batching": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "max_items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": ["enabled"],
+          "additionalProperties": false
+        },
+        "cursoring": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"],
+          "additionalProperties": false
+        },
+        "streaming": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"],
+          "additionalProperties": false
+        },
+        "auth": {
+          "type": "object",
+          "properties": {
+            "schemes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": ["schemes"],
+          "additionalProperties": false
+        },
+        "endpoint_contract": {
+          "type": "object",
+          "properties": {
+            "hosted_by": {
+              "type": "string",
+              "enum": ["catalog", "provider"]
+            },
+            "path_hint": {
+              "type": "string"
+            },
+            "required_endpoint_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": ["hosted_by"],
+          "additionalProperties": false
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

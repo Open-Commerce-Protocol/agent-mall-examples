@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.registration.v1/catalog-route-hint.schema.json",
+  "type": "object",
+  "required": [
+    "catalog_id",
+    "catalog_name",
+    "manifest_url",
+    "query_url",
+    "verification_status",
+    "trust_tier",
+    "health_status",
+    "cache_ttl_seconds",
+    "snapshot_id",
+    "snapshot_fetched_at"
+  ],
+  "properties": {
+    "catalog_id": { "type": "string" },
+    "catalog_name": { "type": "string" },
+    "description": { "type": "string" },
+    "manifest_url": { "type": "string", "format": "uri" },
+    "query_url": { "type": "string", "format": "uri" },
+    "resolve_url": { "type": "string", "format": "uri" },
+    "supported_query_packs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "auth_requirements": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "verification_status": { "type": "string" },
+    "trust_tier": { "type": "string" },
+    "trust_profile": {
+      "type": "object",
+      "required": ["verification_status", "trust_tier"],
+      "properties": {
+        "verification_status": { "type": "string" },
+        "trust_tier": { "type": "string" },
+        "domain_verified": { "type": "boolean", "default": false },
+        "manifest_signed": { "type": "boolean", "default": false },
+        "signature_alg": { "type": "string" },
+        "manifest_hash": { "type": "string" },
+        "issuer": { "type": "string" },
+        "downgrade_invalidates_cache": { "type": "boolean", "default": true }
+      },
+      "additionalProperties": false
+    },
+    "federation": {
+      "type": "object",
+      "properties": {
+        "mode": { "type": "string", "default": "disabled" },
+        "node_role": { "type": "string" },
+        "remote_query_supported": { "type": "boolean", "default": false },
+        "remote_resolve_supported": { "type": "boolean", "default": false },
+        "summary_cache_supported": { "type": "boolean", "default": false },
+        "mutation_log_supported": { "type": "boolean", "default": false }
+      },
+      "additionalProperties": false
+    },
+    "health_status": { "type": "string" },
+    "cache_ttl_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "snapshot_id": { "type": "string" },
+    "snapshot_fetched_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

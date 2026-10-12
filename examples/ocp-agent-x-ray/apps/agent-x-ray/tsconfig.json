@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "types": ["bun", "vite/client"],
+    "paths": {
+      "@ocp-catalog/ocp-client": ["../../packages/ocp-client/src/index.ts"],
+      "@ocp-catalog/ocp-schema": ["../../packages/ocp-schema/src/index.ts"],
+      "@ocp-catalog/registration-schema": [
+        "../../packages/registration-schema/src/index.ts"
+      ],
+      "@ocp-catalog/ocp-activity-schema": [
+        "../../packages/ocp-activity-schema/src/index.ts"
+      ]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

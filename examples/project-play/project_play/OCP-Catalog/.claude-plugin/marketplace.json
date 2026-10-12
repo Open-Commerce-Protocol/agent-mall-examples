@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ocp-catalog",
+  "description": "Open Commerce Protocol (OCP) Catalog — agent tooling for discovering, querying, and resolving commercial objects across independent catalogs.",
+  "owner": {
+    "name": "Open Commerce Protocol",
+    "url": "https://github.com/Open-Commerce-Protocol"
+  },
+  "plugins": [
+    {
+      "name": "ocp-catalog",
+      "description": "Work with OCP Catalog protocols and tooling: discover or search Registration nodes, inspect Catalog manifests, query Catalog entries, resolve results, and validate OCP payloads.",
+      "author": {
+        "name": "Open Commerce Protocol"
+      },
+      "category": "development",
+      "source": "./plugins/ocp-catalog",
+      "homepage": "https://github.com/Open-Commerce-Protocol/OCP-Catalog/tree/main/plugins/ocp-catalog"
+    }
+  ]
+}

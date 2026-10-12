@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>大肥鱼点单 · 先聊天，再挑品牌</title>
+<style>
+  :root {
+    --bg:#eef3fb; --card:#fff; --line:#dbe4f0; --text:#17233a; --dim:#6b7a93;
+    --brand:#3f6fd8; --brand2:#7fb3ff; --accent:#f0a02a; --ok:#1f8a4c; --bad:#c0392b;
+  }
+  * { box-sizing:border-box; }
+  html,body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font:15px/1.65 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  .app { max-width:860px; margin:0 auto; height:100vh; display:flex; flex-direction:column; }
+
+  header { padding:14px 18px; background:var(--card); border-bottom:1px solid var(--line);
+           display:flex; align-items:center; gap:12px; }
+  header .whale { width:52px; height:52px; flex:none; }
+  header h1 { font-size:17px; margin:0; }
+  header p { margin:2px 0 0; font-size:12.5px; color:var(--dim); }
+  .chip { display:inline-block; padding:2px 10px; border-radius:999px; font-size:12px; font-weight:600; }
+  .chip.on { background:#e6f4ea; color:var(--ok); }
+  .chip.off { background:#fdeceb; color:var(--bad); }
+  .chip.brand { background:#e8effc; color:var(--brand); }
+  header .right { margin-left:auto; text-align:right; }
+
+  #thread { flex:1; overflow-y:auto; padding:18px 16px 8px; }
+  .row { display:flex; gap:10px; margin-bottom:16px; align-items:flex-start; }
+  .row.me { flex-direction:row-reverse; }
+  .ava { width:40px; height:40px; flex:none; }
+  .bubble { background:var(--card); border:1px solid var(--line); border-radius:14px;
+            padding:10px 14px; max-width:78%; white-space:pre-wrap; word-break:break-word; }
+  .row.me .bubble { background:#dfe9fb; border-color:#cfdcf3; }
+  .trace { margin:5px 0 0 50px; font-size:12.5px; color:var(--dim); }
+  .trace code { background:#e7eefb; padding:1px 6px; border-radius:5px; }
+
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px;
+          padding:14px 16px; margin:0 0 16px 50px; }
+  .card h3 { margin:0 0 8px; font-size:14.5px; }
+  .brandline { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px dashed var(--line); }
+  .brandline:last-of-type { border-bottom:0; }
+  .brandline .nm { font-weight:600; }
+  .brandline .st { font-size:12px; }
+  input[type=text],input[type=password] { width:100%; padding:9px 12px; border:1px solid var(--line);
+    border-radius:9px; font-size:14px; background:#fff; color:inherit; }
+  button { background:var(--brand); color:#fff; border:0; padding:9px 18px; border-radius:9px;
+           font-size:14px; font-weight:650; cursor:pointer; }
+  button.ghost { background:#fff; color:var(--text); border:1px solid var(--line); font-weight:500; }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  .muted { color:var(--dim); font-size:12.5px; }
+  .slip { border:1px dashed var(--accent); border-radius:11px; padding:12px 14px; background:#fffdf7; }
+  .kv { display:grid; grid-template-columns:104px 1fr; gap:2px 10px; font-size:13.5px; }
+  .kv div:nth-child(odd) { color:var(--dim); }
+  .big { font-size:24px; font-weight:700; color:var(--accent); }
+  .chk { display:flex; gap:9px; align-items:flex-start; margin:12px 0; font-size:13.5px; }
+  .chk input { margin-top:4px; }
+  .note { background:#fff7e6; border-left:4px solid var(--accent); padding:9px 13px;
+          border-radius:0 8px 8px 0; font-size:13px; margin:10px 0; }
+  .err { background:#fdeceb; border-left:4px solid var(--bad); padding:9px 13px;
+         border-radius:0 8px 8px 0; font-size:13px; margin:10px 0; }
+  .ok { background:#eaf7ee; border-left:4px solid var(--ok); padding:9px 13px;
+        border-radius:0 8px 8px 0; font-size:13px; margin:10px 0; }
+
+  footer { padding:12px 16px 16px; background:var(--card); border-top:1px solid var(--line); }
+  .composer { display:flex; gap:10px; }
+  .composer input { flex:1; }
+  .foot { margin-top:8px; font-size:12px; color:var(--dim); display:flex; gap:14px; flex-wrap:wrap; }
+  .typing span { display:inline-block; animation:blink 1.2s infinite; }
+  .typing span:nth-child(2) { animation-delay:.2s } .typing span:nth-child(3) { animation-delay:.4s }
+  @keyframes blink { 0%,60%,100%{opacity:.25} 30%{opacity:1} }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="whale" id="headWhale"></div>
+    <div>
+      <h1>大肥鱼点单</h1>
+      <p>先说想吃什么，我来推荐；定了品牌再填 token，我就能查真实菜单</p>
+    </div>
+    <div class="right">
+      <div id="llmChip" class="chip off">检查中…</div>
+      <div id="brandChip" class="muted" style="margin-top:4px"></div>
+    </div>
+  </header>
+
+  <div id="thread"></div>
+
+  <footer>
+    <details id="onboard" style="margin-bottom:10px">
+      <summary style="cursor:pointer;font-size:13px;color:var(--dim)">🔌 接入新品牌（贴 MCP 地址 + token → 自动生成配置 → 保存并启用，无需重启）</summary>
+      <div class="card" style="margin:10px 0 0">
+        <div class="muted">用于接入<b>上面列表里还没有的</b>品牌。探测只读取工具清单，<b>不会下单</b>。
+          字段路径（shapes）必须按真实响应填写——在补齐之前，新品牌可以查看工具清单，但还不能查商品。</div>
+        <div style="display:grid;grid-template-columns:92px 1fr;gap:8px;margin-top:10px;align-items:center">
+          <label class="muted">MCP 地址</label><input type="text" id="obUrl" placeholder="https://mcp.example.com（只接受 https）">
+          <label class="muted">品牌 id</label><input type="text" id="obId" placeholder="小写字母/数字/连字符，如 mcd">
+          <label class="muted">品牌名</label><input type="text" id="obName" placeholder="如 麦当劳中国">
+          <label class="muted">Token</label><input type="password" id="obToken" placeholder="该品牌的 MCP Token（只进内存，不回显）">
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button id="obInspect">① 探测工具清单</button>
+          <button id="obSave" class="ghost" disabled>② 保存并启用</button>
+        </div>
+        <div id="obOut" class="muted" style="margin-top:8px"></div>
+      </div>
+    </details>
+    <div class="composer">
+      <input type="text" id="input" placeholder="例如：下午犯困，想提神但怕太甜" autocomplete="off">
+      <button id="send">发送</button>
+    </div>
+    <div class="foot" id="foot"></div>
+  </footer>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const state = { conversationId:null, brands:[], planned:[], bound:false, brandId:null, brandName:null,
+                llmEnabled:false, limits:null, staged:null, confirmToken:null, busy:false, tools:{}};
+
+const esc = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const cny = (n) => (typeof n === 'number' ? '¥' + n : '—');
+const timeText = (ms) => (typeof ms === 'number' && ms > 0 ? new Date(ms).toLocaleString('zh-CN') : '—');
+
+/* ---------------- 大肥鱼表情包（内联 SVG，无外部依赖） ----------------
+   五个表情对应不同对话状态：think 思考 / happy 推荐 / wow 找到好货 / brand 等选品牌 / sorry 出错 */
+function whale(expr, size) {
+  const s = size || 40;
+  const head = 'M50 34c4-1 7-5 8-9-3 1-6 0-8-2z';
+  const body = '<ellipse cx="30" cy="36" rx="22" ry="16" fill="url(#g)"/>'
+    + '<path d="M12 42c4 6 12 9 20 9s15-3 18-8c-10 4-30 4-38-1z" fill="#e4eeff"/>';
+  const spout = '<path d="M30 18c0-5 3-7 7-7" stroke="#9cc4ff" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+  const eyeOpen = '<circle cx="22" cy="32" r="2.7" fill="#12224a"/><circle cx="23.1" cy="31" r="1" fill="#fff"/>';
+  const eyeShut = '<path d="M18.5 32c1.6-1.8 4.4-1.8 6 0" stroke="#12224a" stroke-width="1.8" fill="none" stroke-linecap="round"/>';
+  const eyeStar = '<path d="M22 28.6l1.3 2.4 2.7.4-2 1.9.5 2.7-2.5-1.3-2.5 1.3.5-2.7-2-1.9 2.7-.4z" fill="#f0a02a"/>';
+  const smile = '<path d="M24 41c2.5 2.4 6.5 2.4 9 0" stroke="#12224a" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
+  const flat = '<path d="M24.5 41.5h8" stroke="#12224a" stroke-width="1.7" stroke-linecap="round"/>';
+  const star = '<path d="M47 15l1.1 2.6L51 18.7l-2.9.6L47 22l-1.1-2.7-2.9-.6 2.9-1.1z" fill="#f0a02a"/>';
+  const sweat = '<path d="M44 26c1.6 2.4 2.6 3.7 2.6 4.8a2.6 2.6 0 1 1-5.2 0c0-1.1 1-2.4 2.6-4.8z" fill="#7fb3ff"/>';
+  const cup = '<path d="M40 44h11v9a3 3 0 0 1-3 3h-5a3 3 0 0 1-3-3z" fill="#f0a02a"/>'
+    + '<path d="M51 46h2.6a2.4 2.4 0 0 1 0 4.8H51" stroke="#f0a02a" stroke-width="1.8" fill="none"/>';
+
+  const parts = {
+    think: body + spout + eyeShut + smile + '<text x="52" y="16" font-size="11" fill="#6b7a93">💭</text>',
+    happy: body + spout + eyeOpen + smile,
+    wow:   body + spout + eyeStar + smile + star,
+    brand: body + spout + eyeOpen + smile + cup,
+    sorry: body + spout + eyeOpen + flat + sweat,
+  }[expr] || (body + spout + eyeOpen + smile);
+
+  return `<svg viewBox="0 0 64 64" width="${s}" height="${s}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">`
+    + '<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">'
+    + '<stop offset="0" stop-color="#7fb3ff"/><stop offset="1" stop-color="#3f6fd8"/></linearGradient></defs>'
+    + `<path d="${head}" fill="#3f6fd8"/>` + parts + '</svg>';
+}
+
+/* ---------------- 渲染 ---------------- */
+function say(role, text, opts) {
+  const o = opts || {};
+  const isMe = role === 'me';
+  const expr = o.expr || (o.error ? 'sorry' : 'happy');
+  const div = document.createElement('div');
+  div.className = 'row' + (isMe ? ' me' : '');
+  div.innerHTML = (isMe ? '' : `<div class="ava">${whale(expr, 40)}</div>`)
+    + `<div class="bubble">${esc(text)}</div>`
+    + (isMe ? '' : '');
+  $('thread').appendChild(div);
+  if (o.trace && o.trace.length) {
+    const t = document.createElement('div');
+    t.className = 'trace';
+    t.innerHTML = o.trace.map((x) => `🔧 <code>${esc(x.tool)}</code> ${esc(x.note)}`).join('<br>');
+    $('thread').appendChild(t);
+  }
+  scroll();
+  return div;
+}
+function el(html) { const d = document.createElement('div'); d.innerHTML = html; const n = d.firstElementChild; $('thread').appendChild(n); scroll(); return n; }
+function scroll() { const t = $('thread'); t.scrollTop = t.scrollHeight; }
+function typing() {
+  const d = document.createElement('div');
+  d.className = 'row'; d.id = 'typing';
+  d.innerHTML = `<div class="ava">${whale('think', 40)}</div><div class="bubble typing"><span>●</span> <span>●</span> <span>●</span></div>`;
+  $('thread').appendChild(d); scroll(); return d;
+}
+const removeTyping = () => { const t = $('typing'); if (t) t.remove(); };
+
+/* ---------------- 品牌卡片 ---------------- */
+function brandCard() {
+  const rows = state.brands.map((b) => `
+    <div class="brandline">
+      <div style="flex:1">
+        <div class="nm">${esc(b.name)} <span class="st" style="color:${b.canOrder ? 'var(--ok)' : 'var(--accent)'}">${b.canOrder ? '● 可下单' : '○ 可接入，但还不能查商品'}</span></div>
+        <div class="muted">${esc(b.tagline)}</div>
+        ${b.canOrder ? '' : `<div class="muted" style="color:var(--accent)">还差：${esc((b.missing || []).join('、') || '待补齐字段路径')}</div>`}
+      </div>
+      <button class="ghost" data-pick="${esc(b.id)}">${b.canOrder ? '选它' : '填 token 接入'}</button>
+    </div>`).join('');
+  const card = el(`
+    <div class="card" id="brandCard">
+      <h3>🐳 想在哪家点？选一个并填入它的 token</h3>
+      ${rows}
+      <div id="tokenArea" style="display:none;margin-top:10px">
+        <div class="muted" id="tokenHint"></div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input type="password" id="tokenInput" placeholder="粘贴该品牌的 MCP Token（只存本机内存，不回显）" autocomplete="off">
+          <button id="bindBtn">接入</button>
+        </div>
+        <button class="ghost" id="toolBtn" style="margin-top:8px;display:none">只查看它的工具清单</button>
+      </div>
+      <div class="muted" style="margin-top:8px">未接入的品牌只做推荐；接入后我能查真实菜单并帮你把订单摆到确认单上。</div>
+      <div class="muted" style="margin-top:6px">想接一个<b>这里还没列出的品牌</b>？展开页面底部的「接入新品牌」。</div>
+    </div>`);
+  card.querySelectorAll('button[data-pick]').forEach((btn) => {
+    btn.onclick = () => {
+      const b = state.brands.find((x) => x.id === btn.dataset.pick);
+      $('tokenArea').style.display = '';
+      $('tokenHint').innerHTML = `<strong>${esc(b.name)}</strong>：${esc(b.tokenHint)}`;
+      $('tokenArea').dataset.brandId = b.id;
+      // 未接通下单的品牌：给一个"只探测工具"的入口，方便看清它到底提供什么。
+      $('toolBtn').style.display = b.canOrder ? 'none' : '';
+      $('toolBtn').onclick = async () => { $('toolBtn').disabled = true; await probeBrandTools(b, $('tokenInput').value.trim()); $('toolBtn').disabled = false; };
+      $('tokenInput').focus();
+    };
+  });
+  card.querySelector('#bindBtn').onclick = bindBrand;
+}
+
+/** 只探测工具清单：让"待接通"的品牌也能自证它提供什么。 */
+async function probeBrandTools(brand, token) {
+  if (!token) { say('ai', '请先粘贴该品牌的 token，我才能探测它的工具清单。', { expr:'sorry', error:true }); return; }
+  const s = await post('/api/session', { brandId: brand.id, token });
+  if (s.status !== 200) { say('ai', `探测失败：${s.data.error?.message}`, { expr:'sorry', error:true }); return; }
+  const t = await post('/api/tools', { sessionId: s.data.sessionId });
+  if (t.status !== 200) { say('ai', `读取工具清单失败：${t.data.error?.message}`, { expr:'sorry', error:true }); return; }
+  const list = (t.data.tools || []).map((x) => `· ${x.name}${x.description ? ` — ${x.description.slice(0, 40)}` : ''}`).join('\n');
+  say('ai', `「${brand.name}」提供 ${t.data.count} 个工具：\n${list}\n\n这个品牌还没接通下单：它的响应字段路径（shapes）需要按真实响应填写。工具清单出来后就能补齐。`, { expr:'brand' });
+  $('log')?.remove();
+  const box = el(`<div class="card" id="log"><h3>原始工具清单</h3><div class="muted" style="max-height:220px;overflow:auto"><pre style="margin:0;white-space:pre-wrap">${esc(JSON.stringify(t.data.tools, null, 2))}</pre></div></div>`);
+  void box;
+}
+
+async function bindBrand() {
+  const brandId = $('tokenArea').dataset.brandId;
+  const token = $('tokenInput').value.trim();
+  if (!token) { say('ai', '请先粘贴 token。', { expr:'sorry', error:true }); return; }
+  $('bindBtn').disabled = true;
+  const s = await post('/api/session', { brandId, token });
+  if (s.status !== 200) {
+    $('bindBtn').disabled = false;
+    say('ai', `接入失败：${s.data.error?.message || s.status}\n（token 无效或过期；它只在你本机内存里用一次，不会被保存）`, { expr:'sorry', error:true });
+    return;
+  }
+  $('tokenInput').value = '';   // 立刻从 DOM 抹掉
+  currentSessionId = s.data.sessionId;
+  const b = await post('/api/chat/bind', { conversationId: state.conversationId, sessionId: s.data.sessionId });
+  $('brandCard')?.remove();
+  if (b.status !== 200) { say('ai', `绑定失败：${b.data.error?.message}`, { expr:'sorry', error:true }); return; }
+  state.bound = true; state.brandId = b.data.brandId; state.brandName = b.data.brandName;
+  renderChips();
+  say('ai', b.data.message, { expr:'wow' });
+  say('ai', '现在直接说想喝什么就行，我查真实菜单给你挑。', { expr:'happy' });
+}
+
+/* ---------------- 确认单卡片 ---------------- */
+function confirmCard(staged) {
+  state.staged = staged; state.confirmToken = staged.confirmToken;
+  const s = staged.summary;
+  const card = el(`
+    <div class="card">
+      <h3>🧾 订单确认单（还没下单）</h3>
+      <div class="slip">
+        <div class="kv">
+          <div>门店</div><div><strong>${esc(s.storeName)}</strong></div>
+          <div>地址</div><div>${esc(s.storeAddress)}</div>
+          ${s.lines.map((l) => `<div>商品</div><div>${esc(l.name)} ×${l.amount}</div>
+            <div>规格</div><div>${esc(l.specs || '')}</div>
+            <div>sku</div><div><code>${esc(l.skuCode)}</code></div>`).join('')}
+          <div>原价</div><div>${cny(s.pricing.totalInitial)}</div>
+          <div>优惠</div><div>${cny(s.pricing.privilege)}</div>
+          <div>取餐</div><div>${timeText(s.pickupAtMs)}</div>
+          <div>券</div><div>${s.couponCodes.length ? esc(s.couponCodes.join(', ')) : '（无可用券）'}</div>
+        </div>
+        <div style="margin-top:10px">实付 <span class="big">${cny(s.pricing.payable)}</span></div>
+      </div>
+      <div class="chk"><input type="checkbox" id="ack"><label for="ack">
+        我已核对门店、商品、规格与<strong>实付 ${cny(s.pricing.payable)}</strong>，并确认这会产生<strong>真实订单与真实扣款</strong>。</label></div>
+      <button id="orderBtn" disabled>确认下单</button>
+      <div class="muted" style="margin-top:8px">下单仍走四道门：先预览 → 显式确认 → 令牌匹配 → 金额上限。</div>
+    </div>`);
+  card.querySelector('#ack').onchange = (e) => { card.querySelector('#orderBtn').disabled = !e.target.checked; };
+  card.querySelector('#orderBtn').onclick = async () => {
+    card.querySelector('#orderBtn').disabled = true;
+    const r = await post('/api/order', { sessionId: currentSessionId, confirmToken: state.confirmToken, acknowledge: true });
+    if (r.status === 201) {
+      say('ai', `下单成功！订单号 ${r.data.order?.orderId}\n实付 ${cny(r.data.summary?.pricing?.payable)}　取餐 ${timeText(r.data.summary?.pickupAtMs)}\n${r.data.warning || ''}`, { expr:'wow' });
+      card.remove();
+    } else {
+      say('ai', `下单被拒（${r.data.error?.code}）：${r.data.error?.message}`, { expr:'sorry', error:true });
+      card.querySelector('#orderBtn').disabled = false;
+    }
+  };
+}
+/* 会话 id 由 /api/chat/bind 之后的 /api/chat 响应带回（品牌级才有），这里单独保存一份。 */
+let currentSessionId = null;
+
+/* ---------------- 网络 ---------------- */
+async function post(path, body) {
+  const res = await fetch(path, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body) });
+  const data = await res.json().catch(() => ({ error:{ code:'bad_json', message:'响应不是 JSON' } }));
+  return { status: res.status, data };
+}
+
+function renderChips() {
+  $('llmChip').className = 'chip ' + (state.llmEnabled ? 'on' : 'off');
+  $('llmChip').textContent = state.llmEnabled ? '🐳 模型在线' : '关键词推荐模式';
+  $('brandChip').innerHTML = state.bound
+    ? `<span class="chip brand">已接入 ${esc(state.brandName)}</span>`
+    : '尚未接入品牌';
+  $('foot').innerHTML = state.limits
+    ? `<span>单笔上限 ¥${state.limits.maxOrderAmount}</span><span>单会话上限 ¥${state.limits.maxSessionSpend}</span>`
+      + `<span>对话限流 ${state.limits.chatPerMinute}/分钟</span><span>模型：${state.llmEnabled ? '已接入你的额度' : '未配置'}</span>`
+    : '';
+}
+
+async function send() {
+  const text = $('input').value.trim();
+  if (!text || state.busy) return;
+  state.busy = true; $('input').value = '';
+  say('me', text);
+  const t = typing();
+  const r = await post('/api/chat', { conversationId: state.conversationId, message: text });
+  removeTyping(); state.busy = false;
+  if (r.status !== 200) {
+    say('ai', `出错了（${r.status}）：${r.data.error?.message || '未知错误'}`, { expr:'sorry', error:true });
+    return;
+  }
+  const expr = r.data.stagedOrder ? 'wow' : r.data.phase === 'recommend' ? 'brand' : 'happy';
+  say('ai', r.data.reply, { expr, trace: r.data.trace });
+  if (r.data.sessionId) currentSessionId = r.data.sessionId;
+  if (r.data.brandId) { state.bound = true; state.brandId = r.data.brandId; }
+  renderChips();
+
+  // 需要选品牌时，把品牌卡片插到对话里（只插一次）
+  if (r.data.nextStep === 'pick-brand' && !state.bound && !$('brandCard')) brandCard();
+  if (r.data.stagedOrder) confirmCard(r.data.stagedOrder);
+}
+
+async function boot() {
+  $('headWhale').innerHTML = whale('happy', 52);
+  const r = await post('/api/conversation', {});
+  if (r.status !== 200) { say('ai', '初始化失败，请刷新页面。', { expr:'sorry', error:true }); return; }
+  state.conversationId = r.data.conversationId;
+  state.brands = r.data.brands || [];
+  state.planned = r.data.planned || [];
+  state.llmEnabled = r.data.llmEnabled;
+  state.limits = r.data.limits;
+  renderChips();
+
+  const names = state.brands.map((b) => b.name).join('、');
+  say('ai', `你好，我是大肥鱼 🐳\n先说想吃什么、什么场景（比如"下午提神""想吃点咸的""天冷想喝热的"），我来帮你缩小范围。\n\n现在能下单的品牌：${names}${state.planned.length ? `；二期还会有 ${state.planned.map((p) => p.name).join('、')}` : ''}。`, { expr:'happy' });
+  if (!state.llmEnabled) {
+    say('ai', '提示：当前未配置模型，只能做关键词推荐，不能真正对话。', { expr:'brand' });
+  }
+  brandCard();
+  $('input').focus();
+}
+
+$('send').onclick = send;
+$('input').onkeydown = (e) => { if (e.key === 'Enter') send(); };
+
+/* ---------------- 接入新品牌 ---------------- */
+let obDraft = null;
+$('obInspect').onclick = async () => {
+  $('obSave').disabled = true; obDraft = null;
+  $('obOut').textContent = '正在握手并读取工具清单…';
+  const r = await post('/api/onboard/inspect', {
+    mcpUrl: $('obUrl').value.trim(), id: $('obId').value.trim(),
+    name: $('obName').value.trim(), token: $('obToken').value.trim(),
+  });
+  if (r.status !== 200) { $('obOut').innerHTML = `<span style="color:var(--bad)">探测失败：${esc(r.data.error?.message || r.status)}</span>`; return; }
+  $('obToken').value = '';   // 抹掉
+  obDraft = r.data.draft;
+  $('obOut').innerHTML = `<b>${esc(r.data.serverInfo?.name || '未知服务端')}</b> v${esc(r.data.serverInfo?.version || '?')}`
+    + ` · 协议 ${esc(r.data.protocolVersion || '?')} · <b>${r.data.toolCount} 个工具</b>`
+    + `<div style="max-height:180px;overflow:auto;margin-top:6px"><pre style="margin:0;white-space:pre-wrap">${esc(r.data.tools.map((t) => t.name + (t.required.length ? '(' + t.required.join(',') + ')' : '()') + (t.description ? ' — ' + t.description : '')).join('\n'))}</pre></div>`
+    + `<div style="margin-top:6px">自动匹配：${r.data.guesses.map((g) => `${g.op} → ${g.tool ? '<code>' + esc(g.tool) + '</code>' : '<span style="color:var(--bad)">未匹配</span>'}`).join('　')}</div>`
+    + `<div style="margin-top:6px;color:var(--accent)">shapes 仍为空——需要按真实响应填写后才能真正查商品。</div>`;
+  $('obSave').disabled = false;
+};
+$('obSave').onclick = async () => {
+  if (!obDraft) return;
+  $('obSave').disabled = true;
+  const r = await post('/api/onboard/save', { spec: obDraft, onboardToken: $('obToken').value.trim() });
+  if (r.status !== 200) { $('obOut').innerHTML += `<div style="color:var(--bad)">保存失败：${esc(r.data.error?.message || r.status)}</div>`; $('obSave').disabled = false; return; }
+  $('obOut').innerHTML += `<div style="color:var(--ok)">已保存到 ${esc(r.data.savedTo)} 并热重载：${esc(r.data.notice)}</div>`;
+  state.brands = r.data.brands;
+  const old = $('brandCard'); if (old) old.remove();
+  brandCard();
+};
+boot();
+</script>
+</body>
+</html>

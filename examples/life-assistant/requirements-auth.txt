@@ -1,0 +1,3 @@
+# Optional: only needed for Alipay RSA2 signing and response verification.
+# WeChat OAuth and the local MCP/OCP server require no third-party packages.
+cryptography>=41.0

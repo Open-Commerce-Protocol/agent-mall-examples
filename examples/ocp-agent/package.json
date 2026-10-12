@@ -1,0 +1,15 @@
+{
+  "name": "ocp-agent-demo",
+  "version": "1.0.0",
+  "description": "OCP Catalog 协议可运行演示：商品检索 + Agent 自助下单（零第三方依赖）",
+  "type": "commonjs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test \"test/**/*.js\""
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}

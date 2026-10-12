@@ -1,0 +1,56 @@
+# Credentials and local configuration. Only the empty template is public.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p8
+*.p12
+*.pfx
+.secrets/
+.credentials/
+secrets.*
+credentials.*
+cookies.txt
+cookies.json
+
+# Private orders, payment captures, and locally collected reference material.
+/static/current-order.json
+/static/*order*.json
+/orders/
+/payments/
+/captures/
+/screenshots/
+/data/
+/references/
+/demo-video-*/
+/交付/
+
+# Publish only the reviewed, reusable documentation and asset provenance.
+/docs/*
+!/docs/登录接入.md
+!/docs/品牌素材来源.json
+
+# Python / Node environments and generated files.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+node_modules/
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.orig
+*.tmp
+*~
+
+# OS metadata.
+.DS_Store
+Thumbs.db
+Desktop.ini

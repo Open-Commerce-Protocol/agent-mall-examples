@@ -1,0 +1,22 @@
+{
+  "merchants": [
+    {
+      "id": "my-coffee",
+      "name": "瑞幸咖啡",
+      "type": "streamablehttp",
+      "url": "https://gwmcp.lkcoffee.com/order/user/mcp",
+      "tokenEnv": "MY_COFFEE_TOKEN",
+      "domains": ["咖啡", "奶茶", "饮品"],
+      "defaultLocation": { "longitude": 120.026221, "latitude": 30.279212 }
+    },
+    {
+      "id": "mcd-mcp",
+      "name": "麦当劳",
+      "type": "streamablehttp",
+      "url": "https://mcp.mcd.cn",
+      "tokenEnv": "MCD_TOKEN",
+      "domains": ["麦当劳", "汉堡", "快餐"],
+      "defaultLocation": { "longitude": 120.026221, "latitude": 30.279212 }
+    }
+  ]
+}

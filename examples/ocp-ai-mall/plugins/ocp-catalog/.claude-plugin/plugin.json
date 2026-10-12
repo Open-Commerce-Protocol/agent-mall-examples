@@ -1,0 +1,17 @@
+{
+  "name": "ocp-catalog",
+  "description": "Work with OCP Catalog protocols and tooling: discover or search Registration nodes, inspect Catalog manifests, query Catalog entries, resolve results, validate OCP payloads, and inspect public OCP activity events.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Open Commerce Protocol",
+    "url": "https://github.com/Open-Commerce-Protocol"
+  },
+  "homepage": "https://github.com/Open-Commerce-Protocol/OCP-Catalog",
+  "license": "MIT",
+  "keywords": [
+    "ocp",
+    "open-commerce-protocol",
+    "catalog",
+    "commerce"
+  ]
+}

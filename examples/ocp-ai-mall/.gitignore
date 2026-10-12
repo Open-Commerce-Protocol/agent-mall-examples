@@ -1,0 +1,71 @@
+**/node_modules
+**/dist
+.turbo
+.env
+.env.local
+.env.*
+!.env.example
+!**/.env.example
+.npmrc
+.npmrc.*
+*.key
+*.pem
+!fixtures/shopping/keys/agent_a_test.public.pem
+*.p12
+*.pfx
+*.sqlite*
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.jsonl
+.aws/
+.ssh/
+.codex/
+secrets/
+screenshots/
+reports/
+*.log
+.DS_Store
+coverage
+.next
+drizzle
+.playwright-cli
+.workspace
+.codegraph/
+
+# Local agent/tooling scratch dirs
+.codex-tmp/
+.codex-remote-work/
+.tmp/
+tmp_remote_patch/
+
+# Local development review and acceptance notes are not release content.
+docs/*-20??-??-??.md
+docs/coffee-merchant/DECISION-REQUEST-A.md
+docs/coffee-merchant/HANDOFF-A.md
+docs/coffee-merchant/INTEGRATION-REPORT.md
+docs/shopping-agent/*ACCEPTANCE*.md
+docs/shopping-agent/LLM-TARGETED-FIXES-*.md
+docs/team-development/INTEGRATION-ACCEPTANCE.md
+docs/team-development/INTEGRATION-PLAN.md
+
+# Locally installed agent skills. This repo publishes one skill
+# (skills/ocp-catalog); third-party skills a contributor happens to have
+# installed are not part of it.
+.agents/
+.claude/skills/
+skills-lock.json
+
+# Generated at pack time from skills/ocp-catalog by scripts/sync-skill-copies.ts.
+# The plugins/ copy is intentionally NOT ignored: the Claude Code marketplace
+# reads it straight from git.
+packages/ocp-skill/skill/
+packages/ocp-skill/*.tgz
+
+# 部署包打的 zip(build artifact,不入库)
+ocp-skill-gateway-deploy-*.zip
+
+# Python bytecode / caches from ad-hoc import scripts
+__pycache__/
+*.pyc

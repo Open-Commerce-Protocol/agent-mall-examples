@@ -1,0 +1,36 @@
+{
+  "name": "@ocp-catalog/shared",
+  "version": "0.2.1",
+  "description": "Shared utilities (errors, ids, static-site helpers) for OCP Catalog packages.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Open-Commerce-Protocol/OCP-Catalog.git",
+    "directory": "packages/shared"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "bun": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/index.ts",
+    "src/static-site.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "bun ../../scripts/build-protocol-package.ts",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "bun test --pass-with-no-tests"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "campusnow",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CampusNow — 校园智能采购与电子发票 Agent(Agent Mall 黑客松 · OCP 应用赛道)",
+  "scripts": {
+    "start": "CAMPUSNOW_REAL_ORDER=1 bun run src/server.ts",
+    "start:mock": "bun run src/server.ts",
+    "e2e": "bun run scripts/e2e.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@types/bun": "^1.3.12"
+  }
+}

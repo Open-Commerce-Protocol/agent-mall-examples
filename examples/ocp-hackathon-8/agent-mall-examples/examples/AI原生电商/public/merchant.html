@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexa 商家控制台</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="merchant-page">
+  <header class="topbar">
+    <a class="brand" href="/merchant" aria-label="Nexa 商家控制台首页">
+      <span class="brand-mark dark">N</span>
+      <span><strong>Nexa</strong><small>商家控制台</small></span>
+    </a>
+    <nav class="topnav" aria-label="主导航">
+      <a href="/">智能选购</a>
+      <a class="active" href="/merchant">商家控制台</a>
+    </nav>
+    <div class="merchant-profile"><span>NX</span><div><strong>Nexa 官方店</strong><small>演示商家</small></div></div>
+  </header>
+
+  <main class="merchant-shell">
+    <aside class="merchant-sidebar">
+      <p>工作台</p>
+      <button class="side-link active" data-tab="overview"><span>⌂</span>经营概览</button>
+      <button class="side-link" data-tab="products"><span>▦</span>商品管理</button>
+      <button class="side-link" data-tab="create"><span>＋</span>录入商品</button>
+      <button class="side-link" data-tab="orders"><span>▤</span>订单管理</button>
+      <div class="agent-card">
+        <span class="agent-pulse"></span>
+        <strong>商品理解 Agent</strong>
+        <p>录入后自动生成结构化特征、语义文本与检索向量。</p>
+      </div>
+    </aside>
+
+    <section class="merchant-content">
+      <section id="tab-overview" class="tab-panel active">
+        <div class="page-heading"><div><p class="eyebrow">MERCHANT OS</p><h1>经营概览</h1><p>商品、库存与订单都保存在本地 SQLite。</p></div><button class="primary-button" data-open-create>＋ 录入新商品</button></div>
+        <div id="stats-grid" class="stats-grid"></div>
+        <div class="dashboard-grid">
+          <section class="plain-section">
+            <div class="section-heading"><h2>库存概览</h2><button class="text-button" data-open-products>查看全部</button></div>
+            <div id="stock-bars" class="stock-bars"></div>
+          </section>
+          <section class="plain-section">
+            <div class="section-heading"><h2>最新订单</h2><button class="text-button" data-open-orders>订单管理</button></div>
+            <div id="recent-orders" class="recent-orders"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="tab-products" class="tab-panel">
+        <div class="page-heading"><div><p class="eyebrow">CATALOG</p><h1>商品管理</h1><p>库存变化会立即反映到用户端检索结果。</p></div><button class="primary-button" data-open-create>＋ 录入新商品</button></div>
+        <div class="table-toolbar"><input id="product-filter" type="search" placeholder="搜索商品或 SKU"><span id="product-total"></span></div>
+        <div class="data-table-wrap"><table class="data-table"><thead><tr><th>商品</th><th>AI 标签</th><th>价格</th><th>库存</th><th>更新时间</th></tr></thead><tbody id="product-table-body"></tbody></table></div>
+      </section>
+
+      <section id="tab-create" class="tab-panel">
+        <div class="page-heading"><div><p class="eyebrow">INGESTION AGENT</p><h1>录入笔记本商品</h1><p>商家填写业务字段，Agent 自动转换成适合 AI 检索的数据。</p></div></div>
+        <div class="create-layout">
+          <form id="product-form" class="product-form">
+            <div class="form-section"><h2>基础信息</h2><div class="form-grid">
+              <label>商品名称<input name="title" required placeholder="例如：Voyage Air 14"></label>
+              <label>SKU<input name="sku" required placeholder="例如：VOYAGE-AIR-14"></label>
+              <label>品牌<input name="brand" required placeholder="例如：Nexa"></label>
+              <label>价格（元）<input name="price" type="number" min="1" required placeholder="6999"></label>
+              <label>库存<input name="inventory" type="number" min="0" required placeholder="20"></label>
+              <label>商品分类<input name="category" value="笔记本电脑" readonly></label>
+            </div><label>商品描述<textarea name="description" rows="4" required placeholder="说明适用人群、核心优势和使用场景"></textarea></label></div>
+            <div class="form-section"><h2>核心规格</h2><div class="form-grid specs-grid">
+              <label>处理器<input name="cpu" required placeholder="Core Ultra 7"></label>
+              <label>内存<input name="memory" required placeholder="32GB"></label>
+              <label>硬盘<input name="storage" required placeholder="1TB SSD"></label>
+              <label>屏幕<input name="display" required placeholder="14英寸 2.8K OLED"></label>
+              <label>重量<input name="weight" required placeholder="1.35kg"></label>
+              <label>续航<input name="battery" required placeholder="14小时"></label>
+            </div></div>
+            <button id="create-product-button" class="primary-button wide" type="submit">交给 Agent 处理并发布</button>
+          </form>
+          <aside class="pipeline-panel">
+            <p class="eyebrow">AI PIPELINE</p><h2>入库处理链</h2>
+            <ol class="pipeline-steps"><li class="active"><span>1</span><div><strong>读取原始商品</strong><small>校验商家业务字段</small></div></li><li><span>2</span><div><strong>提取商品知识</strong><small>场景、优势与标准规格</small></div></li><li><span>3</span><div><strong>构建语义文本</strong><small>面向 Agent 的统一表达</small></div></li><li><span>4</span><div><strong>生成检索向量</strong><small>24 维本地语义表示</small></div></li></ol>
+            <div id="agent-output" class="agent-output"><span>等待录入</span><p>发布商品后，这里会展示 Agent 生成的数据。</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="tab-orders" class="tab-panel">
+        <div class="page-heading"><div><p class="eyebrow">ORDERS</p><h1>订单管理</h1><p>用户端确认后生成本地演示订单。</p></div></div>
+        <div class="data-table-wrap"><table class="data-table"><thead><tr><th>订单号</th><th>商品</th><th>用户需求</th><th>金额</th><th>状态</th><th>创建时间</th></tr></thead><tbody id="order-table-body"></tbody></table></div>
+      </section>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="/merchant.js"></script>
+</body>
+</html>

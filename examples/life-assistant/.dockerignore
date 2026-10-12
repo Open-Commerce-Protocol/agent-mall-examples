@@ -1,0 +1,12 @@
+*
+!app.py
+!auth.py
+!ocp_catalog.py
+!requirements-auth.txt
+!static/
+!static/**
+static/current-order.json
+static/**/current-order.json
+static/**/.DS_Store
+static/**/__pycache__/
+static/**/*.pyc

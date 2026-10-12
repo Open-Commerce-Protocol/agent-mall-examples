@@ -1,0 +1,392 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://milk-tea-ocp.local/schema/derived/ocp.derived.v1.schema.json",
+  "title": "OCP 响应契约（项目派生副本）",
+  "description": "官方仓库没有为这些响应类型提供 JSON Schema，它们只存在于需要 zod 的 TypeScript 包里。本文件把它们逐字段转写为 JSON Schema，供离线校验使用。请勿当作上游规范。",
+  "x-provenance": {
+    "note": "derivedFor 指明该定义的权威来源文件；官方 JSON Schema 优先，仅在其缺失时才派生。",
+    "CatalogEntry": "packages/ocp-schema/src/index.ts catalogEntrySchema",
+    "CatalogEntryMatch": "packages/ocp-schema/src/index.ts catalogEntryMatchSchema",
+    "QueryPolicySummary": "packages/ocp-schema/src/index.ts queryPolicySummarySchema",
+    "CatalogQueryResult": "packages/ocp-schema/src/index.ts catalogQueryResultSchema",
+    "ActionEntrypoint": "packages/ocp-schema/src/index.ts actionEntrypointSchema",
+    "ActionBinding": "packages/ocp-schema/src/index.ts actionBindingSchema",
+    "LiveCheck": "packages/ocp-schema/src/index.ts liveCheckSchema",
+    "ResolveAccess": "packages/ocp-schema/src/index.ts resolveAccessSchema",
+    "ResolvableReference": "packages/ocp-schema/src/index.ts resolvableReferenceSchema",
+    "CatalogProfileSnapshot": "packages/registration-schema/src/index.ts catalogProfileSnapshotSchema",
+    "WellKnownCatalogDiscovery": "examples/typescript/src/server.ts + docs/specs/registration/v1.md",
+    "ObjectContractList": "examples/typescript/src/server.ts",
+    "RegistrationHealth": "本项目自定义（上游未给 registration /health 提供 schema）",
+    "BridgeHealth": "本项目自定义：桥接层不是 OCP 协议面，这是自有 API 的契约",
+    "BridgeOrderSummary": "本项目自定义：桥接层把 previewOrder 结果整理成的可核对摘要",
+    "BridgePreviewResponse": "本项目自定义：/preview 的响应",
+    "BridgeGuardRefusal": "本项目自定义：护栏拒绝下单时的 428 响应（这是安全关键路径，所以也纳入校验）"
+  },
+  "$defs": {
+    "WellKnownCatalogDiscovery": {
+      "type": "object",
+      "required": [
+        "ocp_version",
+        "kind",
+        "catalog_id",
+        "catalog_name",
+        "manifest_url",
+        "health_url",
+        "query_url",
+        "resolve_url"
+      ],
+      "properties": {
+        "ocp_version": { "const": "1.0" },
+        "kind": { "const": "WellKnownCatalogDiscovery" },
+        "catalog_id": { "type": "string", "minLength": 1 },
+        "catalog_name": { "type": "string", "minLength": 1 },
+        "manifest_url": { "type": "string", "format": "uri" },
+        "health_url": { "type": "string", "format": "uri" },
+        "query_url": { "type": "string", "format": "uri" },
+        "resolve_url": { "type": "string", "format": "uri" },
+        "contracts_url": { "type": "string", "format": "uri" }
+      }
+    },
+    "ObjectContractList": {
+      "type": "object",
+      "required": ["ocp_version", "kind", "catalog_id", "object_contracts"],
+      "properties": {
+        "ocp_version": { "const": "1.0" },
+        "kind": { "const": "ObjectContractList" },
+        "catalog_id": { "type": "string", "minLength": 1 },
+        "object_contracts": { "type": "array" },
+        "note": { "type": "string" }
+      }
+    },
+    "CatalogEntry": {
+      "type": "object",
+      "required": ["kind", "catalog_id", "entry_id", "provider_id", "object_id", "title", "attributes"],
+      "properties": {
+        "kind": { "const": "CatalogEntry" },
+        "catalog_id": { "type": "string", "minLength": 1 },
+        "entry_id": { "type": "string", "minLength": 1 },
+        "provider_id": { "type": "string", "minLength": 1 },
+        "object_id": { "type": "string", "minLength": 1 },
+        "object_type": { "type": "string", "minLength": 1 },
+        "commercial_object_id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string" },
+        "image_url": { "type": "string", "format": "uri" },
+        "attributes": { "type": "object" }
+      }
+    },
+    "CatalogEntryMatch": {
+      "type": "object",
+      "required": ["entry", "score", "explain"],
+      "properties": {
+        "entry": { "$ref": "#/$defs/CatalogEntry" },
+        "score": { "type": "number" },
+        "explain": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "QueryPolicySummary": {
+      "type": "object",
+      "required": ["query_mode", "supports_explain", "accepted_filters", "rejected_filters", "warnings"],
+      "properties": {
+        "selected_capability_id": { "type": "string", "minLength": 1 },
+        "selected_query_pack": { "type": "string", "minLength": 1 },
+        "query_mode": { "enum": ["keyword", "filter", "semantic", "hybrid"] },
+        "supports_explain": { "type": "boolean" },
+        "accepted_filters": { "type": "array", "items": { "type": "string" } },
+        "rejected_filters": { "type": "array", "items": { "type": "string" } },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "CatalogQueryResult": {
+      "type": "object",
+      "required": [
+        "ocp_version",
+        "kind",
+        "id",
+        "catalog_id",
+        "query",
+        "result_count",
+        "page",
+        "entries",
+        "explain"
+      ],
+      "properties": {
+        "ocp_version": { "const": "1.0" },
+        "kind": { "const": "CatalogQueryResult" },
+        "id": { "type": "string", "minLength": 1 },
+        "catalog_id": { "type": "string", "minLength": 1 },
+        "query_pack": { "type": "string", "minLength": 1 },
+        "query_mode": { "enum": ["keyword", "filter", "semantic", "hybrid"] },
+        "query": { "type": "string" },
+        "result_count": { "type": "integer", "minimum": 0 },
+        "page": {
+          "type": "object",
+          "required": ["limit", "offset", "has_more"],
+          "properties": {
+            "limit": { "type": "integer", "minimum": 1 },
+            "offset": { "const": 0 },
+            "has_more": { "type": "boolean" },
+            "next_cursor": { "type": "string", "minLength": 1 }
+          }
+        },
+        "entries": { "type": "array", "items": { "$ref": "#/$defs/CatalogEntryMatch" } },
+        "policy_summary": { "$ref": "#/$defs/QueryPolicySummary" },
+        "audit_id": { "type": "string", "minLength": 1 },
+        "explain": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "ActionEntrypoint": {
+      "type": "object",
+      "required": ["url", "method"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "method": { "enum": ["GET", "POST"] }
+      }
+    },
+    "ActionBinding": {
+      "type": "object",
+      "required": ["action_id", "action_type", "label", "entrypoint", "auth_requirements", "requires_user_confirmation"],
+      "properties": {
+        "action_id": { "type": "string", "minLength": 1 },
+        "action_type": { "enum": ["url", "api", "workflow", "contact"] },
+        "label": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "entrypoint": { "$ref": "#/$defs/ActionEntrypoint" },
+        "input_schema_url": { "type": "string", "format": "uri" },
+        "input_schema": { "type": "object" },
+        "auth_requirements": { "type": "object" },
+        "requires_user_confirmation": { "type": "boolean" },
+        "expires_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "LiveCheck": {
+      "type": "object",
+      "required": ["check_id", "status", "checked_at", "details"],
+      "properties": {
+        "check_id": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["passed", "failed", "unknown", "not_applicable"] },
+        "checked_at": { "type": "string", "format": "date-time" },
+        "summary": { "type": "string" },
+        "details": { "type": "object" }
+      }
+    },
+    "ResolveAccess": {
+      "type": "object",
+      "required": ["visibility", "permission_state", "redacted_fields", "policy_notes"],
+      "properties": {
+        "visibility": { "enum": ["public", "partner", "private"] },
+        "permission_state": { "enum": ["granted", "limited", "denied"] },
+        "redacted_fields": { "type": "array", "items": { "type": "string" } },
+        "policy_notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "ResolvableReference": {
+      "type": "object",
+      "required": [
+        "ocp_version",
+        "kind",
+        "id",
+        "catalog_id",
+        "entry_id",
+        "commercial_object_id",
+        "object_id",
+        "object_type",
+        "provider_id",
+        "title",
+        "visible_attributes",
+        "live_checks",
+        "action_bindings",
+        "freshness",
+        "expires_at"
+      ],
+      "properties": {
+        "ocp_version": { "const": "1.0" },
+        "kind": { "const": "ResolvableReference" },
+        "id": { "type": "string", "minLength": 1 },
+        "catalog_id": { "type": "string", "minLength": 1 },
+        "entry_id": { "type": "string", "minLength": 1 },
+        "commercial_object_id": { "type": "string", "minLength": 1 },
+        "object_id": { "type": "string", "minLength": 1 },
+        "object_type": { "type": "string", "minLength": 1 },
+        "provider_id": { "type": "string", "minLength": 1 },
+        "registration_version": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "visible_attributes": { "type": "object" },
+        "access": { "$ref": "#/$defs/ResolveAccess" },
+        "live_checks": { "type": "array", "items": { "$ref": "#/$defs/LiveCheck" } },
+        "action_bindings": { "type": "array", "items": { "$ref": "#/$defs/ActionBinding" } },
+        "freshness": {
+          "type": "object",
+          "required": ["object_updated_at", "resolved_at"],
+          "properties": {
+            "object_updated_at": { "type": "string", "format": "date-time" },
+            "resolved_at": { "type": "string", "format": "date-time" }
+          }
+        },
+        "expires_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "CatalogProfileSnapshot": {
+      "type": "object",
+      "required": [
+        "ocp_version",
+        "kind",
+        "id",
+        "registration_id",
+        "catalog_id",
+        "catalog_name",
+        "homepage",
+        "well_known_url",
+        "manifest_url",
+        "verification_status",
+        "health_status",
+        "trust_tier",
+        "freshness"
+      ],
+      "properties": {
+        "ocp_version": { "const": "1.0" },
+        "kind": { "const": "CatalogProfileSnapshot" },
+        "id": { "type": "string", "minLength": 1 },
+        "registration_id": { "type": "string", "minLength": 1 },
+        "catalog_id": { "type": "string", "minLength": 1 },
+        "catalog_name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "homepage": { "type": "string", "format": "uri" },
+        "well_known_url": { "type": "string", "format": "uri" },
+        "manifest_url": { "type": "string", "format": "uri" },
+        "query_capabilities": { "type": "array" },
+        "object_contract_summaries": { "type": "array" },
+        "metadata": { "type": "object" },
+        "verification_status": { "type": "string" },
+        "health_status": { "type": "string" },
+        "trust_tier": { "type": "string" },
+        "freshness": {
+          "type": "object",
+          "required": ["manifest_fetched_at"],
+          "properties": {
+            "manifest_fetched_at": { "type": "string", "format": "date-time" },
+            "health_checked_at": { "type": "string", "format": "date-time" }
+          }
+        }
+      }
+    },
+    "RegistrationHealth": {
+      "type": "object",
+      "required": ["ocp_version", "registration_id", "status", "indexed_catalogs", "checked_at"],
+      "properties": {
+        "ocp_version": { "const": "1.0" },
+        "registration_id": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["healthy", "degraded", "unhealthy"] },
+        "indexed_catalogs": { "type": "integer", "minimum": 0 },
+        "checked_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "BridgeHealth": {
+      "type": "object",
+      "required": ["status", "service", "guard", "checked_at"],
+      "properties": {
+        "status": { "const": "healthy" },
+        "service": { "const": "luckin-ocp-bridge" },
+        "guard": {
+          "type": "object",
+          "required": ["armed"],
+          "properties": {
+            "armed": { "type": "boolean" },
+            "expectedFingerprint": { "type": "string" }
+          }
+        },
+        "checked_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "BridgeOrderSummary": {
+      "type": "object",
+      "required": ["store", "lines", "pricing", "pickup", "coupon_codes"],
+      "properties": {
+        "store": {
+          "type": "object",
+          "required": ["deptId", "dept_name", "address", "work_hours"],
+          "properties": {
+            "deptId": { "type": "integer" },
+            "dept_name": { "type": "string", "minLength": 1 },
+            "address": { "type": "string" },
+            "work_hours": { "type": "string" },
+            "distance_km": { "type": ["number", "null"] }
+          }
+        },
+        "lines": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["productId", "name", "skuCode", "amount"],
+            "properties": {
+              "productId": { "type": "integer" },
+              "name": { "type": "string", "minLength": 1 },
+              "skuCode": { "type": "string", "minLength": 1 },
+              "amount": { "type": "integer", "minimum": 1 },
+              "specs": { "type": ["string", "null"] },
+              "unit_price": { "type": ["number", "null"] },
+              "line_total": { "type": ["number", "null"] }
+            }
+          }
+        },
+        "pricing": {
+          "type": "object",
+          "required": ["currency", "total_initial", "privilege", "payable"],
+          "properties": {
+            "currency": { "const": "CNY" },
+            "total_initial": { "type": ["number", "null"] },
+            "privilege": { "type": ["number", "null"] },
+            "payable": { "type": ["number", "null"] }
+          }
+        },
+        "pickup": {
+          "type": "object",
+          "required": ["about_time_ms", "about_time_iso"],
+          "properties": {
+            "about_time_ms": { "type": ["number", "null"] },
+            "about_time_iso": { "type": ["string", "null"] }
+          }
+        },
+        "coupon_codes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "BridgePreviewResponse": {
+      "type": "object",
+      "required": ["order_summary", "fingerprint", "note"],
+      "properties": {
+        "order_summary": { "$ref": "#/$defs/BridgeOrderSummary" },
+        "fingerprint": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+        "note": { "type": "string" }
+      }
+    },
+    "BridgeGuardRefusal": {
+      "type": "object",
+      "required": ["error", "order_summary", "fingerprint", "armed_fingerprint", "how_to_arm", "note"],
+      "properties": {
+        "error": {
+          "type": "object",
+          "required": ["code", "message"],
+          "properties": {
+            "code": { "enum": ["confirmation_required", "price_changed"] },
+            "message": { "type": "string", "minLength": 1 }
+          }
+        },
+        "order_summary": { "$ref": "#/$defs/BridgeOrderSummary" },
+        "fingerprint": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+        "armed_fingerprint": { "type": ["string", "null"] },
+        "how_to_arm": {
+          "type": "object",
+          "required": ["step_1", "step_2", "step_3"],
+          "properties": {
+            "step_1": { "type": "string" },
+            "step_2": { "type": "string" },
+            "step_3": { "type": "string" }
+          }
+        },
+        "note": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@import url('/mall-base.css');
+
+/* Keep the main reading and shopping controls comfortable at laptop scale. */
+@media(min-width:901px){
+  .welcome-description{font-size:14px}.suggestions button>span{font-size:13px}.suggestions small{font-size:10px}
+  .composer textarea{font-size:14px}.model-pill,.direct-search{font-size:11px}.composer-note{font-size:10px}
+  .brand-banner strong{font-size:14px}.brand-banner small{font-size:10px}.product-copy h3{font-size:14px}
+  .product-price strong{font-size:20px}.product-price small,.product-price del,.product-tag{font-size:10px}
+  .section-eyebrow,.live-label,.catalog-footnote,.ecosystem-note p{font-size:10px}.catalog-state{font-size:12px}
+  .settings-link{font-size:12px}.location-trigger strong{font-size:12px}.location-trigger small{font-size:10px}
+}
+.mobile-browse,.mobile-settings{display:none}
+.order-list-card{padding:16px 0;border-bottom:1px solid #ece6f1}.order-list-card:last-child{border-bottom:0}.order-id-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0}.order-id-row .order-number{font-size:14px;font-variant-numeric:tabular-nums;user-select:text;min-width:0}.copy-order-number{border:1px solid #ddd1e8;background:#f8f5fb;color:#665078;border-radius:6px;padding:6px 10px;cursor:pointer;white-space:nowrap}.copy-order-status{font-size:12px;color:#665078}
+.checkout-fields{display:flex;gap:16px;margin:18px 0}.checkout-fields label{display:grid;gap:8px;font-size:13px;min-width:0}.checkout-fields label:last-child{flex:1}.checkout-fields input{padding:10px;border:1px solid #ddd;border-radius:8px;width:100%;box-sizing:border-box}.checkout-fields input[type=number]{width:80px}.payment-qr{display:block;width:240px;max-width:100%;height:auto;margin:12px auto;background:#fff}.payment-caption{text-align:center;font-weight:600}.checkout-error{color:#a12c38;line-height:1.6}.order-number{overflow-wrap:anywhere}.product-dialog .detail-ask{display:block;text-align:center;text-decoration:none;margin-top:12px}.product-dialog button:disabled{opacity:.5;cursor:default}.product-dialog .option-value{cursor:pointer}.mall-header{gap:10px}#my-orders{white-space:nowrap}
+@media(max-width:620px){.mobile-browse,.mobile-settings{display:block;border:0;background:none;color:#927aab;font-size:22px;text-align:center;padding:12px 0}.mobile-settings{margin-top:auto}}

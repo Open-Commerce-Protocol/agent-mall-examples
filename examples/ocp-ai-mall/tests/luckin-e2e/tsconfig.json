@@ -1,0 +1,1 @@
+{ "extends": "../../tsconfig.base.json", "compilerOptions": { "customConditions": ["bun"] }, "include": ["./**/*.ts", "../../scripts/luckin-inspect.ts", "../../apps/luckin-merchant-api/src/**/*.ts"] }

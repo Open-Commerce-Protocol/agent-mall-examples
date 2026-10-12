@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校雠 — 文献学驱动的文化品版本推荐</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif; background: #F9F8F6; color: #2C2C2A; line-height: 1.6; }
+
+.header { background: #2C2C2A; color: #F9F8F6; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+.header h1 { font-size: 20px; font-weight: 500; letter-spacing: 2px; }
+.header .badge { font-size: 12px; color: #888780; border: 1px solid #5F5E5A; padding: 2px 10px; border-radius: 12px; }
+
+.container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
+
+.subtitle { text-align: center; margin-bottom: 24px; }
+.subtitle h2 { font-size: 18px; font-weight: 500; color: #2C2C2A; }
+.subtitle p { font-size: 13px; color: #888780; margin-top: 4px; }
+
+.input-area { display: flex; gap: 8px; margin-bottom: 24px; }
+.input-area input { flex: 1; padding: 12px 16px; border: 1px solid #D3D1C7; border-radius: 8px; font-size: 14px; background: #fff; outline: none; transition: border-color 0.2s; }
+.input-area input:focus { border-color: #A32D2D; }
+.input-area button { padding: 12px 24px; background: #2C2C2A; color: #F9F8F6; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; transition: background 0.2s; }
+.input-area button:hover { background: #444441; }
+.input-area button:disabled { background: #888780; cursor: not-allowed; }
+
+.examples { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.examples span { font-size: 12px; color: #5F5E5A; background: #fff; border: 1px solid #D3D1C7; padding: 4px 12px; border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+.examples span:hover { border-color: #A32D2D; color: #A32D2D; }
+
+.results { display: none; }
+.results.show { display: block; }
+
+.step { background: #fff; border: 1px solid #E5E3DD; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; }
+.step-label { font-size: 11px; font-weight: 500; color: #A32D2D; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.step-content { font-size: 14px; color: #2C2C2A; }
+.step-content .tag { display: inline-block; background: #F1EFE8; padding: 2px 8px; border-radius: 4px; margin-right: 8px; font-size: 13px; }
+
+.recommendation { background: #fff; border: 2px solid #A32D2D; border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+.recommendation .rank-badge { display: inline-block; background: #A32D2D; color: #fff; font-size: 12px; padding: 2px 10px; border-radius: 12px; margin-bottom: 8px; }
+.recommendation h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
+.recommendation .meta { font-size: 13px; color: #5F5E5A; margin-bottom: 4px; }
+.recommendation .stars { color: #BA7517; }
+
+.annotation { background: #FAEEDA; border: 1px solid #EF9F27; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; }
+.annotation .label { font-size: 11px; font-weight: 500; color: #854F0B; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.annotation .text { font-size: 13px; color: #412402; line-height: 1.8; }
+
+.deal-area { text-align: center; margin-bottom: 12px; }
+.deal-btn { padding: 14px 40px; background: #A32D2D; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.2s; }
+.deal-btn:hover { background: #791F1F; transform: translateY(-1px); }
+.deal-btn:disabled { background: #888780; cursor: not-allowed; transform: none; }
+
+.transaction { background: #E1F5EE; border: 1px solid #1D9E75; border-radius: 12px; padding: 20px; text-align: center; display: none; }
+.transaction.show { display: block; }
+.transaction .check { font-size: 32px; color: #1D9E75; margin-bottom: 8px; }
+.transaction h3 { font-size: 16px; font-weight: 500; color: #085041; margin-bottom: 8px; }
+.transaction .tx-id { font-size: 12px; color: #5F5E5A; font-family: monospace; }
+
+.error { background: #FCEBEB; border: 1px solid #E24B4A; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; display: none; }
+.error.show { display: block; }
+.error p { font-size: 14px; color: #501313; }
+
+.conn-warn { background: #FCEBEB; border: 1px solid #E24B4A; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; display: none; }
+.conn-warn.show { display: block; }
+.conn-warn p { font-size: 14px; color: #501313; line-height: 1.7; }
+.conn-warn code { background: #F1EFE8; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+
+.loading { text-align: center; padding: 40px; color: #888780; display: none; }
+.loading.show { display: block; }
+.loading .dots { animation: blink 1.4s infinite; }
+@keyframes blink { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+.verdict-box { background: #FAF9F6; border: 1px solid #E5E3DD; border-radius: 8px; padding: 10px 12px; margin-top: 10px; }
+.verdict-label { font-size: 11px; font-weight: 500; color: #5F5E5A; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.reason { font-size: 12px; line-height: 1.7; }
+.r-pass { color: #1D9E75; }
+.r-fail { color: #E24B4A; }
+.r-info { color: #888780; }
+
+.footer { text-align: center; font-size: 12px; color: #888780; margin-top: 32px; padding-top: 16px; border-top: 1px solid #E5E3DD; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>校 雠</h1>
+  <span class="badge">OCP Protocol</span>
+</div>
+
+<div class="conn-warn" id="conn-warn">
+  <p>注意：未连接到校雠服务。请确认以下两点：<br>
+  1. 终端已运行 <code>python web_server.py</code>（不是 server.py）<br>
+  2. 通过真实浏览器打开 <code>http://localhost:4401</code>（不要通过预览面板或双击文件用 file:// 打开）</p>
+</div>
+
+<div class="container">
+  <div class="subtitle">
+    <h2>文献学驱动的文化品版本推荐</h2>
+    <p>Discovery → Intention → Deal | 交易即教育</p>
+  </div>
+
+  <div class="input-area">
+    <input type="text" id="msg" placeholder="帮我选本楚辞给初中孩子读" autofocus>
+    <button id="send" onclick="send()">发送</button>
+  </div>
+
+  <div class="examples">
+    <span onclick="fill('帮我选本楚辞给初中孩子读')">楚辞·中学</span>
+    <span onclick="fill('我想买论语，预算50以内，大学用')">论语·大学·预算50</span>
+    <span onclick="fill('诗经选一本学术研究的')">诗经·学术</span>
+    <span onclick="fill('字帖入门选哪个')">字帖·入门</span>
+    <span onclick="fill('多宝塔碑进阶临摹')">多宝塔碑·进阶</span>
+    <span onclick="fill('曹全碑专业收藏')">曹全碑·专业</span>
+  </div>
+
+  <div class="loading" id="loading">
+    <span class="dots">Agent 正在查询 OCP Catalog Node...</span>
+  </div>
+
+  <div class="error" id="error"><p id="error-text"></p></div>
+
+  <div class="results" id="results"></div>
+</div>
+
+<div class="footer">
+  校雠 · 基于 Open Commerce Protocol · 25 条文化品版本数据 · 古籍 + 字帖
+</div>
+
+<script>
+function fill(text) {
+  document.getElementById('msg').value = text;
+  send();
+}
+
+document.getElementById('msg').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') send();
+});
+
+// 启动自检：确认后端服务可达，否则给出明确提示
+async function checkConnection() {
+  try {
+    const resp = await fetch('/ocp/health');
+    if (!resp.ok) throw new Error('bad status');
+    document.getElementById('conn-warn').classList.remove('show');
+  } catch (e) {
+    document.getElementById('conn-warn').classList.add('show');
+  }
+}
+checkConnection();
+
+async function send() {
+  const msg = document.getElementById('msg').value.trim();
+  if (!msg) return;
+
+  document.getElementById('send').disabled = true;
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('error').classList.remove('show');
+  document.getElementById('results').innerHTML = '';
+
+  try {
+    const resp = await fetch('/api/agent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: msg })
+    });
+    const data = await resp.json();
+
+    document.getElementById('loading').classList.remove('show');
+    document.getElementById('send').disabled = false;
+
+    if (!data.ok) {
+      const errText = data.error === 'no_work'
+        ? '没听出你想找什么。目前支持：' + data.supported
+        : '当前条件下没有合适的版本。' + (data.criteria ? '受众标准：' + data.criteria : '');
+      document.getElementById('error-text').textContent = errText;
+      document.getElementById('error').classList.add('show');
+      return;
+    }
+
+    renderResults(data);
+  } catch (e) {
+    document.getElementById('loading').classList.remove('show');
+    document.getElementById('send').disabled = false;
+    document.getElementById('error-text').textContent = '请求失败：' + e.message + '（请确认 web_server.py 已运行，且通过 http://localhost:4401 访问）';
+    document.getElementById('error').classList.add('show');
+  }
+}
+
+function stars(n) { return '★'.repeat(n) + '☆'.repeat(5 - n); }
+
+function renderResults(data) {
+  const intent = data.intent;
+  const assessed = data.assessed;
+  const isBook = data.product_type === '古籍';
+
+  let html = '';
+
+  // Step 1: Intent
+  html += `<div class="step">
+    <div class="step-label">Intention · 意图识别</div>
+    <div class="step-content">
+      <span class="tag">品类: ${data.product_type}</span>
+      <span class="tag">目标: ${intent.work}</span>
+      <span class="tag">受众: ${intent.audience}</span>
+      <span class="tag">预算: ${intent.budget ? intent.budget + ' 元' : '不限'}</span>
+    </div>
+  </div>`;
+
+  // Step 2: Discovery（明盒：列出全部发现的版本）
+  html += `<div class="step">
+    <div class="step-label">Discovery · OCP 查询</div>
+    <div class="step-content">
+      通过 OCP Catalog Node 发现 <strong>${data.discovery_count}</strong> 个版本（已全部列出，明盒）：
+      <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">
+        ${assessed.map(a => `<span class="tag" style="background:#EDEBE4">${a.title}</span>`).join('')}
+      </div>
+    </div>
+  </div>`;
+
+  // Step 3: Agent 逐本评估（明盒）
+  html += `<div class="step">
+    <div class="step-label">${data.discipline}评估 · Intention（明盒）</div>
+    <div class="step-content">
+      <p style="margin-bottom:4px">受众标准：${intent.audience} — ${data.criteria_desc}</p>
+      <p style="font-size:13px;color:#888780">${data.criteria_reason}</p>
+      <p style="margin-top:8px">Agent 已对 <strong>${data.assessed_count}</strong> 个版本逐本评估：推荐 <strong>${data.qualified_count}</strong> 个，其余供你参考。<br>
+      <span style="color:#A32D2D">Agent 只给建议，最终由你选。</span></p>
+    </div>
+  </div>`;
+
+  // 全部版本卡片（明盒）—— 每个版本都展示，且都可下单
+  let altIdx = 0;
+  assessed.forEach(function(item) {
+    const isTop = item.verdict === 'recommend';
+    const isWarn = item.verdict === 'not_recommended';
+    const baseLabel = isBook ? '底本' : '拓本来源';
+    const styleLabel = isBook ? '注译风格' : '书体';
+    const ratingLabel = isBook ? '校勘评级' : '拓工评级';
+    const readLabel = isBook ? '可读性' : '适临度';
+    const recLabel = isBook ? '适读' : '适临';
+
+    let badge;
+    if (isTop) {
+      badge = '<span class="rank-badge">★ 推荐</span>';
+    } else if (isWarn) {
+      badge = '<span class="rank-badge" style="background:#BA7517">⚠ 需谨慎</span>';
+    } else {
+      altIdx += 1;
+      badge = '<span class="rank-badge" style="background:#5F5E5A">备选 ' + altIdx + '</span>';
+    }
+
+    const cardStyle = isWarn
+      ? 'border-color:#D3D1C7;opacity:0.94'
+      : (isTop ? '' : 'border-color:#D3D1C7');
+
+    const reasonRows = item.reasons.map(function(r) {
+      let icon, cls;
+      if (r.type === 'fail') { icon = '✗'; cls = 'r-fail'; }
+      else if (r.type === 'pass') { icon = '✓'; cls = 'r-pass'; }
+      else { icon = '·'; cls = 'r-info'; }
+      return `<div class="reason ${cls}">${icon} ${r.text}</div>`;
+    }).join('');
+
+    html += `<div class="recommendation" style="${cardStyle}">
+      ${badge}
+      <h3>${item.title}</h3>
+      <div class="meta">${item.brand} | ¥${item.price.toFixed(1)} | 评分 ${item.score}</div>
+      <div class="meta">${baseLabel}: ${item.base_text} | ${styleLabel}: ${item.annotation_style}</div>
+      <div class="meta">${ratingLabel}: <span class="stars">${stars(item.scholarly_rating)}</span> | ${readLabel}: <span class="stars">${stars(item.readability)}</span></div>
+      <div class="meta">${recLabel}: ${item.recommended_for.join('、')}</div>
+      <div class="verdict-box">
+        <div class="verdict-label">Agent 评估${isWarn ? '（不推荐，但你可以选）' : ''}</div>
+        ${reasonRows}
+      </div>
+      <button class="deal-btn" style="margin-top:12px;width:100%;padding:10px;font-size:14px" onclick="previewOrder('${item.entry_id}', '${intent.audience}', '${item.verdict}', this)">
+        预览订单 · ¥${item.price.toFixed(1)}
+      </button>
+    </div>`;
+  });
+
+  // Cultural annotation
+  html += `<div class="annotation">
+    <div class="label">交易即教育 · ${data.discipline}注释</div>
+    <div class="text">${data.annotation}</div>
+  </div>`;
+
+  // 动态区域
+  html += `<div id="preview-area" style="display:none"></div>`;
+  html += `<div id="pay-area" style="display:none"></div>`;
+  html += `<div id="status-area" style="display:none"></div>`;
+
+  document.getElementById('results').innerHTML = html;
+  document.getElementById('results').classList.add('show');
+}
+
+async function previewOrder(entryId, audience, verdict, btn) {
+  // 禁用所有版本卡片上的按钮，防止重复操作
+  document.querySelectorAll('.recommendation .deal-btn').forEach(function(b) { b.disabled = true; });
+  if (btn) { btn.textContent = '正在预览...'; }
+
+  try {
+    const resp = await fetch('/api/preview', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ entry_id: entryId, audience: audience })
+    });
+    const data = await resp.json();
+
+    if (data.ok) {
+      // 隐藏所有卡片，只显示选中的预览
+      document.querySelectorAll('.recommendation').forEach(function(c) { c.style.display = 'none'; });
+      // 用户若选了 Agent 不推荐的版本，给出明确提示（但不阻止）
+      const warn = verdict === 'not_recommended'
+        ? `<p style="font-size:12px;color:#BA7517;margin-top:8px">⚠ 此版本 Agent 未推荐（可能不匹配你的受众或预算），你仍可选择下单。</p>`
+        : '';
+      const area = document.getElementById('preview-area');
+      area.style.display = 'block';
+      area.innerHTML = `
+        <div class="step" style="border-color:#A32D2D">
+          <div class="step-label">订单预览 · OCP previewOrder</div>
+          <div class="step-content">
+            <p style="margin-bottom:4px">商品：${data.title}</p>
+            <p style="margin-bottom:4px">原价：<span style="text-decoration:line-through;color:#888780">¥${data.original_price.toFixed(2)}</span></p>
+            <p style="margin-bottom:4px">${data.discount_name}：<span style="color:#A32D2D">-¥${data.discount.toFixed(2)}</span></p>
+            <p style="font-size:18px;font-weight:500;color:#A32D2D;margin-top:8px">应付：¥${data.final_price.toFixed(2)}</p>
+            <p style="font-size:12px;color:#888780;margin-top:4px">${data.pickup_info}</p>
+            ${warn}
+          </div>
+        </div>
+        <div class="deal-area">
+          <button class="deal-btn" onclick="createOrder('${entryId}', '${audience}')">
+            确认下单 · ¥${data.final_price.toFixed(2)}
+          </button>
+        </div>
+      `;
+    }
+  } catch (e) {
+    document.querySelectorAll('.recommendation .deal-btn').forEach(function(b) { b.disabled = false; });
+    if (btn) { btn.textContent = '预览订单'; }
+    alert('预览失败：' + e.message);
+  }
+}
+
+async function createOrder(entryId, audience) {
+  const buttons = document.querySelectorAll('.deal-btn');
+  const btn = buttons[buttons.length - 1];
+  if (btn) { btn.disabled = true; btn.textContent = '正在创建订单...'; }
+
+  try {
+    const resp = await fetch('/api/order/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ entry_id: entryId, audience: audience })
+    });
+    const data = await resp.json();
+
+    if (data.ok) {
+      if (btn) btn.style.display = 'none';
+      const area = document.getElementById('pay-area');
+      area.style.display = 'block';
+      area.innerHTML = `
+        <div class="step" style="text-align:center;border:2px solid #A32D2D">
+          <div class="step-label">OCP Deal · 支付</div>
+          <div class="step-content">
+            <p style="font-size:14px;margin-bottom:4px">${data.title}</p>
+            <p style="font-size:12px;color:#888780;margin-bottom:12px">订单号：${data.order_id}</p>
+            <img src="${data.qr_url}" alt="支付二维码" style="width:200px;height:200px;border-radius:8px;margin:0 auto 12px;display:block;border:1px solid #D3D1C7" />
+            <p style="font-size:18px;font-weight:500;color:#A32D2D">应付 ¥${data.final_price.toFixed(2)}</p>
+            <p style="font-size:12px;color:#888780;margin-top:4px">原价 ¥${data.original_price.toFixed(2)} · ${data.discount_name} -¥${data.discount.toFixed(2)}</p>
+            <button class="deal-btn" style="margin-top:16px" onclick="checkStatus('${data.order_id}')">
+              已支付，查取货码
+            </button>
+          </div>
+        </div>
+      `;
+    }
+  } catch (e) {
+    if (btn) { btn.disabled = false; btn.textContent = '确认下单'; }
+    alert('下单失败：' + e.message);
+  }
+}
+
+async function checkStatus(orderId) {
+  const buttons = document.querySelectorAll('.deal-btn');
+  const btn = buttons[buttons.length - 1];
+  if (btn) { btn.disabled = true; btn.textContent = '查询中...'; }
+
+  try {
+    const resp = await fetch('/api/order/status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ order_id: orderId })
+    });
+    const data = await resp.json();
+
+    if (data.ok) {
+      if (btn) btn.style.display = 'none';
+      const area = document.getElementById('status-area');
+      area.style.display = 'block';
+      area.innerHTML = `
+        <div class="transaction" style="display:block">
+          <div class="check">✓</div>
+          <h3>${data.status}</h3>
+          <p style="font-size:14px;color:#085041;margin-bottom:8px">${data.title}</p>
+          <p class="tx-id">订单号：${data.order_id}</p>
+          <p class="tx-id" style="font-size:16px;color:#A32D2D;font-weight:500">取货码：${data.pickup_code}</p>
+          <p style="font-size:13px;color:#5F5E5A;margin-top:8px">${data.pickup_info}</p>
+          <p style="font-size:12px;color:#888780;margin-top:4px">应付 ¥${data.final_price.toFixed(2)}</p>
+        </div>
+      `;
+    }
+  } catch (e) {
+    if (btn) { btn.disabled = false; btn.textContent = '已支付，查取货码'; }
+    alert('查询失败：' + e.message);
+  }
+}
+</script>
+</body>
+</html>

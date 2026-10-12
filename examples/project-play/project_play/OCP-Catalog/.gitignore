@@ -1,0 +1,40 @@
+**/node_modules
+**/dist
+.turbo
+.env
+.env.local
+.npmrc
+*.log
+.DS_Store
+coverage
+.next
+drizzle
+.playwright-cli
+.workspace
+.codegraph/
+
+# Local agent/tooling scratch dirs
+.codex-tmp/
+.codex-remote-work/
+.tmp/
+tmp_remote_patch/
+
+# Locally installed agent skills. This repo publishes one skill
+# (skills/ocp-catalog); third-party skills a contributor happens to have
+# installed are not part of it.
+.agents/
+.claude/skills/
+skills-lock.json
+
+# Generated at pack time from skills/ocp-catalog by scripts/sync-skill-copies.ts.
+# The plugins/ copy is intentionally NOT ignored: the Claude Code marketplace
+# reads it straight from git.
+packages/ocp-skill/skill/
+packages/ocp-skill/*.tgz
+
+# 部署包打的 zip(build artifact,不入库)
+ocp-skill-gateway-deploy-*.zip
+
+# Python bytecode / caches from ad-hoc import scripts
+__pycache__/
+*.pyc

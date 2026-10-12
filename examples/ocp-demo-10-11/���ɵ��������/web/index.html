@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c7c6a">
+  <title>OCP Commerce Lab</title>
+  <link rel="icon" href="/assets/ocp-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path d="M5 7.5 12 3l7 4.5v9L12 21l-7-4.5z"></path>
+          <path d="m5 7.5 7 4.4 7-4.4M12 12v9"></path>
+        </svg>
+      </span>
+      <div>
+        <strong>OCP Commerce Lab</strong>
+        <span>Open Commerce Protocol · Catalog</span>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="connection-state"><i></i><span id="connectionLabel">正在连接</span></span>
+      <label class="language-select">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21"></path></svg>
+        <select id="languageSelect" aria-label="Language">
+          <option value="zh-CN">简体中文</option>
+          <option value="en-US">English</option>
+        </select>
+      </label>
+      <button class="button primary" id="runAgentButton" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 9-12h-7z"></path></svg>
+        <span data-i18n="header.runAgent">运行买家代理</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary-band">
+      <div class="summary-copy">
+        <span class="eyebrow">OCP CATALOG 1.0 · CNY</span>
+        <h1 data-i18n="hero.title">商户商务能力沙盒</h1>
+        <p id="serverClock" data-i18n="hero.loading">服务状态加载中</p>
+      </div>
+      <div class="metrics" id="metrics"></div>
+    </section>
+
+    <nav class="tabs" data-i18n-aria-label="nav.label" aria-label="工作区">
+      <button class="tab active" data-view="commerce" data-i18n="nav.commerce" type="button">商务流程</button>
+      <button class="tab" data-view="assistant" data-i18n="nav.assistant" type="button">智能选购</button>
+      <button class="tab" data-view="activity" data-i18n="nav.activity" type="button">协议轨迹</button>
+      <button class="tab" data-view="merchants" data-i18n="nav.merchants" type="button">商户接入</button>
+      <button class="tab" data-view="stores" data-i18n="nav.stores" type="button">门店选择</button>
+      <button class="tab" data-view="architecture" data-i18n="nav.architecture" type="button">接口能力</button>
+    </nav>
+
+    <section class="view active" id="commerceView">
+      <div class="commerce-grid">
+        <div class="catalog-section">
+          <div class="section-heading">
+            <div>
+              <h2 data-i18n="catalog.title">商品目录</h2>
+              <p id="catalogCount">0 个商品</p>
+            </div>
+            <label class="search-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+              <input id="catalogSearch" type="search" data-i18n-placeholder="catalog.search" placeholder="搜索商品" autocomplete="off">
+            </label>
+          </div>
+          <div class="marketplace-filters" id="marketplaceFilters"></div>
+          <div class="product-grid" id="productGrid"></div>
+        </div>
+
+        <aside class="cart-panel">
+          <div class="panel-heading">
+            <div>
+              <h2 data-i18n="cart.title">购物车</h2>
+              <p id="cartOwner" data-i18n="cart.waiting">等待创建会话</p>
+            </div>
+            <span class="status-chip neutral" id="cartStatus" data-i18n="cart.empty">空</span>
+          </div>
+          <div class="cart-lines" id="cartLines">
+            <div class="empty-state compact">
+              <span class="empty-icon" aria-hidden="true">+</span>
+              <p data-i18n="cart.addPrompt">从商品目录添加商品</p>
+            </div>
+          </div>
+          <div class="cart-total">
+            <div><span data-i18n="cart.subtotal">商品小计</span><strong id="cartSubtotal">¥0.00</strong></div>
+            <p data-i18n="cart.taxNote">税费与配送在结算时计算</p>
+          </div>
+          <button class="button full primary" id="checkoutButton" data-i18n="cart.createCheckout" type="button" disabled>创建结算</button>
+        </aside>
+      </div>
+
+      <div class="lower-grid">
+        <section>
+          <div class="section-heading">
+            <div>
+              <h2 data-i18n="orders.title">结算与订单</h2>
+              <p data-i18n="orders.subtitle">支付状态由商户实时确认</p>
+            </div>
+          </div>
+          <div class="order-list" id="orderList"></div>
+        </section>
+        <section>
+          <div class="section-heading">
+            <div>
+              <h2 data-i18n="events.title">最近事件</h2>
+              <p data-i18n="events.subtitle">协议与业务状态变化</p>
+            </div>
+          </div>
+          <div class="event-list compact-list" id="recentEvents"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="view" id="assistantView">
+      <div class="assistant-layout">
+        <section class="assistant-request-panel">
+          <div class="section-heading">
+            <div>
+              <h2 data-i18n="assistant.title">描述你的需求</h2>
+              <p data-i18n="assistant.subtitle">系统会从已接入商户中生成购物方案</p>
+            </div>
+          </div>
+          <textarea id="assistantRequirement" data-i18n-placeholder="assistant.placeholder" placeholder="例如：我想买汉堡和薯条，预算 50 元"></textarea>
+          <div class="assistant-actions">
+            <span id="assistantStoreHint" data-i18n="assistant.noStore">未选择门店</span>
+            <button class="button primary" id="assistantPlanButton" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18"></path></svg>
+              <span data-i18n="assistant.generatePlan">生成购物方案</span>
+            </button>
+          </div>
+          <div class="assistant-plan" id="assistantPlan"></div>
+        </section>
+
+        <aside class="assistant-payment-panel">
+          <div class="panel-heading">
+            <div>
+              <h2 data-i18n="assistant.confirmTitle">确认与支付</h2>
+              <p data-i18n="assistant.confirmSubtitle">确认后才会加入购物车</p>
+            </div>
+          </div>
+          <div id="assistantCheckout">
+            <div class="empty-state compact">
+              <span class="empty-icon" aria-hidden="true">✓</span>
+              <p data-i18n="assistant.checkoutEmpty">确认购物方案后创建结算</p>
+            </div>
+          </div>
+          <div class="payment-consent">
+            <label>
+              <input id="paymentConsent" type="checkbox">
+              <span data-i18n="assistant.paymentConsent">我同意使用所选支付方式并生成付款二维码</span>
+            </label>
+            <select id="paymentMethod">
+              <option value="wechat" data-i18n="assistant.wechat">微信支付（沙箱）</option>
+            </select>
+            <button class="button full primary" id="generatePaymentQrButton" type="button" disabled>
+              <span data-i18n="assistant.generateQr">生成微信付款二维码</span>
+            </button>
+          </div>
+          <div class="payment-qr" id="paymentQr"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="activityView">
+      <div class="activity-layout">
+        <section>
+          <div class="section-heading">
+            <div>
+              <h2 data-i18n="events.activityTitle">OCP 消息轨迹</h2>
+              <p data-i18n="events.activitySubtitle">请求、响应、错误与业务事件</p>
+            </div>
+            <button class="button secondary" id="clearFiltersButton" data-i18n="events.all" type="button">全部</button>
+          </div>
+          <div class="filter-row" id="eventFilters">
+            <button class="filter active" data-filter="all" data-i18n="events.all" type="button">全部</button>
+            <button class="filter" data-filter="response" data-i18n="events.response" type="button">响应</button>
+            <button class="filter" data-filter="business" data-i18n="events.business" type="button">业务</button>
+            <button class="filter" data-filter="error" data-i18n="events.error" type="button">错误</button>
+          </div>
+          <div class="event-table-wrap">
+            <table class="event-table">
+              <thead>
+                <tr><th data-i18n="events.time">时间</th><th data-i18n="events.type">类型</th><th data-i18n="events.operation">操作</th><th data-i18n="events.summary">摘要</th></tr>
+              </thead>
+              <tbody id="eventTable"></tbody>
+            </table>
+          </div>
+        </section>
+        <aside class="agent-panel">
+          <div class="panel-heading">
+            <div>
+              <h2 data-i18n="agent.title">代理执行</h2>
+              <p data-i18n="agent.subtitle">目录到订单的自动化链路</p>
+            </div>
+            <span class="status-chip neutral" id="agentStatus" data-i18n="agent.idle">待运行</span>
+          </div>
+          <div class="agent-progress" id="agentProgress">
+            <div class="empty-state compact">
+              <span class="empty-icon" aria-hidden="true">→</span>
+              <p data-i18n="agent.empty">尚未执行代理流程</p>
+            </div>
+          </div>
+          <pre class="json-preview" id="jsonPreview" data-i18n="agent.jsonPlaceholder">选择一条协议事件查看详情。</pre>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="merchantsView">
+      <div class="merchant-layout">
+        <section class="merchant-form-section">
+          <div class="section-heading">
+            <div>
+              <h2 data-i18n="merchants.directoryTitle">中国商户目录</h2>
+              <p data-i18n="merchants.directorySubtitle">按名称搜索并加入接口</p>
+            </div>
+            <label class="search-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+              <input id="merchantDirectorySearch" type="search" data-i18n-placeholder="merchants.directorySearch" placeholder="搜索商户名称" autocomplete="off">
+            </label>
+          </div>
+          <div class="merchant-directory" id="merchantDirectory"></div>
+
+          <div class="section-heading">
+            <div>
+              <h2 data-i18n="merchants.manualTitle">手动添加 Catalog</h2>
+              <p data-i18n="merchants.manualSubtitle">通过标准地址自动发现接口</p>
+            </div>
+          </div>
+          <form class="merchant-form" id="merchantForm">
+            <label class="full">
+              <span data-i18n="merchants.catalogUrl">Catalog 地址</span>
+              <input name="url" type="url" placeholder="https://catalog.example.com" required>
+            </label>
+            <div class="form-actions full">
+              <button class="button primary" id="registerMerchantButton" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+                <span data-i18n="merchants.quickAdd">一键接入</span>
+              </button>
+            </div>
+          </form>
+          <div class="protocol-route">
+            <code>GET /ocp/manifest</code>
+            <span>+</span>
+            <code>POST /ocp/query</code>
+            <span>+</span>
+            <code>POST /ocp/resolve</code>
+          </div>
+        </section>
+
+        <aside class="merchant-list-panel">
+          <div class="panel-heading">
+            <div>
+              <h2 data-i18n="merchants.listTitle">已接入商户</h2>
+              <p data-i18n="merchants.listSubtitle">统一网关中的 Provider</p>
+            </div>
+            <span class="status-chip info" id="merchantCount">0</span>
+          </div>
+          <div class="merchant-list" id="merchantList"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="storesView">
+      <div class="store-layout">
+        <section>
+          <div class="section-heading">
+            <div>
+              <h2 data-i18n="stores.title">附近门店</h2>
+              <p id="locationStatus" data-i18n="stores.locationIdle">位置尚未获取</p>
+            </div>
+            <button class="button primary" id="useLocationButton" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path><circle cx="12" cy="12" r="8"></circle></svg>
+              <span data-i18n="stores.useLocation">开启定位</span>
+            </button>
+          </div>
+          <div class="store-toolbar">
+            <label class="search-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+              <input id="storeSearch" type="search" data-i18n-placeholder="stores.searchPlaceholder" placeholder="搜索门店或地址" autocomplete="off">
+            </label>
+            <div class="store-filters" id="storeFilters"></div>
+          </div>
+          <div class="store-list" id="storeList"></div>
+        </section>
+        <aside class="selected-store-panel">
+          <div class="panel-heading">
+            <div>
+              <h2 data-i18n="stores.selectedTitle">已选门店</h2>
+              <p data-i18n="stores.selectedSubtitle">用于当前点单会话</p>
+            </div>
+          </div>
+          <div id="selectedStore">
+            <div class="empty-state compact">
+              <span class="empty-icon" aria-hidden="true">◎</span>
+              <p data-i18n="stores.noneSelected">请选择一家门店</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="architectureView">
+      <div class="capability-layout">
+        <section class="capability-main">
+          <div class="section-heading">
+            <div>
+              <h2 data-i18n="architecture.title">协议能力</h2>
+              <p data-i18n="architecture.subtitle">服务发现与当前商户声明</p>
+            </div>
+          </div>
+          <div class="discovery-strip">
+            <code id="discoveryUrl">/.well-known/ocp-catalog</code>
+            <button class="icon-button" id="copyDiscoveryButton" data-i18n-title="architecture.copy" title="复制地址" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
+            </button>
+          </div>
+          <div class="provider-heading">
+            <div>
+              <h3 data-i18n="architecture.providersTitle">接入公司</h3>
+              <p data-i18n="architecture.providersSubtitle">通过统一 OCP-Catalog 网关连接</p>
+            </div>
+            <span class="status-chip info" id="providerCount">0</span>
+          </div>
+          <div class="provider-list" id="providerList"></div>
+          <div class="operation-grid" id="operationGrid"></div>
+        </section>
+        <aside class="endpoint-panel">
+          <div class="panel-heading">
+            <div>
+              <h2 data-i18n="architecture.endpointsTitle">HTTP 映射</h2>
+              <p data-i18n="architecture.endpointsSubtitle">OCP 1.0 资源地址</p>
+            </div>
+          </div>
+          <div class="endpoint-list" id="endpointList"></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <script src="/i18n.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

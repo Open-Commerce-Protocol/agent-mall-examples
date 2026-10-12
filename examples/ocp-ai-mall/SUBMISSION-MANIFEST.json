@@ -1,0 +1,2955 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": ".claude-plugin/marketplace.json",
+      "bytes": 886,
+      "sha256": "c28a8726722ea866160f219fed432afc189b479adec7a8bb29bdab2d0b69b5af"
+    },
+    {
+      "path": ".env.example",
+      "bytes": 1218,
+      "sha256": "5c349b9c1fad0e974409fec0ccb40610d8d5d257cd6d8cf8e25e2806a3cf25b2"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 2110,
+      "sha256": "795a531e9de5e599c998fd15295fcb2a061b0f1bf86f1e74f53258571996b663"
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "bytes": 98,
+      "sha256": "080b3b4aee7657ec4fecd8d2dc5860da2ecd8f7896c2cf5b4cde3aec1d766c23"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+      "bytes": 430,
+      "sha256": "b2f798706947d3a1114c49b096881e1361f76d799420764b6d8882a8f9f8f506"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.yml",
+      "bytes": 368,
+      "sha256": "4522f147019f73da490423f535098402908179eebbc1652ee9505b9f5c2c11f0"
+    },
+    {
+      "path": ".github/workflows/competition-readiness.yml",
+      "bytes": 2145,
+      "sha256": "9522f4b00ae7c26a6a7e05638fcd256a25fdf8ffcb80182e3c25d8e08fb94ee4"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 1441,
+      "sha256": "f94a71b2e70ec4393482dcec8fd8d004782baa1a115e05aec8b80678aa93c0fa"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 318,
+      "sha256": "95aed4139014e6243f9e7f8854a0bbd3be67ee0fa91425d73d25fd0ad52b0f45"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1073,
+      "sha256": "849607eeb9e7229d9995f4bf253b2cf9035f3cd1ac392dc7169c891dcb57fc07"
+    },
+    {
+      "path": "README-SUBMISSION.md",
+      "bytes": 4808,
+      "sha256": "26e069815920421e709c14129c43c08cb64d52fda316a397a8acd4fc87c7c7e9"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9091,
+      "sha256": "a230abd1be8912a21c2cc1d1c4305b2fed85a4857b6af3cb077260d42378d38f"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 803,
+      "sha256": "07ff404d699b12164f48f53c0caba69506e79bf81593666d221e4921cd3dba06"
+    },
+    {
+      "path": "SUBMISSION-SECURITY.json",
+      "bytes": 1595,
+      "sha256": "5cc5ae5ca006fbb41564bc8a648aa80dcfb44d0f6cacacc500e5840ccb8ef43a"
+    },
+    {
+      "path": "apps/coffee-merchant-api/.env.example",
+      "bytes": 3214,
+      "sha256": "960bd35295281da9d2b039d984255e8dc5704bb82a1933b9f2aeca2bc01d9b4c"
+    },
+    {
+      "path": "apps/coffee-merchant-api/.gitignore",
+      "bytes": 438,
+      "sha256": "6dc4367aff9af91317b8925e5498beacc16441877675e26bff920e45def9e390"
+    },
+    {
+      "path": "apps/coffee-merchant-api/README.md",
+      "bytes": 8570,
+      "sha256": "c800895b5e8c6b53fc92e80a27dccbb03ae4182d268b2bd13ad8c80b328c89e6"
+    },
+    {
+      "path": "apps/coffee-merchant-api/package.json",
+      "bytes": 532,
+      "sha256": "1e686339d12188df01ee7095cdd749f999d6439ea56d1decf65e4ab50ff32b16"
+    },
+    {
+      "path": "apps/coffee-merchant-api/src/deadline.test.ts",
+      "bytes": 2558,
+      "sha256": "5380879d4744e58121f13e464d39af882db1aa3b563c61487741f82e73d1c70b"
+    },
+    {
+      "path": "apps/coffee-merchant-api/src/deadline.ts",
+      "bytes": 3038,
+      "sha256": "4ea8b890429f4b7ddddcddd62a8e80c497ad608e530d50214d2d97c5f6840d29"
+    },
+    {
+      "path": "apps/coffee-merchant-api/src/server.test.ts",
+      "bytes": 3841,
+      "sha256": "4acdae24111317267388b1dc631cf0f435736029be8098254f1bf53d48c0c95a"
+    },
+    {
+      "path": "apps/coffee-merchant-api/src/server.ts",
+      "bytes": 13036,
+      "sha256": "76c0efc6a3176a978a2c7e23b0233c68dd47b7167e143536cecc2f4a356a22eb"
+    },
+    {
+      "path": "apps/coffee-merchant-api/tsconfig.json",
+      "bytes": 164,
+      "sha256": "2eefbfeeca790fde8e8c74ef39cea8e37a3abb9888597ea55f177cc42639a9c5"
+    },
+    {
+      "path": "apps/luckin-merchant-api/package.json",
+      "bytes": 549,
+      "sha256": "f89f537a820a47cf2cd2a826e4efb0d53cc6bfd3bccd5bfbcb7b9c4c7a84da17"
+    },
+    {
+      "path": "apps/luckin-merchant-api/public/app.js",
+      "bytes": 10677,
+      "sha256": "1f6425c3cb423896de8d906b6649145bf1c880aca51b99368f23bb8f5d11e1c5"
+    },
+    {
+      "path": "apps/luckin-merchant-api/public/index.html",
+      "bytes": 4796,
+      "sha256": "c525e63880f1bdba165e14887c8a46d9147c1012199f7d6a761bb56c30bbe5c6"
+    },
+    {
+      "path": "apps/luckin-merchant-api/src/credentials.ts",
+      "bytes": 1373,
+      "sha256": "9be0070606ef4b5e4345c80854bc102eb6cb84ab76b0dc1b508811768377a180"
+    },
+    {
+      "path": "apps/luckin-merchant-api/src/server.ts",
+      "bytes": 2303,
+      "sha256": "1465c168666ae619c2dc6cfb168ec37b2c869497f0b61659ae89644d45238073"
+    },
+    {
+      "path": "apps/luckin-merchant-api/src/service.ts",
+      "bytes": 8326,
+      "sha256": "d1b62fc5f6efec955fd0451e9382fab55a5891289feb54f26a08aaca0eef1908"
+    },
+    {
+      "path": "apps/luckin-merchant-api/tsconfig.json",
+      "bytes": 122,
+      "sha256": "3468ea04dd7be19514dcdb26e0ebc5d7c53100314526410fd993246f793ab292"
+    },
+    {
+      "path": "apps/ocp-site-web/.gitignore",
+      "bytes": 253,
+      "sha256": "fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8"
+    },
+    {
+      "path": "apps/ocp-site-web/README.md",
+      "bytes": 2125,
+      "sha256": "36ddf45489fb9d66a02b0e77eb8f02b4142572bbceba8cf5b4d4c63e37a4c91d"
+    },
+    {
+      "path": "apps/ocp-site-web/eslint.config.js",
+      "bytes": 616,
+      "sha256": "4efe97b16d1200fac0eaf07aa00930a8668b1f96a0be1891ace8c1e712ff0ccb"
+    },
+    {
+      "path": "apps/ocp-site-web/index.html",
+      "bytes": 514,
+      "sha256": "12fb698386f6f2573381d1f3e63e034a50b357f70e817ed4a8c208db480bb552"
+    },
+    {
+      "path": "apps/ocp-site-web/package.json",
+      "bytes": 1276,
+      "sha256": "2fd9abb0e3efc07bfb6e9d8c52925b460f175612b48ec14bb9351d6aa3e4ce91"
+    },
+    {
+      "path": "apps/ocp-site-web/postcss.config.js",
+      "bytes": 80,
+      "sha256": "190c877db466995bf1482f4a16abd06e04a89ede3119341e2a86ff96e1737b27"
+    },
+    {
+      "path": "apps/ocp-site-web/public/favicon.svg",
+      "bytes": 669,
+      "sha256": "5c54fb09660c4601d5ca3ad6137fd821611db019bf332f21e754005229903aff"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/closing-ambient.png",
+      "bytes": 1034491,
+      "sha256": "d13624f1ea604a63b956a487075af6a472e15bf0397b3931bb5de519147f5009"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/commerce-data-sync-pipeline.png",
+      "bytes": 1587209,
+      "sha256": "d88421f20d40a63aef26beb92d7a33269c01b47d1c2cf7061ddde3e171b6c33b"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/discovery-field.png",
+      "bytes": 1298430,
+      "sha256": "623f711c25a38f44f2977ad614c815365c9ad90c0749e36c611f3f6582ad31b3"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/hero-ambient.png",
+      "bytes": 1268322,
+      "sha256": "0b7b494d41b2c367ef11b8ae559ea022c302d98a2bd38bcdc4b02e52e54b6827"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/network-substrate.png",
+      "bytes": 1100954,
+      "sha256": "64ed6b0ddb2940845d91412a90fef2530e0f3111378a3880941e027ed1f8c073"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/ocp-catalog-protocol-layer.png",
+      "bytes": 1983280,
+      "sha256": "58d9b2bb8488101df718a807dd04399842ba9a592c16776ac36bbbce63a5039a"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/provider-onboarding-flow.png",
+      "bytes": 1439980,
+      "sha256": "1047c40f6fd241f589a80dbcf77cefef8fe2945abd0844ab3c74becccaaf2dfe"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/site/home-commerce-object-stack.png",
+      "bytes": 2987606,
+      "sha256": "beb506556c03942ed5ad944b15180d969a744140771c3520f721aab1281931fa"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/site/home-hero-protocol-relay.png",
+      "bytes": 2942792,
+      "sha256": "ba7be96f05c47beabfacd7704bf959c32a17d99f95f38a8bf41c3a9578e90841"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/site/provider-onboarding-scene.png",
+      "bytes": 2788669,
+      "sha256": "601ebb33180a69df96276e2a242121789d3b4a742b12d416949932ae7b110478"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/site/updates-release-ledger.png",
+      "bytes": 2928779,
+      "sha256": "4a64bc9dc9e06bfe67f010db2ee7a7618337a7e14d80c4ab6b8f70962a50eba4"
+    },
+    {
+      "path": "apps/ocp-site-web/public/images/trust-boundary.png",
+      "bytes": 1024919,
+      "sha256": "a2c41d9eda594366ef401f76a62c5c86b39031d2f5be68f3fbe6812518ac7a0f"
+    },
+    {
+      "path": "apps/ocp-site-web/public/robots.txt",
+      "bytes": 23,
+      "sha256": "16ceb5ee3e0dc13aa9adf31a3ebbe45a1d965b8c2b9f72eaf84e5911e140ed95"
+    },
+    {
+      "path": "apps/ocp-site-web/scripts/browser-recovery-check.mjs",
+      "bytes": 1787,
+      "sha256": "df820b0f90d2bad2cf5222418d50f2de0b3019fb01080aff9534dad7ad909c0f"
+    },
+    {
+      "path": "apps/ocp-site-web/scripts/browser-recovery-driver.mjs",
+      "bytes": 6578,
+      "sha256": "acbe7d8e75c1400e3c1221ca77c1223b5bcff052e959d4fde4206d29364745ab"
+    },
+    {
+      "path": "apps/ocp-site-web/src/App.css",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "apps/ocp-site-web/src/App.tsx",
+      "bytes": 3944,
+      "sha256": "cec2a0714fa95ecfbb255fe7d09925a1ed22607a6b2e23925c64161d83d37578"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/directory/CatalogCard.tsx",
+      "bytes": 6740,
+      "sha256": "4717a4e9c016e334a81e94e379311dc4f1c898aefb5e85583c3716841310a4b9"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/directory/CatalogDrawer.tsx",
+      "bytes": 16844,
+      "sha256": "d242265d4767adfe4995bb981b4cbd3e14175b3486dca58c465a83e718a559ab"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/directory/DirectoryExplorer.tsx",
+      "bytes": 10115,
+      "sha256": "283e5fc0f82b88fa1ac561e696d94f19a213db3baf1231d3dee250fe23532cec"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/directory/DirectoryFilters.tsx",
+      "bytes": 5332,
+      "sha256": "67af14ff0354e68e04c26597362b3db01616eb5708f6cedfdcf53897d1bef16d"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/directory/DirectoryTopology.tsx",
+      "bytes": 9705,
+      "sha256": "fbb3526d32d06e36d122e18cf6d0b46afc7369ea180e2da164d9ea15fba8531a"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/directory/RegistryCard.tsx",
+      "bytes": 4746,
+      "sha256": "b2fd4000c2a03566f8ea072abc29946c4785dc42c6feec4e45597707aaf80ea8"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/docs/DocsLayout.tsx",
+      "bytes": 1373,
+      "sha256": "c8938bedd3efa38fc5c0991b4195d973c30df959bdcf700a00c234942575b470"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/docs/LeftNav.tsx",
+      "bytes": 1472,
+      "sha256": "79992a93d2574e5b599c04c073c1e2811cae178723cbcdb885f730563b09e07e"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/docs/PageArtifacts.tsx",
+      "bytes": 8909,
+      "sha256": "344eeb64ccf50c3ed8ea1ec6050e2fc5629384dfeb4000785bb244e3d77cf285"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/docs/RightToc.tsx",
+      "bytes": 1506,
+      "sha256": "5c539cd95c18601710faaa44f39c2f9b8bae095c0a9a60bd80c502656552fba0"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/site/LiveActivityPulse.tsx",
+      "bytes": 5876,
+      "sha256": "6f013534180279cb7a01640d53b8bb3aca98c999ef0d81b2cc40e58e6f9b4189"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/site/LiveActivitySection.tsx",
+      "bytes": 9802,
+      "sha256": "0fb332376f22510b1255dbf170140e0b783e472acc918e7040e75edcafe64da6"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/site/MarkdownArticle.tsx",
+      "bytes": 3170,
+      "sha256": "bcdd54da6100fba6e7f71ddb890d71c6cdbc329c526cb8e749b333f4a4ac4829"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/site/OcpDiagrams.tsx",
+      "bytes": 9659,
+      "sha256": "d043a1c930b979d4d12102558b42bdd216f09a42a1e77152c653a3fbadd41cb2"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/site/OcpLogo.tsx",
+      "bytes": 1138,
+      "sha256": "e2186563943b0314c43731874c2eed0df22b345b5bf5e7bd7412e6ee0ca6aef2"
+    },
+    {
+      "path": "apps/ocp-site-web/src/components/site/ProtocolRelayCanvas.tsx",
+      "bytes": 6385,
+      "sha256": "a40425b81e99fdb8de70e159e7d547c82215c9be5fc2d3ab15b1bc5c6005146a"
+    },
+    {
+      "path": "apps/ocp-site-web/src/config.ts",
+      "bytes": 2072,
+      "sha256": "30c3532883568866addcfec89705e3df750fe748c95f752257acfa85d37de1eb"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/artifacts/core.ts",
+      "bytes": 6984,
+      "sha256": "7fa88ede6baa69e4927da42a082861edad9196089e35a305712205edfd163f7f"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/artifacts/examples.ts",
+      "bytes": 18552,
+      "sha256": "04cd45771cf5f9eac4fedee7e19f0a3fc44a357b470507363e01ef0c0e295c48"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/artifacts/handshake.ts",
+      "bytes": 18879,
+      "sha256": "3d6db4fe6a24cb7b0f888dd73b997ac8aa77b7f2830df924b715d18ac9549906"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/artifacts/index.ts",
+      "bytes": 424,
+      "sha256": "2ed4b54b4b7592483db727b359c9c3cf9e459b3cb1d405b66ff5a83d6ef97e88"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/artifacts/registration.ts",
+      "bytes": 10759,
+      "sha256": "04c4944d178328baa1d953c250ed2727e0423519ab1d8a4500569614672d9fd9"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/artifacts/types.ts",
+      "bytes": 1365,
+      "sha256": "1a90e195ffcf8542363950d388b368330b1d58c2dbf5a06d3320d38fba0cb158"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/directory/registries.ts",
+      "bytes": 1277,
+      "sha256": "6b7beabc1c9d0772cf8fa38387863b415c053f5b12e5f002496b61fabcc8ea8b"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/catalog-architecture.md",
+      "bytes": 7184,
+      "sha256": "23fa7d35c5b85f5bac41242e071ad9b195dfc813a104aa60e3686896ae313619"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/cli-and-skill.md",
+      "bytes": 5738,
+      "sha256": "375370d3851f343ed01a6d09c2c40d33705b0aa784fb9cf47c3e2da0abcd4bd0"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/faq.md",
+      "bytes": 4698,
+      "sha256": "d1828480de08584bbe4f9c343870c9e48e770ffbd077651e9ee6f0e7134cb14b"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/getting-started.md",
+      "bytes": 6731,
+      "sha256": "7cdafba185437884ff97ec538ce2d570bb0213a4b3f5d9b58cd3940ae5b4a63b"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/mcp-server.md",
+      "bytes": 3521,
+      "sha256": "e420e777da0b1dc556f4d0596a56146d7f2168bc25912f422016d11132ba4737"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/overview.md",
+      "bytes": 4571,
+      "sha256": "37f3f67b87ac2d0300a93bc40e1aada79e7834f17b48bdf5deebbf108c10bb6e"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/protocol-principles.md",
+      "bytes": 2311,
+      "sha256": "f04439a74f1b349c50c6ae1de00c049a134c48071b6394f170b9be29814aa44f"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/query-contract-principles.md",
+      "bytes": 1142,
+      "sha256": "b7d460c45a06957359e4acadafa0a420ffb48fa884ce567877757908fb37c1fa"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/resolve-actions.md",
+      "bytes": 3363,
+      "sha256": "5e9d107ba5f770c7390cf916dee1af744a0eb1a66a38a2ef5c890496f5483320"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/roles.md",
+      "bytes": 3477,
+      "sha256": "255fc94adf7e11344399d895a0bedceac3eeb6c4bf4968fa2e8b04bf39843c81"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/routing-principles.md",
+      "bytes": 2271,
+      "sha256": "cd63671dc12244e6d1ae897ad3db0cbb642ebfe377dc2013d09ad3ceea8bb2d0"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/what-is-catalog.md",
+      "bytes": 4491,
+      "sha256": "d6dbd9faacd48d43651f8ef6555e6e339ac75e56449d078a90b80f766c1d4c4d"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/docs/what-is-ocp.md",
+      "bytes": 4267,
+      "sha256": "c02f596d6a3b0ef18707b0827d325964eaef235a79471ad8c20df1c33f36272f"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/commerce-catalog.md",
+      "bytes": 6891,
+      "sha256": "194e4c6115fbda585a50c63fe7dc94c00ec918a7d532af84d18af4f6cc809411"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/minimal-catalog.md",
+      "bytes": 5325,
+      "sha256": "96ce62b82bb43920044a2fece5a2e890e3e773116e2e40fe18ea97f5401b9e24"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/minimal-provider.md",
+      "bytes": 5585,
+      "sha256": "54374afb3e772a2eabf7145fa9d548610ef1577d9c6aaa85ee800e69b3eb9cd1"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/provider-flow.md",
+      "bytes": 5075,
+      "sha256": "7489b933863ce48ba7c39730e09fa43e1d8d9677d1130b84ee94359c09d97462"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/registration-flow.md",
+      "bytes": 4309,
+      "sha256": "5f63d618329b3bce128f623e12a47670a50432bd7e2978c332412b4ca1af3598"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/shopify-provider.md",
+      "bytes": 7109,
+      "sha256": "045e012de7aca018c7779e7d63d99fd5a6899b0da4906ce0d6dfdb2cc0b165a8"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/user-agent-flow.md",
+      "bytes": 2731,
+      "sha256": "54f97b743f1ca20ec319a3579b2c1de968f1a4eae19935850d97ed97eb104974"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/visa-vic-reference-agent.md",
+      "bytes": 7402,
+      "sha256": "7e94d0964154cea20447e85334a82e243a58281b2703d827b81f6cdec53718b1"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/webmcp-demo.md",
+      "bytes": 5435,
+      "sha256": "4e40880a8a23dccd760d4a582d97f3e4ce18ce91a6b00400b9540e5478af6fdb"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/examples/woocommerce-overview.md",
+      "bytes": 6395,
+      "sha256": "12c565e31220732dbc0bc176929dcc187490cf7878a72e2db7d77b2039e7c778"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/handshake/catalog-manifest.md",
+      "bytes": 7234,
+      "sha256": "56ae1f3032b942fd4762e70a66b60265b8d9dde98d84d2fa47af21f8f7abd474"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/handshake/commercial-object.md",
+      "bytes": 2636,
+      "sha256": "e153121e9d1709e0b685737918be63a0b6c66692448a7192008bd8491848243b"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/handshake/object-contract.md",
+      "bytes": 4990,
+      "sha256": "825c5b53c69d10bb97c004609aeb547af288d49d666e2cfad4d712c9a21c54c8"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/handshake/overview.md",
+      "bytes": 3544,
+      "sha256": "09358fd6b5d688d9cf2d604625b7c83ce1fc3f021eaa3787ec26e9cc70dcd332"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/handshake/provider-registration.md",
+      "bytes": 4068,
+      "sha256": "e067454561a221480799fec2a4d4d29d36abe302055dd5d88b2ba043ca730929"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/handshake/registration-result.md",
+      "bytes": 1645,
+      "sha256": "d88fabb31b42af1a5b79c3de138ce00ba5e2e74115993c0796db7c5d7e12cc28"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/handshake/sync-capabilities.md",
+      "bytes": 4811,
+      "sha256": "e4773bff77d0364a10423ae3a109446cf24cbe016193a6a20eb099ded27712a5"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/i18n.ts",
+      "bytes": 3883,
+      "sha256": "5f3bc68d89fb1bf749ac9affd950ae97d9164452c7e26e8614f4da88613676c5"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/loader.ts",
+      "bytes": 1131,
+      "sha256": "453a4c3afdf25a1369a343d578c8b1e17aed0f4434e18f350c8cdfce16fce076"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/catalog-architecture.md",
+      "bytes": 6907,
+      "sha256": "60e54f0a8650c3a011e902aa848c47374574b28d8ae7a43557a7c338e0ec5401"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/cli-and-skill.md",
+      "bytes": 5540,
+      "sha256": "2610dbbcb5bb2d4796b6a3592cc3075db269b81bf6f0b40ef669f1538c70bc10"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/faq.md",
+      "bytes": 4707,
+      "sha256": "97a9c2ed023018f3e0d86149800394fb83773a36636600d8013dd48b21b04c24"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/getting-started.md",
+      "bytes": 6695,
+      "sha256": "e96e479c40b6dcec9365a658171330a9d760d56a74dcd17223a7782ec28feff9"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/mcp-server.md",
+      "bytes": 3421,
+      "sha256": "cff588483a78f8d95bf90c55b4a26174d6b475fbf89e68518a8534cf2f82d3d8"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/overview.md",
+      "bytes": 4303,
+      "sha256": "c9e796494bb521fc5700724e99e87f6bdbacc2a535cf0e06da9b9a23e8c19b4c"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/protocol-principles.md",
+      "bytes": 2075,
+      "sha256": "26d414c4520987bcc91c073e954c58c1b69aec72fb3051aff4bc8527ea6eb9e0"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/query-contract-principles.md",
+      "bytes": 1159,
+      "sha256": "c6f567001033a6a46bf05aeb4f7f5b49231243e7d5a63d85b8f49910b42e0d43"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/resolve-actions.md",
+      "bytes": 3295,
+      "sha256": "a11994aad54653aa47200de6e0e0ca995bbef86a8e2b677cb88a2c357c4c32fc"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/roles.md",
+      "bytes": 3234,
+      "sha256": "0b5130f7158638cc950e683748aab5e84f161aecc63ff6f533a6f9f7bf10df0b"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/routing-principles.md",
+      "bytes": 1265,
+      "sha256": "58e0158963b1c125cf23edfb978f956f618c76e2d0b0a5425f518a67170e1c46"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/what-is-catalog.md",
+      "bytes": 4356,
+      "sha256": "9526bbeabda5ef5060793586eb176a85fdbabd3eaaa4c9173ac7b5c0204472e7"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/docs/what-is-ocp.md",
+      "bytes": 4158,
+      "sha256": "4fd4814c03e6dd1324b66d159a1783758b13e066e8bae66e1df654931bb5610a"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/commerce-catalog.md",
+      "bytes": 6317,
+      "sha256": "d1048ec775848a3132057a0267e80d771b8e403c59940546692882c620023a09"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/minimal-catalog.md",
+      "bytes": 5406,
+      "sha256": "69c950fc1088eb0f22cb9fbc1ec5d60219982ca1afb16202d0f43b7df95d88ee"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/minimal-provider.md",
+      "bytes": 5587,
+      "sha256": "ad4191a836ab6bfd324f5c92ea5cadd6e018d234a94df31ffa570b043642065c"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/provider-flow.md",
+      "bytes": 4978,
+      "sha256": "edf25740ccb875dcdaa1bfc23a53a49f73793487aa008c953f3c360cd503d1a3"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/registration-flow.md",
+      "bytes": 4196,
+      "sha256": "b0bc73efcc385aa5266b3d62b0557e953dd1a2cac0065d65c2d86404948850e3"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/shopify-provider.md",
+      "bytes": 6959,
+      "sha256": "4f79f453f0b400d5cd134ecacbcfd3e4c38f3cdb4289be2f4df4a8c8bca21bcc"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/user-agent-flow.md",
+      "bytes": 2645,
+      "sha256": "a3c2bebc11a72634ef6e2a0c78a672426c15529e69262919438a6b0cf9799ae5"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/visa-vic-reference-agent.md",
+      "bytes": 6686,
+      "sha256": "1fd8bbf13996631e2397355411f646475acc9e45b6d56d1ab2da908ab43bf1b9"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/webmcp-demo.md",
+      "bytes": 5339,
+      "sha256": "0617e3cd8b51c442bc5a3dafc30595f7eaf7749f6a5a119751cecb5876e7cf1e"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/examples/woocommerce-overview.md",
+      "bytes": 5941,
+      "sha256": "fbb8b4115147efff3580654d1120b2188c06d9f95657e826ce6ec497e74b49d6"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/handshake/catalog-manifest.md",
+      "bytes": 6985,
+      "sha256": "27c868af23b26bf4763474bb49a0f8658279d9909dc974eceb0c0924a9deba57"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/handshake/commercial-object.md",
+      "bytes": 2619,
+      "sha256": "c69ebad56845888d10983343acbfd2222572ae1e238d6afa455a045e1c257f08"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/handshake/object-contract.md",
+      "bytes": 4714,
+      "sha256": "d9c26c7c70c9e3122aab8a22fa52fffad4522b32cf012036199db380283bf205"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/handshake/overview.md",
+      "bytes": 3337,
+      "sha256": "fccb0c75faade525e0d53690bc0b0d92acbb465d79dc080b4499329e69394b0e"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/handshake/provider-registration.md",
+      "bytes": 3874,
+      "sha256": "d2230491932a338d5306d2b4a072ac500953b9aad60a71dfd97f299c0310aad0"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/handshake/registration-result.md",
+      "bytes": 1583,
+      "sha256": "22b0d839444f7ba9d18735625149b296a756b4fe575742d5aab19da03fc8f8f2"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/handshake/sync-capabilities.md",
+      "bytes": 4719,
+      "sha256": "c2d8d9f222330c88ddd595cf10c1a16b7a284f7eed259d589e70f8e8603ce9b7"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/registration/catalog-registration.md",
+      "bytes": 1166,
+      "sha256": "91af7da26bfb224b9eb34a6b3ba1ba5abcaf48d5ed071a89848faebeff5368b5"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/registration/catalog-route-hint.md",
+      "bytes": 1403,
+      "sha256": "b48047e2410007493e25ac8248b2370131f3d7fbf760b7c621444c57c4688148"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/registration/catalog-search.md",
+      "bytes": 1464,
+      "sha256": "0b1e09ebc6ee45ed2c3aa0f96d2e8f0246b93f62d7c1719b9e34a7c6a57e9cd7"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/registration/discovery.md",
+      "bytes": 1193,
+      "sha256": "af25c82a09bb6f95c6ba394c6530548929df7d8496db6f5f46dbc043200db69b"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/registration/overview.md",
+      "bytes": 1483,
+      "sha256": "90890211c18b09b9dfda64f2444ba87c2a140697dd7a8cab1f8270bd26bf93e2"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/locales/zh/registration/verification-refresh.md",
+      "bytes": 1324,
+      "sha256": "7d0cd1574ba8fd3c1fda698f1f2a5dac8b71f3fdbd57c69251f44e84b2d88dd8"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/markdown-frontmatter.test.ts",
+      "bytes": 653,
+      "sha256": "2c81924d3e42b626d680ec3780b3c5a59172b43575c070965043e6a9fc7d8908"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/markdown-frontmatter.ts",
+      "bytes": 203,
+      "sha256": "d6aa2014363a3fdb6caf9547ae9d1bebbabf1fbb17b53fdae5c2f9bf9204ce9c"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/navigation.ts",
+      "bytes": 4638,
+      "sha256": "0663e9ece3a9049e05460412848d32f20f80ac0eb9fa3b73d242fee01ee18977"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/page-artifacts.ts",
+      "bytes": 2883,
+      "sha256": "d1f666ffd244dc281b6d6a90a3c210ecd80d77a5401256dce010748d3e73f997"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/products.ts",
+      "bytes": 5236,
+      "sha256": "3aeffae9200bf7e73135cf4bf8f63b0e5756180e23606a4de4ffeea0f0c5e5d8"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/registration/catalog-registration.md",
+      "bytes": 1228,
+      "sha256": "90d4d13476cc6fbc671bf78ce131cff2994211d8510f4b4bf53861761b2a27b5"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/registration/catalog-route-hint.md",
+      "bytes": 1357,
+      "sha256": "fae6a6faeb0395394dd90a67369b696ec60ad4abfab2d1677c84849697170d1a"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/registration/catalog-search.md",
+      "bytes": 1459,
+      "sha256": "1dffb3721148a24eb6c211f75b7dcd3c0cddb7b040e7ff11d2383fd5945efd61"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/registration/discovery.md",
+      "bytes": 1225,
+      "sha256": "0cd9e421ea31683f66745e060ad08953093337f9a6a683964090e098cb2ccf40"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/registration/overview.md",
+      "bytes": 1562,
+      "sha256": "f8fbbb48d8115bf974c632132fe804644cffa8728b227e5a5dd819c17d4bec91"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/registration/verification-refresh.md",
+      "bytes": 1404,
+      "sha256": "097eb23fb42c94bd3cece0070e6b3ae3144d25d396a68e7117fee9efe615ca3c"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/roadmap.ts",
+      "bytes": 8628,
+      "sha256": "6308a729d695fe4911ea4f5662742f7f7a6a6d7ea3c7f8ef8541dd8596530069"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/routing.ts",
+      "bytes": 5710,
+      "sha256": "ea1cd56637d935f69b54299e7d649e6969b958755589d018c42267c83e671320"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/schema-loader.ts",
+      "bytes": 546,
+      "sha256": "2dd883c0a8ccfd8937ea17676aa538ae465d78f2bc7023e0b4abd6cfd08d72e2"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates-content.ts",
+      "bytes": 1025,
+      "sha256": "a8758cada2bfb22577338c616dc6511ca836d87c8fb8b9d170db53ab4b6ba7ef"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates-loader.test.ts",
+      "bytes": 915,
+      "sha256": "729ec6442c2191497ed79d311264642ed4e67761d27f697fdcc87d90962f03b0"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates-loader.ts",
+      "bytes": 1620,
+      "sha256": "b5e9cba062fe66b4da3556a3c3de79ce932d3f92e733512b917eede779ea79e8"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates.ts",
+      "bytes": 6525,
+      "sha256": "8cfb93f45f42205440c152a7c05a6387a734db6df0675335c961ebd49ce92aaa"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/catalog-handshake-and-registration-v1.md",
+      "bytes": 264,
+      "sha256": "5a75d66b90e108e60f8bbca9fc201e0e20caa3ec7257198ee19e75b1fd313be7"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/commerce-examples-expanded.md",
+      "bytes": 126,
+      "sha256": "62f3fbcc70ab466b3f51b1764e03dec7a7c47cabb9f34eced14ca30482424441"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/locales/zh/catalog-handshake-and-registration-v1.md",
+      "bytes": 248,
+      "sha256": "8705bf60dd21c284f64b432ce12777604ffe02c332c409e713226a402262bf81"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/locales/zh/commerce-examples-expanded.md",
+      "bytes": 104,
+      "sha256": "89ffa2de8261c98da6c94d43b38a909c2dc992f67864936cf21361b5cd04ee9b"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/locales/zh/ocp-catalog-integrates-agent-platforms.md",
+      "bytes": 357,
+      "sha256": "66e4780a1b78d806b41854bf1444aa0b9f3f86e5eed24e390e3e807e7a550764"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/locales/zh/ocp-cli-and-skill-coming-soon.md",
+      "bytes": 775,
+      "sha256": "c12a7441c9e11fbc97018041f6eb722f8dca88a107e7ea9d8069f16d55195415"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/locales/zh/shopify-provider-app-syncs-merchant-products.md",
+      "bytes": 729,
+      "sha256": "88de17ea1d93d199c1912b38c3c23607788c6e431d224bb3d381d46387e10fc0"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/locales/zh/unified-public-site.md",
+      "bytes": 281,
+      "sha256": "6873da32f27ba438adcb51f997232c1fe5583144b68372a5aac93f2affff8271"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/locales/zh/woocommerce-provider-app-opens-wordpress-commerce-to-ocp.md",
+      "bytes": 625,
+      "sha256": "598219a5884afba0558dd06255a5f1da812f0aa9e069ab36a9729dacdacca79d"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/ocp-catalog-integrates-agent-platforms.md",
+      "bytes": 467,
+      "sha256": "5bcde26968e47660f59954f86bcfdffe432498213411376b7fa6d38d4a980cd2"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/ocp-cli-and-skill-coming-soon.md",
+      "bytes": 818,
+      "sha256": "277236cb0a39f9dc264bdbe565f56b20bf4ac4e41bd531b8a663f9a208adee59"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/shopify-provider-app-syncs-merchant-products.md",
+      "bytes": 793,
+      "sha256": "8215936bf1fa9166ba4417fcb4990e4c64364baf6e27d18c06bf4e1519f648fb"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/unified-public-site.md",
+      "bytes": 321,
+      "sha256": "f733e0ddf91e5923016c89c751795bc3b3a11392273dc456015f534f8b422fc1"
+    },
+    {
+      "path": "apps/ocp-site-web/src/content/updates/woocommerce-provider-app-opens-wordpress-commerce-to-ocp.md",
+      "bytes": 649,
+      "sha256": "cf33e16f1db344e77a80c1e04dbb31a5a8d91a0041f741e0737ea05bccb05afc"
+    },
+    {
+      "path": "apps/ocp-site-web/src/index.css",
+      "bytes": 38171,
+      "sha256": "ffab9f66d769628228082c5df995df2b09feb31ff34b50b0364a0c08b896c711"
+    },
+    {
+      "path": "apps/ocp-site-web/src/layouts/SiteLayout.tsx",
+      "bytes": 8472,
+      "sha256": "c1c516b1e2048170d82d801fb45c7585288296d0a5ba3b44d4aca612b211b412"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/catalogScale.test.ts",
+      "bytes": 3152,
+      "sha256": "583a58c1b053acabc2ff7c2ca471435f7a877ec299aef1d4ed0adc13e2766b7d"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/catalogScale.ts",
+      "bytes": 1915,
+      "sha256": "11ddbdc60012704fcb42698e43752876636323258e77ab7bd75417bfbed7e417"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/formatScale.test.ts",
+      "bytes": 1671,
+      "sha256": "765a27d209c259b078574b2abcc9550a46c1f3e4b9d51d94182004aaa00fc5c7"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/formatScale.ts",
+      "bytes": 1047,
+      "sha256": "23d133c9e65f8c47ce2b0051af9c9542a24f9280f797691c10ea74b409a0f846"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/markdown-render.tsx",
+      "bytes": 2520,
+      "sha256": "f99219134bb5416a6c1ad23e2585221e1a0c3830e139d756fb7dab13d59ef339"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/request.test.ts",
+      "bytes": 2536,
+      "sha256": "2bcf3ebcd06ee82b59dca6c0b6ba6f5d7e97bf7185745740a73f06a98e6cab26"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/request.ts",
+      "bytes": 2878,
+      "sha256": "b1904633602d518ca361ae86fb986d4f9ae3c70be0741d79087e1a3b235a26fd"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/scroll.ts",
+      "bytes": 355,
+      "sha256": "f49c9e803a63ffa06686939fc6310fccb3f4f24e1a21bd0a6162e5fe4b05bfec"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/useCatalogManifest.test.ts",
+      "bytes": 5036,
+      "sha256": "f74477d4139012d59c9dd3f5362634732c9e27304ad26210b7082a1a7e0a03f5"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/useCatalogManifest.ts",
+      "bytes": 5329,
+      "sha256": "ce260e67f74945988619ea9a3d2fd63b4ced48278f6697cad40296dfea26d11f"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/useCatalogScale.ts",
+      "bytes": 1613,
+      "sha256": "0bb4cf1b634dae83ac1240e074218cc010b7560bb23ccb8d4a88fe03a14d8d39"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/useCountUp.ts",
+      "bytes": 1606,
+      "sha256": "5f6b66412af07fdd8d1399d27ca4c9c294029002a9f2e0cd4906211b93e2c1b5"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/useDirectory.test.ts",
+      "bytes": 2581,
+      "sha256": "b4c5a8e90791f207af4c5ef6abeb5ce5b3118e9b5ae610c5e657732cc9e8a3e9"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/useDirectory.ts",
+      "bytes": 8468,
+      "sha256": "c89392b6915ef54b62bac787d3633275d3a36f85f1de7e3f450cc6903a4ad18c"
+    },
+    {
+      "path": "apps/ocp-site-web/src/lib/useLiveActivity.ts",
+      "bytes": 3833,
+      "sha256": "b61c2a21093c919f6e81d30f11ed4cbb7f2b2b9326587a9e3124f38d46180a4a"
+    },
+    {
+      "path": "apps/ocp-site-web/src/main.tsx",
+      "bytes": 230,
+      "sha256": "6e9e5807fcbd48b75a96db5cbef36c996262196be42e6d4760dc86babbe61ad2"
+    },
+    {
+      "path": "apps/ocp-site-web/src/pages/DocsLandingPage.tsx",
+      "bytes": 5214,
+      "sha256": "cc25b77aa86c37f1e925d6cc16c70f81fbd27183618ef1b2f6be9d0ce69001be"
+    },
+    {
+      "path": "apps/ocp-site-web/src/pages/HomePage.tsx",
+      "bytes": 26765,
+      "sha256": "6657c1efa08ee0856224de669bf3b1a81577ecd12db73e08c4dbe42b895e284d"
+    },
+    {
+      "path": "apps/ocp-site-web/src/pages/NotFoundPage.tsx",
+      "bytes": 1376,
+      "sha256": "f4cb020bc48b4dbd0c63ed20dbe44e42366f5ab1af6c7ec47f1dbb8b58f3eaf1"
+    },
+    {
+      "path": "apps/ocp-site-web/src/pages/PageView.tsx",
+      "bytes": 7818,
+      "sha256": "d4d8e905b389672bb71f4b3c1223c6fdbf11b69e28614d269523fec4bc121708"
+    },
+    {
+      "path": "apps/ocp-site-web/src/pages/ProductOcpCatalogPage.tsx",
+      "bytes": 3271,
+      "sha256": "44a5954351ce7ef2cd666e21a60ba82d01a16ecf249c78e5dd6800f3675de12d"
+    },
+    {
+      "path": "apps/ocp-site-web/src/pages/ProductsPage.tsx",
+      "bytes": 5950,
+      "sha256": "32a4e41bf0524f951d7f1ea1f8427263b52454e933f7bab90b907b2466342dd8"
+    },
+    {
+      "path": "apps/ocp-site-web/src/pages/RoadmapPage.tsx",
+      "bytes": 8164,
+      "sha256": "8c934d4d4bc329a6459d1d5153250dbb8d87d86f244d7e7dce1b8d39c3a900d5"
+    },
+    {
+      "path": "apps/ocp-site-web/src/pages/UpdateDetailPage.tsx",
+      "bytes": 3988,
+      "sha256": "19539652a45987a7475c137840d50dcecc599a12237806b3cc6607994f87ce2c"
+    },
+    {
+      "path": "apps/ocp-site-web/src/pages/UpdatesPage.tsx",
+      "bytes": 5409,
+      "sha256": "2fca9f36bf068c245e87111f271a477530f123743c0ddcf3a1b4589810ce1111"
+    },
+    {
+      "path": "apps/ocp-site-web/src/server.ts",
+      "bytes": 1094,
+      "sha256": "5ea0a9e72bfda721621e7eeed9eada6b087dd8ac5baf5740c4492637184ed21c"
+    },
+    {
+      "path": "apps/ocp-site-web/src/theme/ThemeContext.tsx",
+      "bytes": 2159,
+      "sha256": "8c0e113c9744c0d48a3bbbeaa3200a258a8a5fa21347a31f8e62343aa091cfa1"
+    },
+    {
+      "path": "apps/ocp-site-web/src/theme/theme.test.ts",
+      "bytes": 467,
+      "sha256": "750bc298e1527754f4d09302c570a301b1d2894168426d4f083a294dd5a96010"
+    },
+    {
+      "path": "apps/ocp-site-web/src/theme/theme.ts",
+      "bytes": 333,
+      "sha256": "b4cf5fd504cb5934436601ef381302bddcc0802fe3c8d00e4457932ded3ee19d"
+    },
+    {
+      "path": "apps/ocp-site-web/src/theme/useTheme.ts",
+      "bytes": 408,
+      "sha256": "a8a8c6912ad07f416ba9b127c3a7d04652f456395a50bf048b003254fbbab61e"
+    },
+    {
+      "path": "apps/ocp-site-web/tailwind.config.js",
+      "bytes": 253,
+      "sha256": "4cc808b78b30da319862df00905923bd4ec8c48474f50dfdb28487a943eed82d"
+    },
+    {
+      "path": "apps/ocp-site-web/tsconfig.app.json",
+      "bytes": 585,
+      "sha256": "3909fc3fa5fb1f564a3716bf7ba1a88a8805b2782ba9ad83d12054896b8e9ae2"
+    },
+    {
+      "path": "apps/ocp-site-web/tsconfig.json",
+      "bytes": 119,
+      "sha256": "770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808"
+    },
+    {
+      "path": "apps/ocp-site-web/tsconfig.node.json",
+      "bytes": 583,
+      "sha256": "329e2fd968a69e9f3f855cf54495663d7856bddce8b3475d86e7d22e7afd0c73"
+    },
+    {
+      "path": "apps/ocp-site-web/vite.config.ts",
+      "bytes": 180,
+      "sha256": "0540654f05b3a639f231c8aa1468874fe4207738dc53caf30271e6214b54c9f0"
+    },
+    {
+      "path": "apps/shopping-agent-api/.env.example",
+      "bytes": 986,
+      "sha256": "7ff854f5d63b9e0b50ccdfecac59851b376f8f134e17549c36bbf13aa3b54200"
+    },
+    {
+      "path": "apps/shopping-agent-api/package.json",
+      "bytes": 874,
+      "sha256": "e63c1afadf63e05b452718421a1327fffafbee94bde1781329be53f46f204631"
+    },
+    {
+      "path": "apps/shopping-agent-api/src/mall.ts",
+      "bytes": 10508,
+      "sha256": "0f3e84f51cc6e8c2137fbc94d284ff96fe605818b623a5e2312c3928e1a02f61"
+    },
+    {
+      "path": "apps/shopping-agent-api/src/merchant-demo.test.ts",
+      "bytes": 14366,
+      "sha256": "5b80efe68676c4f9a7399d7c15ae9d86e60bd9d8a2bf3e21422cdfbbf3261805"
+    },
+    {
+      "path": "apps/shopping-agent-api/src/merchant-demo.ts",
+      "bytes": 7341,
+      "sha256": "792b2c9226b88b5c43e79e490848f44db09436b63ec612594de001979329d00b"
+    },
+    {
+      "path": "apps/shopping-agent-api/src/model-settings.test.ts",
+      "bytes": 24978,
+      "sha256": "0923bae9c85d5e1289d6ec90657460961f7c5349a6106682694013c46207cea9"
+    },
+    {
+      "path": "apps/shopping-agent-api/src/model-settings.ts",
+      "bytes": 12697,
+      "sha256": "4f78d4c79a126efc1ec964fdddc0a30a7226b3ad55331f436ddd0e24bab17e98"
+    },
+    {
+      "path": "apps/shopping-agent-api/src/server.ts",
+      "bytes": 19482,
+      "sha256": "f5fd24f98361554a96b4f3173a8de49b185a7f2290744b311f09281d9e9dbd3d"
+    },
+    {
+      "path": "apps/shopping-agent-api/tsconfig.json",
+      "bytes": 128,
+      "sha256": "99235c6420ac4c66d8a809785493e13e95b117703291bd310e9035dd9fa1269e"
+    },
+    {
+      "path": "apps/shopping-agent-web/.gitignore",
+      "bytes": 107,
+      "sha256": "ce04c73ef4c5d622cdb262c57dc28c338ace7e365ab46e96f9db81fbf488784c"
+    },
+    {
+      "path": "apps/shopping-agent-web/README.md",
+      "bytes": 5915,
+      "sha256": "2bb8c42f607c2ff5eb28953d7b9ad4136d78d839404c64756692b30590b9dc1a"
+    },
+    {
+      "path": "apps/shopping-agent-web/eslint.config.js",
+      "bytes": 569,
+      "sha256": "49f77c787a1eefd41a6ba36913d4dcfe262bed2441d447c6416386a73869b201"
+    },
+    {
+      "path": "apps/shopping-agent-web/package.json",
+      "bytes": 629,
+      "sha256": "28098c3c4d8261c37a5cd45cdee6b8be5cfad479269ff566dc553a144d81b9cb"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/api-client.js",
+      "bytes": 1768,
+      "sha256": "9115a9122590018891ade4c73b12b3f5eeb2b190847b48ced1bdd9ac90c7d52f"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/app.js",
+      "bytes": 42014,
+      "sha256": "86777f80963a6aec563d8f3047182ece0cb8886712c9cb42e258fff4f5741333"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/coffee-badge.png",
+      "bytes": 30916,
+      "sha256": "f7ab38065f36d2e7167898a25159a8bda5e72e594177950b3b27e97dc08a6759"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/coffee-bg.svg",
+      "bytes": 2721,
+      "sha256": "050fe4161104ea21225c94a81ca36d937313197ee99baa5386d7536f711f69ef"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/coffee-cup.png",
+      "bytes": 26672,
+      "sha256": "9fb1070f33cdd26aa9b32b8ab334ff2e86799952dceeafa560d60452d3ae6c22"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/contracts.d.ts",
+      "bytes": 66,
+      "sha256": "6f9b3c5814b382753ad10fabfade3a4a57c90e3c4a5de1e11a11df4b4054f38b"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/demo.html",
+      "bytes": 7843,
+      "sha256": "169074922c57be240a873d9e1b6374805d7eeae3f089caf1a9b1a58657ae7881"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/dom.js",
+      "bytes": 1776,
+      "sha256": "db0972a1987fd92a75e9a49dc828a54924e8d6d7f2b4731dda99a2e20e9ad6ab"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/index.html",
+      "bytes": 10444,
+      "sha256": "5475ff27e4110fdb7a439b4c0eae44505fcbf62c88ae3125178eb952bf48fce4"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/mall-base.css",
+      "bytes": 15753,
+      "sha256": "249eb585017673be65961149378be9d65c023841e122c235daa31c5d1b57269f"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/mall-settings.html",
+      "bytes": 6199,
+      "sha256": "cde0d121441bd2da80f8c24f88d130906b1361ba1e36983d7ca081572b3fd4e4"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/mall.css",
+      "bytes": 2335,
+      "sha256": "8616ccad26e114b1d71572b3fb9e9026a877855e2707842bdba8b89dc2f1731e"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/mall.html",
+      "bytes": 6216,
+      "sha256": "d994e9197d0015ecb1e45586a6d6a0fe1890f2ed7c54e6b8d77c2360bc6ff387"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/mall.js",
+      "bytes": 25789,
+      "sha256": "219977a8d29ed5344ad37e6d50d1e9af4222d93bb3ce07184cdb88bb9a5a021a"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/merchant.css",
+      "bytes": 12168,
+      "sha256": "b2810c239a35b1e72f6ec11b344abaf127830796459137aed55233e380314152"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/merchant.html",
+      "bytes": 4777,
+      "sha256": "3b23b4e3d5885e1b4429623eceb00baa710e862b2953954e3f1c3869e69d0179"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/merchant.js",
+      "bytes": 15517,
+      "sha256": "0780a4a80f0e9c7cb8d20200d51a324e23ca760d4a0be80f5826a0bcddf095e6"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/model-settings.css",
+      "bytes": 10444,
+      "sha256": "1254c439442c41154c4d9c8792fb205d847e12a5989fe3430a64d36bde33a63b"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/model-settings.js",
+      "bytes": 14582,
+      "sha256": "342535969388e3aa5c26f9e98194db27965f62609c64fdecbf07313ea7f2283c"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/styles.css",
+      "bytes": 103257,
+      "sha256": "e05af170200195fc93a0e8e9a25927a43b87e34895af366602b3075753bd6ec3"
+    },
+    {
+      "path": "apps/shopping-agent-web/public/view-model.js",
+      "bytes": 14649,
+      "sha256": "58a644b59c7a1bcbc8eb9e8a2f6e2ccc9c95987671469f62383d1f8f3c8207f9"
+    },
+    {
+      "path": "apps/shopping-agent-web/scripts/build-contracts.ts",
+      "bytes": 519,
+      "sha256": "e27ec1d6d19d7e29343e7b3afe22eb076b4831bdffa4ea9277eba06cbde934cd"
+    },
+    {
+      "path": "apps/shopping-agent-web/scripts/check.ts",
+      "bytes": 1106,
+      "sha256": "e3521da939bb793a774e8de150739a06d00edaae115a64e6f03f19e4ab8361e9"
+    },
+    {
+      "path": "apps/shopping-agent-web/scripts/configuration-draft-browser-check.mjs",
+      "bytes": 18576,
+      "sha256": "3636d15fb463b26b0e12cb0537359c42ff1d082bb129accfd1a87b4e4eecc686"
+    },
+    {
+      "path": "apps/shopping-agent-web/scripts/expiry-browser-check.mjs",
+      "bytes": 8346,
+      "sha256": "6c7af3352f0d0a76cb017a5f0952efefd4ae39fff4426b4a7b81f17f802f0194"
+    },
+    {
+      "path": "apps/shopping-agent-web/scripts/model-settings-browser-check.mjs",
+      "bytes": 18120,
+      "sha256": "12950cee3941c568dd13ec3e709cfce169230506cd5cab55fd6f48553509d22a"
+    },
+    {
+      "path": "apps/shopping-agent-web/scripts/presets-browser-check.mjs",
+      "bytes": 18194,
+      "sha256": "106984024a6e21a4f3f9eeeaff3e9819b752ecc0153ef86d014cf3d7531bc8eb"
+    },
+    {
+      "path": "apps/shopping-agent-web/tests/draft-restoration.test.ts",
+      "bytes": 12351,
+      "sha256": "3f76ed7a431d8668d7867da809e76382a9e54f8717f132ae1c1e67dfc98adada"
+    },
+    {
+      "path": "apps/shopping-agent-web/tests/response-contracts.test.ts",
+      "bytes": 3005,
+      "sha256": "7b036904c87bb4a76848b710950fbd94652b51a95d766fc7162d2777c827f661"
+    },
+    {
+      "path": "apps/shopping-agent-web/tests/view-model.test.ts",
+      "bytes": 8318,
+      "sha256": "e04b1ad01286bce07ba92d2ad7462126db4502c625a1537c65a056b71e28377b"
+    },
+    {
+      "path": "apps/shopping-agent-web/tsconfig.json",
+      "bytes": 333,
+      "sha256": "1407f860154c81d455455e360b8d03c9000394d6abd2a6dce590f7f1cd3c507f"
+    },
+    {
+      "path": "apps/shopping-agent-web/type-tests/contracts.ts",
+      "bytes": 1169,
+      "sha256": "34938a1291865ed36ff5be59fd2a79de7bbacb2463a1c874587c821e0cd43197"
+    },
+    {
+      "path": "bun.lock",
+      "bytes": 100455,
+      "sha256": "dc73fc385c9f6f7027745bad6bd1c1980153fb1975179653fd9f7e9f6cd68c9b"
+    },
+    {
+      "path": "config/luckin-mcp.example.toml",
+      "bytes": 346,
+      "sha256": "db259137906510b393a6f90778068bfd0d88989aabf77f0da81d7f2dcf74e425"
+    },
+    {
+      "path": "docs/README.md",
+      "bytes": 2146,
+      "sha256": "ba4ba253bc12c638a135332aac7a9cb505a11e98a0a3acda7a1c900bff7009d5"
+    },
+    {
+      "path": "docs/coffee-merchant/CONTRACT.md",
+      "bytes": 20655,
+      "sha256": "e2dba002be14866de510d2439b4251851693b6b1e176935cadb8e0a805e21ee6"
+    },
+    {
+      "path": "docs/shopping-agent/C0-REVIEW.md",
+      "bytes": 2064,
+      "sha256": "e54104c87085e66757f34ed890a2ab445637fccc6aa8ea6345dc6c09e9146150"
+    },
+    {
+      "path": "docs/shopping-agent/COMPETITION.md",
+      "bytes": 3892,
+      "sha256": "848247da007bfe2769ec5b76dcefd6ecdf71e216e48009459f79f51a02c59e82"
+    },
+    {
+      "path": "docs/shopping-agent/LUCKIN-ADAPTATION-PLAN.md",
+      "bytes": 16516,
+      "sha256": "f2c6da803604b6efd0af770e083c6cce5fa6dfe039d2840342600172e702c5a6"
+    },
+    {
+      "path": "docs/shopping-agent/LUCKIN-MVP.md",
+      "bytes": 5539,
+      "sha256": "168b510af9c36095ecced316e434154190fbecd533a607a57efdd6e93427c9e3"
+    },
+    {
+      "path": "docs/shopping-agent/README.md",
+      "bytes": 18643,
+      "sha256": "41ff05c9582beb294c56c47af10c465320dd601d0d6989ee2b66d0dc29192e6f"
+    },
+    {
+      "path": "docs/shopping-agent/STATUS.md",
+      "bytes": 6181,
+      "sha256": "75da720f4ff988823b1d498efad84fa026a5195896daa2bd20b1d84d7e663b10"
+    },
+    {
+      "path": "docs/specs/handshake/v1.md",
+      "bytes": 27982,
+      "sha256": "a527c8eaae379ad8d87e26fef971a8028cdc74423a96817c3894d0a5fb5393e6"
+    },
+    {
+      "path": "docs/specs/registration/v1.md",
+      "bytes": 17084,
+      "sha256": "8139d3815ee87078b01d68baf4421cf25c0e3078c9ed4a6018828de72130bd03"
+    },
+    {
+      "path": "docs/team-development/AGENT_A.md",
+      "bytes": 6635,
+      "sha256": "01c159f3e8c9534e1b5f4e7eaa8bd1657189cfeca4d54ea52df5540b71741138"
+    },
+    {
+      "path": "docs/team-development/AGENT_B.md",
+      "bytes": 7072,
+      "sha256": "14ff5a4355ff1232c3fdefbe4d005bf4de29a929ddcac8733b1eeee6f0563c76"
+    },
+    {
+      "path": "docs/team-development/README.md",
+      "bytes": 11934,
+      "sha256": "63713806977cbb72d4c4e9b5ff7c43d523d8581c86d37bf9cd78753ef5903462"
+    },
+    {
+      "path": "eslint.engineering.config.js",
+      "bytes": 4010,
+      "sha256": "5b2739df9b89e5fd39ae2047bb197d0ea3da3361c83d53023582a31a99a4b49c"
+    },
+    {
+      "path": "examples/README.md",
+      "bytes": 2768,
+      "sha256": "e8dbe1f156a2d0dfc7ceb40c05c2118984cc6b500fd74f94d369a61fdce8132a"
+    },
+    {
+      "path": "examples/go/README.md",
+      "bytes": 2152,
+      "sha256": "0ba99591411e29801ee2989d8c4552bac00d449153453438552aaa5cc91f44cc"
+    },
+    {
+      "path": "examples/go/go.mod",
+      "bytes": 74,
+      "sha256": "b721892bd5e65d24d910e2f035933aabcd648d8d5a67a405985b35f8ccafd56c"
+    },
+    {
+      "path": "examples/go/main.go",
+      "bytes": 13823,
+      "sha256": "e12ae474c134eb7031ec013027b2c6fbd47efeaa9c67664030dd14750f9dcaa0"
+    },
+    {
+      "path": "examples/go/main_test.go",
+      "bytes": 9647,
+      "sha256": "d2ec35286ba98782bea54af89298e054ce88c303d564fd31acc50097858f60e0"
+    },
+    {
+      "path": "examples/python/README.md",
+      "bytes": 2195,
+      "sha256": "3fc9f3f45fd9ac372b8ddf7315a32df126055e6b147061e20fff2c41a469c8a7"
+    },
+    {
+      "path": "examples/python/conformance_test.py",
+      "bytes": 8143,
+      "sha256": "39f7b47941ac58d485ff8c18b196f5bd0abe9967d5bbf03f680e6fc32cd1fe79"
+    },
+    {
+      "path": "examples/python/server.py",
+      "bytes": 14631,
+      "sha256": "dbfee7352bf56ca33c7347a6c2ea17381ac758627d62719ed0f13513659189ac"
+    },
+    {
+      "path": "examples/typescript/README.md",
+      "bytes": 2030,
+      "sha256": "0a66adace88d02b08922307e1d834909753f5d66483febb7009f4205fd6f66d6"
+    },
+    {
+      "path": "examples/typescript/package.json",
+      "bytes": 496,
+      "sha256": "e4d9b9c15fcb950e72fe5f1e99e193ec8b519f23c86e5057974be49c038bd4a0"
+    },
+    {
+      "path": "examples/typescript/src/products.ts",
+      "bytes": 1588,
+      "sha256": "5c4ce51bfd4d76580628e0ba35cb1a963471195e1eecaedfa57217d87eb7c50e"
+    },
+    {
+      "path": "examples/typescript/src/server.test.ts",
+      "bytes": 8208,
+      "sha256": "5fb3c405f1d5d73bf54227ce5166b9ff21cbeb844573e86ddb078fda8b788941"
+    },
+    {
+      "path": "examples/typescript/src/server.ts",
+      "bytes": 9272,
+      "sha256": "484af02ba10d7d1baffbdc61b481b32b99031b76149ded4b311d32db70ec13b0"
+    },
+    {
+      "path": "examples/typescript/tsconfig.json",
+      "bytes": 231,
+      "sha256": "10b4069f09331581821667c1f5fd78f002ab904e0a267e2850367e9f08dd3fa6"
+    },
+    {
+      "path": "fixtures/luckin/menu.json",
+      "bytes": 1505,
+      "sha256": "4ea86acb3136c18df119e5c0b73baf8dc1870450c937f2619245f2f077134abe"
+    },
+    {
+      "path": "fixtures/luckin/tools-list.2026-10-11.json",
+      "bytes": 7513,
+      "sha256": "fbd86b7aebfa6ae1b7a926b1caabf9b2b701a40f626284c50761ef8218026bd7"
+    },
+    {
+      "path": "fixtures/query-conformance/README.md",
+      "bytes": 2723,
+      "sha256": "71912f8b651df2ba47c7fd052d4dbf38cc667306351e1d9a0df9b0e5e8991a84"
+    },
+    {
+      "path": "fixtures/query-conformance/cases.json",
+      "bytes": 20001,
+      "sha256": "5d45c730d0a6d3c9697aae474cddbe7c63ba935a893d9217d664c47948899848"
+    },
+    {
+      "path": "fixtures/query-conformance/semantics.json",
+      "bytes": 10949,
+      "sha256": "b005d02c037f822ef1f1e76fba5daead88760802be908393881f3605b10e396b"
+    },
+    {
+      "path": "fixtures/shopping/README.md",
+      "bytes": 5973,
+      "sha256": "97decfb7d1f8d56f8e191875f95cd51d28d9e375d9b78d13dd2601e71b0c0db5"
+    },
+    {
+      "path": "fixtures/shopping/attempts/confirmed.json",
+      "bytes": 319,
+      "sha256": "4cd3811322db8b7b379e4ddba46815dcb6754644585dd10863a5d97a451d38a9"
+    },
+    {
+      "path": "fixtures/shopping/attempts/failed.json",
+      "bytes": 378,
+      "sha256": "ddc938b6c31b899b9549c976a54bca445181d6d57f0f065e1588493e73ee3d73"
+    },
+    {
+      "path": "fixtures/shopping/attempts/processing.json",
+      "bytes": 286,
+      "sha256": "35d0d5b1908e95b8f4117a8f2848b134cba82018c5d8f2d04517407fcbc10246"
+    },
+    {
+      "path": "fixtures/shopping/authorization/expired.json",
+      "bytes": 631,
+      "sha256": "6e56a3b4c6867ff66c6127e22c13f5b8d5209b22acdc2f81284d4c44fde9f97e"
+    },
+    {
+      "path": "fixtures/shopping/authorization/replayed-other-attempt.json",
+      "bytes": 631,
+      "sha256": "88f26d382fcd7332b84de96d28754168aeff1ffc7151c5ba94d3a8dba9c92405"
+    },
+    {
+      "path": "fixtures/shopping/authorization/tampered-signature.json",
+      "bytes": 631,
+      "sha256": "c7f65172d21b5f8c3448e29ef98c92f8c912b004bc03bb0d625e70f8ae780387"
+    },
+    {
+      "path": "fixtures/shopping/authorization/valid.json",
+      "bytes": 631,
+      "sha256": "0e53f16918c5398b3a3d6d6d9fd21a017d5c3e7f7e16b970f3566ed59046ae14"
+    },
+    {
+      "path": "fixtures/shopping/authorization/wrong-merchant.json",
+      "bytes": 630,
+      "sha256": "d5399b09f6d9b9715e9cdd34cdf52be03bfe529498032218e003cfdb9ee488fc"
+    },
+    {
+      "path": "fixtures/shopping/authorization/wrong-terms-hash.json",
+      "bytes": 631,
+      "sha256": "e109359f2ba265b734c6676fdd11cf1d4e989de11058bc9f8a2f66984a5495f3"
+    },
+    {
+      "path": "fixtures/shopping/catalog.coffee.json",
+      "bytes": 4164,
+      "sha256": "aa96cdaf3faed0558b6697d8456e1d6bf6f8a6b70126676882a1c9ffb5efd531"
+    },
+    {
+      "path": "fixtures/shopping/checkouts/request-valid.json",
+      "bytes": 1031,
+      "sha256": "214979e20e243e8408285f7812bdb90e8d27bd6e014ecc2deb0c0030010bc774"
+    },
+    {
+      "path": "fixtures/shopping/checkouts/request-without-proof.json",
+      "bytes": 472,
+      "sha256": "a1b3ffb041204f078ec1004c78416c7fbc1cabc16d03f9cfcd440697ffaa247b"
+    },
+    {
+      "path": "fixtures/shopping/discovery.json",
+      "bytes": 369,
+      "sha256": "7bcfb360f79d4e9a28b9e919cc0b6759dc0baadb7934167ffa952dc15aad639e"
+    },
+    {
+      "path": "fixtures/shopping/faults.json",
+      "bytes": 1228,
+      "sha256": "016a811718add2f8c5f7f296da04bbdce8fa35eb5af7a60244e42b186c7c4d69"
+    },
+    {
+      "path": "fixtures/shopping/generate.ts",
+      "bytes": 23711,
+      "sha256": "e9041fc6a46a86bd0d786cc02917da80c2c3ed6a7783f00cb6c39052ed6bf56c"
+    },
+    {
+      "path": "fixtures/shopping/health.json",
+      "bytes": 216,
+      "sha256": "4e9de94d8dd7ee988fb69ffe9827c4f3915733b4d5c5408a89cc7518d8c90374"
+    },
+    {
+      "path": "fixtures/shopping/keys/.gitignore",
+      "bytes": 506,
+      "sha256": "361f5f733e2009e5aa71911cb758af24300c1fbebdf9beb25d9157826f44b111"
+    },
+    {
+      "path": "fixtures/shopping/keys/README.md",
+      "bytes": 548,
+      "sha256": "7715ef6e5541f7b17d82cf83eef43a037a0cffa9aca58ef548d4d10135170d1f"
+    },
+    {
+      "path": "fixtures/shopping/keys/agent_a_test.public.pem",
+      "bytes": 113,
+      "sha256": "927ef80fd3c35576544c657f7ba70936a15694c453e861756adf1bbb56bb8478"
+    },
+    {
+      "path": "fixtures/shopping/keys/derive-test-keys.ts",
+      "bytes": 2924,
+      "sha256": "a6f4f86fb48f6947b9fc8bc40c37d88490877c07973a01bccec433beac11a5b3"
+    },
+    {
+      "path": "fixtures/shopping/manifest.json",
+      "bytes": 2378,
+      "sha256": "e40b386423d1d917c3e2463e539cce22b0363de06cd451cfad27088057197d5e"
+    },
+    {
+      "path": "fixtures/shopping/order-conformance.json",
+      "bytes": 37770,
+      "sha256": "c22bdbd057d5d53bb5a33e4139b8a0e06d00d7a5fc89c81539907954f5834900"
+    },
+    {
+      "path": "fixtures/shopping/orders/confirmed.json",
+      "bytes": 895,
+      "sha256": "7789a75b5e10800c0025ac4d2505700383b7dd766c3dedb71e6d589c5cb1de67"
+    },
+    {
+      "path": "fixtures/shopping/orders/failed.json",
+      "bytes": 899,
+      "sha256": "e4052f70c2d6b4aa3cb626e5838d0c97288c91c0fef19ec8c1fd35646be369d2"
+    },
+    {
+      "path": "fixtures/shopping/orders/processing.json",
+      "bytes": 898,
+      "sha256": "e247e6bb7ee291895fb3536cf05beda2a367578587c79a8b9027aece497c3347"
+    },
+    {
+      "path": "fixtures/shopping/query-result.json",
+      "bytes": 1610,
+      "sha256": "16e4bf1da8e6098c804a42cb9684ed772c46cd04ae77288e57e83f51929453b5"
+    },
+    {
+      "path": "fixtures/shopping/quotes/expired.json",
+      "bytes": 629,
+      "sha256": "14b122268cf46d9b5e059b88df6264a83095792ac6edd0c97f0fa5385109641f"
+    },
+    {
+      "path": "fixtures/shopping/quotes/over-budget.json",
+      "bytes": 632,
+      "sha256": "b114e01cc5150a38d2e86abf21ae253072178e561a0967aa5ad104f8a4609546"
+    },
+    {
+      "path": "fixtures/shopping/quotes/valid-delivery.json",
+      "bytes": 727,
+      "sha256": "f07a8491a9d55ca668953c202220fc3ade89ae104bbeeb399b76ccbc8e714031"
+    },
+    {
+      "path": "fixtures/shopping/quotes/valid.json",
+      "bytes": 628,
+      "sha256": "d670d5359e9008bb4faa46bcbb19a9f9ff1560e8dff39a04f2c3598644a58ebb"
+    },
+    {
+      "path": "fixtures/shopping/resolve.json",
+      "bytes": 2393,
+      "sha256": "8483c18de26b565325c3e789ab02f3ec4779b1f788b28bf092b53c75ad3151cc"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/README.md",
+      "bytes": 12082,
+      "sha256": "7a30201a09bb3c864faafa6cded1902c21487699ce47ef9b650f347f6956a3d1"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/catalog-health.schema.json",
+      "bytes": 1523,
+      "sha256": "5586a3815177162205f4c104eb2b44755d728e503b7bd1ef06c951006f64b1f8"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/catalog-manifest.schema.json",
+      "bytes": 11833,
+      "sha256": "889c0a7751f0c7d8ba4263b34087dc2e4bc18066fd68dca5bed9755da0a2f115"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/commercial-object.schema.json",
+      "bytes": 1587,
+      "sha256": "bfdff144261143231995f871da7dc632333dd3e235628e7f1be1ed57aff13d7e"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/common.schema.json",
+      "bytes": 10417,
+      "sha256": "fc9cd4492f6df7089e8e0e8fe5edd206b142d602de882d96e7c56f68dbf34f95"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/object-contract.schema.json",
+      "bytes": 1976,
+      "sha256": "d8e732e5de8bbcf8b3eeb1b877e665feef88769b6fd73efc31a922fadf7ae1ca"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/pack.ocp.commerce.inventory.v1.schema.json",
+      "bytes": 489,
+      "sha256": "4740c1d4785b86d095e401bf5c6bde8827637115d18f7966a082e1e930658f08"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/pack.ocp.commerce.price.v1.schema.json",
+      "bytes": 536,
+      "sha256": "b329c41b32021a6923a1e7419f458838995c1878c027be85f234cb26ce705a07"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/pack.ocp.commerce.product.core.v1.schema.json",
+      "bytes": 930,
+      "sha256": "5ccb3980ba4729bc11575ca83688c24bcc82ac594ef1bf365f1c2446bf503c8c"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/package.json",
+      "bytes": 1297,
+      "sha256": "15da8a36cd8c179d39115f454689731e1ccfc2f51f50351180ca0a79cfcf04eb"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/provider-registration.schema.json",
+      "bytes": 3375,
+      "sha256": "9a5dd2cfcc6e9baad80012d53f925305f229c7c775a41307bc3bc3cea1410fa4"
+    },
+    {
+      "path": "ocp.catalog.handshake.v1/registration-result.schema.json",
+      "bytes": 1428,
+      "sha256": "3ff6729497db74c66c6974530e8736413321540364efda7e8224838bfdd610a4"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/README.md",
+      "bytes": 4367,
+      "sha256": "ab094e3baa6e2e5fd118ead9253d84713dcb2f7494d4d87c1170f8f2c2d53218"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-refresh-result.schema.json",
+      "bytes": 1146,
+      "sha256": "b2658d425851278585ef894ef2d99f6d28cddb871023664c59175713e372ba15"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-registration-result.schema.json",
+      "bytes": 1891,
+      "sha256": "ecf0ac1882fa37b9a10660e8ee945db7228fa802b2528850a8fe4ab7eb69a426"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-registration.schema.json",
+      "bytes": 1973,
+      "sha256": "8b3d45fa3fe8638c80ada50e526cf608965fd2d230baa7f4564a0f7151c56c91"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-route-hint.schema.json",
+      "bytes": 2521,
+      "sha256": "4df3568a90f121853e822bb22e827172da237d390f8a05b53666de233bb9d685"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-search-result.schema.json",
+      "bytes": 1904,
+      "sha256": "5228aff209c15733878485e9d5af9e7b1b56c412f6b817dfdd10720a8a4cb4ef"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-search.schema.json",
+      "bytes": 1132,
+      "sha256": "0f5d55d62bc21f57d3327273507487581f63d69517ce7ba3b74d34d153190e57"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-token-rotation-result.schema.json",
+      "bytes": 826,
+      "sha256": "6aa352ed6e64e14260c2042c119b4b16a41c4664b04750a6b8fbe1d7b6963a33"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-verification-challenge.schema.json",
+      "bytes": 1427,
+      "sha256": "e3fc0f5704a4eb750c1e4ad7e6fbc9ef3121bf2fde9db58dc3c3daba85d25518"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-verification-result.schema.json",
+      "bytes": 1158,
+      "sha256": "67edcb8afdc6ed7da64b3a577cef77276c6a2090c344e07eeb0388a50f4db1b6"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/catalog-verification.schema.json",
+      "bytes": 471,
+      "sha256": "7eb6305376b89bc20d6316f0aeeb32526c8c38ae8b69000cc2fb9ed8c2693a6d"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/package.json",
+      "bytes": 249,
+      "sha256": "c1c6bc1e0f832085057e5bed7549a39465c911c8196d827e430a9fb1c91c4d0d"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/registration-discovery.schema.json",
+      "bytes": 1090,
+      "sha256": "7ddd87f6088d2abd47f8b13463e1dd5fdaa7e8beda741d65c007b891efdda488"
+    },
+    {
+      "path": "ocp.catalog.registration.v1/registration-manifest.schema.json",
+      "bytes": 2389,
+      "sha256": "0d686db2f4e5205ddc9065fc0ae01cfbb8cd330adcdf4da75617903b6508467a"
+    },
+    {
+      "path": "package.json",
+      "bytes": 5395,
+      "sha256": "98b4ae39c8f2f6140c83009c3e965bad64f4dc60fccd0b0d240bcac00dd1cbf0"
+    },
+    {
+      "path": "packages/agent-runtime/package.json",
+      "bytes": 498,
+      "sha256": "5708f2efa77e290f60cea0e894464178244dc535b0a9b0fe83c9f2c6f0785407"
+    },
+    {
+      "path": "packages/agent-runtime/src/authorization.ts",
+      "bytes": 4351,
+      "sha256": "3d29b4b9488f339def898fbfca41a52f9699985fdf7cfd928b764c6eeac34922"
+    },
+    {
+      "path": "packages/agent-runtime/src/basket-model.ts",
+      "bytes": 3034,
+      "sha256": "cf53d83360a53af1e21532300e1887f367742436f2228a1c0032ec19c6fd9fee"
+    },
+    {
+      "path": "packages/agent-runtime/src/basket.test.ts",
+      "bytes": 19419,
+      "sha256": "14e8e8835a880656c4a60ed6a8045b7676db0b7de744fa966532b46ef08fcf92"
+    },
+    {
+      "path": "packages/agent-runtime/src/cancellation.ts",
+      "bytes": 1039,
+      "sha256": "560be15929f5d1685b5bbd41bfdb76d712425e3adc256b1b2ec6f2a9dd3c021f"
+    },
+    {
+      "path": "packages/agent-runtime/src/coordinator.test.ts",
+      "bytes": 31314,
+      "sha256": "4d5601c1ebeedc444b469d6d771dbd432c5c9326468da27f1d3cdce707b26e22"
+    },
+    {
+      "path": "packages/agent-runtime/src/coordinator.ts",
+      "bytes": 25877,
+      "sha256": "70b161e0dc59396ae81ad3b647c9c264eb1a047bd5279c15c9f539c1d18a1f42"
+    },
+    {
+      "path": "packages/agent-runtime/src/engineering-contracts.test.ts",
+      "bytes": 7018,
+      "sha256": "0a6d793b7ddb2dd3c97f2e48c52de8cefcee26309f28d7362506a11ed897c612"
+    },
+    {
+      "path": "packages/agent-runtime/src/errors.ts",
+      "bytes": 1271,
+      "sha256": "c39e46f61c5e3bb6cd19f1f6e0b950ce36fa17111e9034cb63ec8d8a90b07090"
+    },
+    {
+      "path": "packages/agent-runtime/src/http-transport.test.ts",
+      "bytes": 32421,
+      "sha256": "c26f5caf5314d6774e0ef6b79dc132efcf15305e69e1214ef8f22f4f74c16aec"
+    },
+    {
+      "path": "packages/agent-runtime/src/http-transport.ts",
+      "bytes": 21278,
+      "sha256": "79a9c9ba8f97f708d4049c498ed151031cddaced71e09131754b2489e064471e"
+    },
+    {
+      "path": "packages/agent-runtime/src/index.ts",
+      "bytes": 2324,
+      "sha256": "22afec2daf28a93e059e06ab06a9a8f890ac15529a8eeb7846340c7261686177"
+    },
+    {
+      "path": "packages/agent-runtime/src/mall-guide.ts",
+      "bytes": 5578,
+      "sha256": "17b73795c2b7f302e96cbef346ba39b16fc528a9c5f5a855c70b6c50cdb9105e"
+    },
+    {
+      "path": "packages/agent-runtime/src/merchant-adapter.ts",
+      "bytes": 1520,
+      "sha256": "dd9e5e0ad063a5b1b900b34ac501a6393ef5cd3049d298c61f19442cf9d03a1c"
+    },
+    {
+      "path": "packages/agent-runtime/src/mock-transport.ts",
+      "bytes": 12836,
+      "sha256": "482e8e61f086abae72486d21bcc68880737470ecb94f6fca76b1d08ba99f6c7a"
+    },
+    {
+      "path": "packages/agent-runtime/src/ocp-consumer.test.ts",
+      "bytes": 11535,
+      "sha256": "7faf8c9dfc8fe507069474bf7ca37cf000b83ed959f7a7bc77598269543816d7"
+    },
+    {
+      "path": "packages/agent-runtime/src/ocp-consumer.ts",
+      "bytes": 12648,
+      "sha256": "f4ace3dd9ed9f978d9ed3418de12b401674a2c65248a5fb3634a8162abc2aa86"
+    },
+    {
+      "path": "packages/agent-runtime/src/order-semantics.test.ts",
+      "bytes": 2270,
+      "sha256": "87e89035aa845f3ab77c3b794b6be0dc67e6a822c92a201662b655b0b2e2f45e"
+    },
+    {
+      "path": "packages/agent-runtime/src/session-record.ts",
+      "bytes": 1675,
+      "sha256": "b85895a50288cdd9430cb150da8ddd08470b770586a3300d4f60f022c10aff0b"
+    },
+    {
+      "path": "packages/agent-runtime/src/session-scope.ts",
+      "bytes": 2484,
+      "sha256": "6860c580fe9e711542be02b8a140c9d31390e5ec96f8934adf7cf10a25ea7095"
+    },
+    {
+      "path": "packages/agent-runtime/src/session-state.ts",
+      "bytes": 1962,
+      "sha256": "3b43b0f7cd8c2e33448cf74245cf04916827569bca60d7df030df46f38b6191a"
+    },
+    {
+      "path": "packages/agent-runtime/src/session-state.type-test.ts",
+      "bytes": 1760,
+      "sha256": "b5ab2a98d1b339500fd8f667d38576d4dd51143c5adde708c830848374f088a4"
+    },
+    {
+      "path": "packages/agent-runtime/src/session-store-factory.ts",
+      "bytes": 533,
+      "sha256": "e6b345611b04c845175806f3e074b50557c275471e550093df3a7640c2650ee8"
+    },
+    {
+      "path": "packages/agent-runtime/src/session-view.ts",
+      "bytes": 1323,
+      "sha256": "0d394c95d31a1e05a066997473d900af310a97c0b16dde31c03acb33e8a5bf0a"
+    },
+    {
+      "path": "packages/agent-runtime/src/shopping-model-protocols.test.ts",
+      "bytes": 25677,
+      "sha256": "7a235bb7b9216c4a9fae111e543837e48e60a1c9d151ee7e01108f6248463349"
+    },
+    {
+      "path": "packages/agent-runtime/src/shopping-model.test.ts",
+      "bytes": 36705,
+      "sha256": "8d095b25451217ebef57ff34d96740fef8a66511ce32785f3269c4a75e46725b"
+    },
+    {
+      "path": "packages/agent-runtime/src/shopping-model.ts",
+      "bytes": 44135,
+      "sha256": "02f70a64059a14e07b767af308babda41c115d7a66bf827d964c9060c35f0399"
+    },
+    {
+      "path": "packages/agent-runtime/src/sqlite-storage.ts",
+      "bytes": 14490,
+      "sha256": "78abab66d05a21a8d77748a6041c31b16a488de15baef9c84fb9fceef7523305"
+    },
+    {
+      "path": "packages/agent-runtime/src/sqlite-store.test.ts",
+      "bytes": 14019,
+      "sha256": "3e85ceef8db2585c76f1949199e78845525bbcd16121c92bea02fa619010bf84"
+    },
+    {
+      "path": "packages/agent-runtime/src/sqlite-store.ts",
+      "bytes": 2883,
+      "sha256": "978ecd51ac95ed43a03a780882809c69a2b52c37c347e1220a775857ae0238e8"
+    },
+    {
+      "path": "packages/agent-runtime/src/store.ts",
+      "bytes": 3768,
+      "sha256": "97d90031ddff0717ec02651fe19019e19ef605cab8bdd3a4da7a57f7b922c5ac"
+    },
+    {
+      "path": "packages/agent-runtime/src/tool-loop.test.ts",
+      "bytes": 21655,
+      "sha256": "e1127273eb0589e3266e3adbf3161815aeec30354a7443058e4fa29d67c5bc39"
+    },
+    {
+      "path": "packages/agent-runtime/src/tool-loop.ts",
+      "bytes": 7594,
+      "sha256": "7c232fdc96054e5fb693e773bf25f454c8d001c68871cbf90f7d67731326e740"
+    },
+    {
+      "path": "packages/agent-runtime/src/types.ts",
+      "bytes": 7336,
+      "sha256": "d5f1b88336e3ec80e0fa2382d6f6f58a1a0d64b1383d88a61578a4551772a8a0"
+    },
+    {
+      "path": "packages/agent-runtime/src/validation.ts",
+      "bytes": 9037,
+      "sha256": "34906b4947ea87d68fde66eeb92d8bef06918f3655f86867aad298ec94b38e60"
+    },
+    {
+      "path": "packages/agent-runtime/tsconfig.json",
+      "bytes": 128,
+      "sha256": "99235c6420ac4c66d8a809785493e13e95b117703291bd310e9035dd9fa1269e"
+    },
+    {
+      "path": "packages/luckin-adapter/package.json",
+      "bytes": 416,
+      "sha256": "7223a78d7e86746836434600e0d357bbd1090e6e767b37a0e0bbb7e00097e684"
+    },
+    {
+      "path": "packages/luckin-adapter/src/fixture.ts",
+      "bytes": 6479,
+      "sha256": "a3ff935364a956685d838699d83984461e186a7a4392d07ea5682e697fb8f628"
+    },
+    {
+      "path": "packages/luckin-adapter/src/index.ts",
+      "bytes": 138,
+      "sha256": "c811db746e4fdf2ae4672819aa3def1cae5704e195600f25621e8ea5ec8bcd4f"
+    },
+    {
+      "path": "packages/luckin-adapter/src/live-checkout.ts",
+      "bytes": 4563,
+      "sha256": "2a3c244c0d0ccf2b6c38f90e6cf6ef12b6b62236fe1799106d86d7b65830093c"
+    },
+    {
+      "path": "packages/luckin-adapter/src/live-read.ts",
+      "bytes": 4676,
+      "sha256": "ad2a12bba8e859077b8beb2cc84619ca3722ec27ff16767125556a5472ad3f36"
+    },
+    {
+      "path": "packages/luckin-adapter/src/port.ts",
+      "bytes": 1810,
+      "sha256": "c8f4201363acf7e9fd8a11b92dc95f7166cae1da152a6a294a88c91f24eb7c32"
+    },
+    {
+      "path": "packages/luckin-adapter/src/probe.ts",
+      "bytes": 9687,
+      "sha256": "dd3e0bb5b016198f8e23b1387353005b7da86ef65305415f22c82cd0bd22560d"
+    },
+    {
+      "path": "packages/luckin-adapter/tsconfig.json",
+      "bytes": 122,
+      "sha256": "3468ea04dd7be19514dcdb26e0ebc5d7c53100314526410fd993246f793ab292"
+    },
+    {
+      "path": "packages/luckin-integration/package.json",
+      "bytes": 508,
+      "sha256": "16df21816b877d958ab6701d43608e6f199165eb53e3e6cd108e9e244a9f6d5f"
+    },
+    {
+      "path": "packages/luckin-integration/src/catalog.ts",
+      "bytes": 8521,
+      "sha256": "afb38af8c5be9adc192cc1b7d356ac258057827efa8b1888c0091bf487230e40"
+    },
+    {
+      "path": "packages/luckin-integration/src/index.ts",
+      "bytes": 120,
+      "sha256": "6102acb2c18adfa08be47b426f6af6df25333d6002d5eb6669565c1f4b3ee9e5"
+    },
+    {
+      "path": "packages/luckin-integration/src/live-catalog.ts",
+      "bytes": 6336,
+      "sha256": "890b32c9cee30e7a19eb421700c2abd3273e84dbe799f006a59556d6bb783332"
+    },
+    {
+      "path": "packages/luckin-integration/src/live-workflow.ts",
+      "bytes": 7742,
+      "sha256": "608ce330d7077419e2caca899101935ae1c24950a451f923d7ecd461b651fffe"
+    },
+    {
+      "path": "packages/luckin-integration/src/workflow.ts",
+      "bytes": 11564,
+      "sha256": "23e80bc0d1a2321a7a3bb81b0dcd2858aec37994c69ede8ff3e71a81e691975a"
+    },
+    {
+      "path": "packages/luckin-integration/tsconfig.json",
+      "bytes": 122,
+      "sha256": "3468ea04dd7be19514dcdb26e0ebc5d7c53100314526410fd993246f793ab292"
+    },
+    {
+      "path": "packages/merchant-core/package.json",
+      "bytes": 1128,
+      "sha256": "e3e2ac99a2b9a5328cc138fb08a862b474afce3ff4de6c7a36ff68a7a24aa5f5"
+    },
+    {
+      "path": "packages/merchant-core/src/authorization.test.ts",
+      "bytes": 13623,
+      "sha256": "cf9d0cb71d0550f16469721415cb0e1f71d1e54bfe630381abfa7ae69a505e59"
+    },
+    {
+      "path": "packages/merchant-core/src/authorization.ts",
+      "bytes": 6268,
+      "sha256": "a130968ebf7075ccde728ce6b84e28775119adf960142ee9e73052b7cf1436c1"
+    },
+    {
+      "path": "packages/merchant-core/src/catalog-data.test.ts",
+      "bytes": 3152,
+      "sha256": "9528b11f9544aa56c634bdadad36fbefd66148d867f79de9434eb199c3ccd457"
+    },
+    {
+      "path": "packages/merchant-core/src/catalog.test.ts",
+      "bytes": 17782,
+      "sha256": "5bf3b54e1fd087cd3fdebe031151c68977537d1b879f485c9a9b04f106aa062e"
+    },
+    {
+      "path": "packages/merchant-core/src/catalog.ts",
+      "bytes": 13059,
+      "sha256": "d7733d00c6f38e66806875e299cf3b2fd79977f2c5ed593491a3af6c2de27774"
+    },
+    {
+      "path": "packages/merchant-core/src/checkout-expiry.test.ts",
+      "bytes": 3657,
+      "sha256": "1f059d791396b618e8b35b977328f2f0754c5822b47968b821d8659b87012cb5"
+    },
+    {
+      "path": "packages/merchant-core/src/checkout.test.ts",
+      "bytes": 44047,
+      "sha256": "1e8959fb16cf7d554c4b720c36dcad97c409284ed545ad02b792d061c87be791"
+    },
+    {
+      "path": "packages/merchant-core/src/checkout.ts",
+      "bytes": 21833,
+      "sha256": "8e1667d3e67b2539b602e5483017fecfe6e5963370f196de86f985f541b78c94"
+    },
+    {
+      "path": "packages/merchant-core/src/clock.ts",
+      "bytes": 1802,
+      "sha256": "d657cf52df184ab0fd26dd777032d32be2e3a9171c83e225dcc6634b79e9dbfc"
+    },
+    {
+      "path": "packages/merchant-core/src/config.test.ts",
+      "bytes": 7464,
+      "sha256": "67d37bf8fb63b9a0c214e87edab4288c1fd13bbf751962f56841234134d9e90c"
+    },
+    {
+      "path": "packages/merchant-core/src/config.ts",
+      "bytes": 11945,
+      "sha256": "b7b7ef3b400d6f7e270096fbc494823232344b662a6b67c919279f94b4316756"
+    },
+    {
+      "path": "packages/merchant-core/src/context.ts",
+      "bytes": 727,
+      "sha256": "5e0c7d07f820d96881e1efe13ea30026dea8b815615b58ac1c401a632750472b"
+    },
+    {
+      "path": "packages/merchant-core/src/data/catalog.ts",
+      "bytes": 4008,
+      "sha256": "58f4b639cd91adea2ff05f7814230e12c90199e7e4b97fc0cb48b7f05b877ce4"
+    },
+    {
+      "path": "packages/merchant-core/src/db.ts",
+      "bytes": 8466,
+      "sha256": "5bc314435248ccf6367aed765600676e04db07472dc43e135846f10e237379fc"
+    },
+    {
+      "path": "packages/merchant-core/src/events.test.ts",
+      "bytes": 5994,
+      "sha256": "51ec6ce6c15bfafc90eb4bda9054a9dbc59d2129a5902dc43e79601d1ea3f790"
+    },
+    {
+      "path": "packages/merchant-core/src/events.ts",
+      "bytes": 4614,
+      "sha256": "3e2f58802028c75f30d8476f4796bf1d4b22e742a290da898752c02cd05e14da"
+    },
+    {
+      "path": "packages/merchant-core/src/faults.test.ts",
+      "bytes": 3528,
+      "sha256": "5631a31d6f71c3be64b6f0c6f87c0bc3132dfa597bc89ed977049b7706d5c922"
+    },
+    {
+      "path": "packages/merchant-core/src/faults.ts",
+      "bytes": 2384,
+      "sha256": "ea4e3e6d053128dca0edc1292cb583929db6964df363b99198066d40b99731ae"
+    },
+    {
+      "path": "packages/merchant-core/src/http.ts",
+      "bytes": 9701,
+      "sha256": "b4fe4c3253907b8eb3ae2c5f4b6e0f56fd7799c25be5f6d49b9448100639fea2"
+    },
+    {
+      "path": "packages/merchant-core/src/idempotency.test.ts",
+      "bytes": 9532,
+      "sha256": "5eaaa2a0268c6fbb25b03be07cbbbe6e4dd3e69a4c9b3efac92b1ee5dc9ed8ae"
+    },
+    {
+      "path": "packages/merchant-core/src/idempotency.ts",
+      "bytes": 6639,
+      "sha256": "c0ac4e51547c0aef902f627d43a3c18251bc3632bc02c6704fe8475c9e062e33"
+    },
+    {
+      "path": "packages/merchant-core/src/index.ts",
+      "bytes": 1283,
+      "sha256": "88e26557ae4d427f5e6455cfa5b830c9f89a3658baaed72ffcd5a14c5c2b85e1"
+    },
+    {
+      "path": "packages/merchant-core/src/inventory.test.ts",
+      "bytes": 22588,
+      "sha256": "78e8aae5f3dabeb8400601262cacc72e3eb63b04db7b383f1603a74ac0bbbf0f"
+    },
+    {
+      "path": "packages/merchant-core/src/inventory.ts",
+      "bytes": 9087,
+      "sha256": "94a9e9c238a69ae1ae6f884f053cc6fce48cc66698666e6f97314db228bfe79d"
+    },
+    {
+      "path": "packages/merchant-core/src/merchant-read.test.ts",
+      "bytes": 12949,
+      "sha256": "cdfaaba8449620dc95b6cf216686d74d3a4e4d0c627dbece106b89fc12854dd3"
+    },
+    {
+      "path": "packages/merchant-core/src/merchant-read.ts",
+      "bytes": 9665,
+      "sha256": "137abca68f4fdf59d8a7220a8a2e4d9631e9e55671bc86e6ac7825ba04ea6541"
+    },
+    {
+      "path": "packages/merchant-core/src/order-semantics.test.ts",
+      "bytes": 3203,
+      "sha256": "0dc4a99001faac5441c0d5fe8780d40cf60c45f719594a2816e2ebee797f8d8d"
+    },
+    {
+      "path": "packages/merchant-core/src/orders.ts",
+      "bytes": 11614,
+      "sha256": "7b82d95fc07552544f2f7a71154f7e2cb384f3477060d522c4861044b133b270"
+    },
+    {
+      "path": "packages/merchant-core/src/payment.ts",
+      "bytes": 4896,
+      "sha256": "fcf61d8aac8164f2106443a2330acf0dbc850e5dd0ac9c5664483abc11a40079"
+    },
+    {
+      "path": "packages/merchant-core/src/product-page.ts",
+      "bytes": 2667,
+      "sha256": "3256c69281e72d3f2858098f34f10379847e2a6a54c5c1b5ac2b1f66b6c15cdb"
+    },
+    {
+      "path": "packages/merchant-core/src/quote.test.ts",
+      "bytes": 13578,
+      "sha256": "1b44f27fa77f45ae140a519e9e38839c89ecb4a315ee63278452885b5fa4757b"
+    },
+    {
+      "path": "packages/merchant-core/src/quote.ts",
+      "bytes": 7514,
+      "sha256": "4e55cf83776770ce20393e944bf9fb0be5d8e799a611d153bfb4ecd6df4ef853"
+    },
+    {
+      "path": "packages/merchant-core/src/service.test.ts",
+      "bytes": 31793,
+      "sha256": "8b604a0df6a385c2b9d971d36c0138907fefaad68d7369a63790b993941e27fc"
+    },
+    {
+      "path": "packages/merchant-core/src/service.ts",
+      "bytes": 11057,
+      "sha256": "3c71ed70e9e1ac545d812f53d6ec6f373f1bd4973d0d33a90012f63abeefe6f1"
+    },
+    {
+      "path": "packages/merchant-core/src/smoke.test.ts",
+      "bytes": 10507,
+      "sha256": "12ae79025a9485388a2bf37c43b212736890aa9f3f607f8db3f1a4fd75bedb8e"
+    },
+    {
+      "path": "packages/merchant-core/src/test-support.ts",
+      "bytes": 7455,
+      "sha256": "c43771911a607211030f200fbbffd926308e9dfb5b1ef332058bdcb247ff95e9"
+    },
+    {
+      "path": "packages/merchant-core/test-support/inventory-race-worker.ts",
+      "bytes": 1484,
+      "sha256": "a2752a8a12cdab0d13698cd6088dcca27fb3ca6f94cca304a89c76e02c6d17fa"
+    },
+    {
+      "path": "packages/merchant-core/tsconfig.json",
+      "bytes": 117,
+      "sha256": "23d733457a28de40e6caf45df2f2689763a2603348e5da87f94c07d2b874a788"
+    },
+    {
+      "path": "packages/ocp-activity-schema/package.json",
+      "bytes": 961,
+      "sha256": "e615778cd85a3ce8efd268dcba0e6e815837ae9f33e12bb75b3b5edcac7fc4bb"
+    },
+    {
+      "path": "packages/ocp-activity-schema/src/index.ts",
+      "bytes": 6433,
+      "sha256": "acb56990b7b04bb1a042ba5e73012eb8b9b222420ffd71eacddcebb22a491194"
+    },
+    {
+      "path": "packages/ocp-activity-schema/tsconfig.json",
+      "bytes": 137,
+      "sha256": "a9723a25777f762c4c1dceaecd047e3b7a31b0e467b73ff0f80c590d33fd748c"
+    },
+    {
+      "path": "packages/ocp-cli/README.md",
+      "bytes": 1905,
+      "sha256": "568c958d926ebfd429706baaddf1078d0f60be0a81cc31300cd2772ed40498ac"
+    },
+    {
+      "path": "packages/ocp-cli/package.json",
+      "bytes": 1206,
+      "sha256": "8e740df59ba26fe94c95e4d9386a371eeb4b0c1e419b72aeafd9f43a237fff1e"
+    },
+    {
+      "path": "packages/ocp-cli/src/help.test.ts",
+      "bytes": 15748,
+      "sha256": "306a982f82d778f0ba2655b4b51c9ad6403f34282670db2f037a9434e4b7abdd"
+    },
+    {
+      "path": "packages/ocp-cli/src/help.ts",
+      "bytes": 22019,
+      "sha256": "2edb432a19c9f8cab862bd2399cd07b25f874dc78d04e5a37b84d9999025b8e1"
+    },
+    {
+      "path": "packages/ocp-cli/src/index.ts",
+      "bytes": 13046,
+      "sha256": "d015fb5fe0644d06c4106c59e637eb6f9c949802564ffc4999be7c06816352c4"
+    },
+    {
+      "path": "packages/ocp-cli/src/process-execution.ts",
+      "bytes": 5648,
+      "sha256": "811350f795f418bf7888994d7546f5c4e18854096f44895e31f9e41513bd860b"
+    },
+    {
+      "path": "packages/ocp-cli/src/provider-output.ts",
+      "bytes": 305,
+      "sha256": "de24196fd036a625a8ec76badab08f126a9d457876558d206a90a6ae286808db"
+    },
+    {
+      "path": "packages/ocp-cli/src/skill-installer-core.test.ts",
+      "bytes": 7840,
+      "sha256": "7e751af4fa72f192443628f1bf47cdcb87bb7ffb81888a33d66f662577f80d14"
+    },
+    {
+      "path": "packages/ocp-cli/src/skill-installer.test.ts",
+      "bytes": 7118,
+      "sha256": "21971f4da193d683d575bc075faa6cde1153a45bbd0f55a87a97e1057a5489c5"
+    },
+    {
+      "path": "packages/ocp-cli/src/skill-installer.ts",
+      "bytes": 8876,
+      "sha256": "71d5275c64e76f854d13d6d8a4607d31142455d359719d5dbfda5c99042e66cb"
+    },
+    {
+      "path": "packages/ocp-cli/src/skill-runner.test.ts",
+      "bytes": 6023,
+      "sha256": "339ee7d499ecd3731c87c6a8867ab09027e0aacb3d4787aa7c71f3dded487cba"
+    },
+    {
+      "path": "packages/ocp-cli/src/update-process.test.ts",
+      "bytes": 16043,
+      "sha256": "16de1b29878c8dfc54dc94ae9f82a39af93bcf81b66cd9c6ea4772f66edb225a"
+    },
+    {
+      "path": "packages/ocp-cli/src/update.test.ts",
+      "bytes": 2716,
+      "sha256": "0054f1997eb599eabb1446f322565744943a42865ccd3b36b2015a5f2842df70"
+    },
+    {
+      "path": "packages/ocp-cli/src/update.ts",
+      "bytes": 1278,
+      "sha256": "821cefd725222202662b7f4002cead851bed892ba770c5c15d963baa117fdae8"
+    },
+    {
+      "path": "packages/ocp-cli/tsconfig.json",
+      "bytes": 74,
+      "sha256": "88020c5d0c639e9fca3c8cc0425dc6233bbb30b14c5a0cb5dcb7d7530d4b788f"
+    },
+    {
+      "path": "packages/ocp-client/package.json",
+      "bytes": 1078,
+      "sha256": "24da034ecfd2f92432f75e404b7cdfc790fcfbdd3599cb846694be468f6fdc92"
+    },
+    {
+      "path": "packages/ocp-client/src/index.test.ts",
+      "bytes": 4941,
+      "sha256": "546d9ebfbee628a63dcb1762960be098615526fde5700e08a5a49e6f85cfd995"
+    },
+    {
+      "path": "packages/ocp-client/src/index.ts",
+      "bytes": 22189,
+      "sha256": "0e5a9726f0897b65ad8a3560e42880f471a52dfbcb97b9bbd1da868fec1c871c"
+    },
+    {
+      "path": "packages/ocp-client/src/redirect.test.ts",
+      "bytes": 4199,
+      "sha256": "58d3d022af78a22a47ca72d583662717652772b2525a1ea3450d4a57373cbc77"
+    },
+    {
+      "path": "packages/ocp-client/src/validation.test.ts",
+      "bytes": 8821,
+      "sha256": "5a648f93aad12e3a936d6a8758b94e6ad2dc2acb9d89da2993132ff302d5c720"
+    },
+    {
+      "path": "packages/ocp-client/tsconfig.json",
+      "bytes": 137,
+      "sha256": "a9723a25777f762c4c1dceaecd047e3b7a31b0e467b73ff0f80c590d33fd748c"
+    },
+    {
+      "path": "packages/ocp-schema/package.json",
+      "bytes": 993,
+      "sha256": "50f6af75e4df9d175b2db1402a43e35c1b3a12e290251d6517019f2ebf696fc1"
+    },
+    {
+      "path": "packages/ocp-schema/src/catalog-health.test.ts",
+      "bytes": 8893,
+      "sha256": "f66fdb6bc33928636b64bdaecf2160bd126a4e1247a502ddd37aa450a36df930"
+    },
+    {
+      "path": "packages/ocp-schema/src/index.ts",
+      "bytes": 27269,
+      "sha256": "c827402cf687bcd3e41cc7541c7e14c142ddd49781debdc5b1c3bff880fd6080"
+    },
+    {
+      "path": "packages/ocp-schema/tsconfig.json",
+      "bytes": 117,
+      "sha256": "23d733457a28de40e6caf45df2f2689763a2603348e5da87f94c07d2b874a788"
+    },
+    {
+      "path": "packages/ocp-skill/bin/installer-core.mjs",
+      "bytes": 6025,
+      "sha256": "dda4302351f5478777cadff7d88d1c269b3cf0f2c5ac98813660fc1cb38e826c"
+    },
+    {
+      "path": "packages/ocp-skill/bin/ocp-skill.mjs",
+      "bytes": 10568,
+      "sha256": "544ccfe01c1c15eb1c26b848dcdf7a41da0d7b357e80c64a3461d18ab1924905"
+    },
+    {
+      "path": "packages/ocp-skill/package.json",
+      "bytes": 1372,
+      "sha256": "8d3cfcd16f916c444fa0c759adaa3eb2d4fa258c5b5aa5e2c97b5498a36daa79"
+    },
+    {
+      "path": "packages/ocp-skill/scripts/sync-core.mjs",
+      "bytes": 712,
+      "sha256": "b2c2233ad202109964018718714512509001a096b7d470298f5c3259e1d0255d"
+    },
+    {
+      "path": "packages/registration-schema/README.md",
+      "bytes": 360,
+      "sha256": "254b021a053acb537fcc2e44cec5bcc21e0bfe05867796ca7b6094f572dead31"
+    },
+    {
+      "path": "packages/registration-schema/package.json",
+      "bytes": 985,
+      "sha256": "7e4a5c558369424ccfcc1a3fd09cb3a4c67371d8dbdd249aebd38c2f21c4822c"
+    },
+    {
+      "path": "packages/registration-schema/src/index.ts",
+      "bytes": 11920,
+      "sha256": "06327a89f5c5eb75436962c011e060905298c4996c16f034ed24092dbe07b8b2"
+    },
+    {
+      "path": "packages/registration-schema/tsconfig.json",
+      "bytes": 208,
+      "sha256": "56bd25b7a998616e4b14fc6391ee7e8df3c555db85253c7c83c43fcd66cf2fd3"
+    },
+    {
+      "path": "packages/shared/package.json",
+      "bytes": 927,
+      "sha256": "219c0ef745cea8ccb1eb6a0fadb0192d6d83e38ecad2efe540af7fe705553f3e"
+    },
+    {
+      "path": "packages/shared/src/index.ts",
+      "bytes": 1127,
+      "sha256": "33bacfe9157e76c14ef8e5e89a42d1bf7d034fd5bcbddc819e0377e0ba3d6311"
+    },
+    {
+      "path": "packages/shared/src/static-site.ts",
+      "bytes": 2732,
+      "sha256": "197da926b3420ad7dda9de2278c67bc7a5176ec1b5c8cbafd2eedc2f2252b233"
+    },
+    {
+      "path": "packages/shared/tsconfig.json",
+      "bytes": 137,
+      "sha256": "a9723a25777f762c4c1dceaecd047e3b7a31b0e467b73ff0f80c590d33fd748c"
+    },
+    {
+      "path": "packages/shopping-contracts/package.json",
+      "bytes": 1234,
+      "sha256": "89b578077426155595a6507026fc5aa180c2f09028330462fc2a327fbbd8003d"
+    },
+    {
+      "path": "packages/shopping-contracts/src/attempt.ts",
+      "bytes": 1851,
+      "sha256": "6b5aaa869e8336ef39cf94384e8deb7ab05c1af347514e588cde10e34b6020ae"
+    },
+    {
+      "path": "packages/shopping-contracts/src/authorization.test.ts",
+      "bytes": 7119,
+      "sha256": "580acfba7b4fa9c23a0b12c2e51a1310ab033b2f16b5248398e9c4c0c67a24fd"
+    },
+    {
+      "path": "packages/shopping-contracts/src/authorization.ts",
+      "bytes": 3026,
+      "sha256": "75f005402bc84c453b50b5b425a01fc389bd689e7883e4bd331bf0a017e95968"
+    },
+    {
+      "path": "packages/shopping-contracts/src/basket.test.ts",
+      "bytes": 3755,
+      "sha256": "2d3cd31b7a987eef6d2ce545ec5921641dd3f0ce2c278fa14bcf67236ada146a"
+    },
+    {
+      "path": "packages/shopping-contracts/src/browser.ts",
+      "bytes": 256,
+      "sha256": "afc2ee7ab7cb6f8a4236422408128f4f419fb71d5967b48f836bcfbfc140d005"
+    },
+    {
+      "path": "packages/shopping-contracts/src/canonical.test.ts",
+      "bytes": 3740,
+      "sha256": "1a6925c8fbf60af22d2f7a40a84489d5964973eddbf87895a3642ef92bf9377c"
+    },
+    {
+      "path": "packages/shopping-contracts/src/canonical.ts",
+      "bytes": 2224,
+      "sha256": "6e5386fe87aaa99c59a08e428f2b4792d5401cdf97843260c30b87bc8bc2f045"
+    },
+    {
+      "path": "packages/shopping-contracts/src/catalog.test.ts",
+      "bytes": 8150,
+      "sha256": "198bb35f8136775fc57e6d1408a9d10b3dfa3eb87a92c14afa2c538096577447"
+    },
+    {
+      "path": "packages/shopping-contracts/src/catalog.ts",
+      "bytes": 5871,
+      "sha256": "1deaaa1ed2d498af43acdb5a00f01661d71d01263401763defadaa3784255da9"
+    },
+    {
+      "path": "packages/shopping-contracts/src/errors.test.ts",
+      "bytes": 6323,
+      "sha256": "b7efb389cd7e4af04a79ef7f2f316a40ba3ecc59950a526fb0d225e4ca9787da"
+    },
+    {
+      "path": "packages/shopping-contracts/src/errors.ts",
+      "bytes": 4015,
+      "sha256": "8b943980b5b34146b2c18175c84bceb11c7987fd65daf9c3d735071f9af9b45c"
+    },
+    {
+      "path": "packages/shopping-contracts/src/fixtures.test.ts",
+      "bytes": 19946,
+      "sha256": "5cc36fe243a58cce38a78d275fef7e0f82d79c22931289c33da8daa2385ce5bf"
+    },
+    {
+      "path": "packages/shopping-contracts/src/http.test.ts",
+      "bytes": 11024,
+      "sha256": "c0af2ea01dbe954f5ac77b4b4e191709bc81f91604c248393510d6bc8bc8aab7"
+    },
+    {
+      "path": "packages/shopping-contracts/src/http.ts",
+      "bytes": 5021,
+      "sha256": "4b782e8c218d22fe5d056ef93d249fd573bdddd25c36887b7b9ee9d47962a78d"
+    },
+    {
+      "path": "packages/shopping-contracts/src/ids.ts",
+      "bytes": 1611,
+      "sha256": "6f9a80848622d5406106690221ad3d8f86ff5cf4c1eab245043995bf4a8c790c"
+    },
+    {
+      "path": "packages/shopping-contracts/src/index.ts",
+      "bytes": 1359,
+      "sha256": "984c50edaa0941e910d3b42c644e332570e8b98a03abfbc8e105776e4ca51df8"
+    },
+    {
+      "path": "packages/shopping-contracts/src/intent.ts",
+      "bytes": 1501,
+      "sha256": "b8ff7cc55c9b9c2ed941597c0fca642f6a6393fcc374268dd8b4a7cd89e2522c"
+    },
+    {
+      "path": "packages/shopping-contracts/src/luckin-schema.ts",
+      "bytes": 3907,
+      "sha256": "5544566c308fb16e50c23338a682737151c279b5e9c290c76d4a6e9e3daee208"
+    },
+    {
+      "path": "packages/shopping-contracts/src/luckin.ts",
+      "bytes": 1705,
+      "sha256": "a30da28a1215a4beebb484c0371e29385799f667d8de1fd51cb44d22b5b92d9e"
+    },
+    {
+      "path": "packages/shopping-contracts/src/money.test.ts",
+      "bytes": 4964,
+      "sha256": "4649b1f816df35875fb8bb08e85f2606be045f437f9370763736e35e6390313e"
+    },
+    {
+      "path": "packages/shopping-contracts/src/money.ts",
+      "bytes": 3622,
+      "sha256": "6adcc41221a53afaf7115d3b480e2794120574ae54fd1f4379e9eed64971f7c1"
+    },
+    {
+      "path": "packages/shopping-contracts/src/order-schema.ts",
+      "bytes": 1614,
+      "sha256": "cc8eab0c25b50217a955b4eec7d7aae1ad390a81baef90045e9684fb84986ef6"
+    },
+    {
+      "path": "packages/shopping-contracts/src/order-semantics.test.ts",
+      "bytes": 826,
+      "sha256": "501a255c6ec6fe5c52a4c5c6db7e501e4878d11f98929cb57531a38dfe485b25"
+    },
+    {
+      "path": "packages/shopping-contracts/src/order.test.ts",
+      "bytes": 10392,
+      "sha256": "7ccd8b931b159809ffa97e882662e8f8e00a1a103e4fb309b5da722f3b5a623f"
+    },
+    {
+      "path": "packages/shopping-contracts/src/order.ts",
+      "bytes": 4513,
+      "sha256": "b49f1be01f0f8f5352a8f2531e02b38a6787534ff78a4abe3bc71d68c761f735"
+    },
+    {
+      "path": "packages/shopping-contracts/src/quote-schema.ts",
+      "bytes": 1534,
+      "sha256": "89de57b5280bcca5aa9e39bfcf3989afde3a95917489765d023b37fbe17db0f6"
+    },
+    {
+      "path": "packages/shopping-contracts/src/quote.test.ts",
+      "bytes": 8186,
+      "sha256": "4728d9a019dd0ffeff9082d6c8697388c7338cc3bd83c9d494bf9dbb43a6b1d2"
+    },
+    {
+      "path": "packages/shopping-contracts/src/quote.ts",
+      "bytes": 3466,
+      "sha256": "465ce4d276e0e65bb687d39f561190d883332d37580989e8a38fe3bfd6e11dba"
+    },
+    {
+      "path": "packages/shopping-contracts/src/session-rules.ts",
+      "bytes": 1495,
+      "sha256": "2297df440ba72bae3aa9f092f8a68166372c3db925f4b0a632ac32112045d841"
+    },
+    {
+      "path": "packages/shopping-contracts/src/terms-schema.ts",
+      "bytes": 2529,
+      "sha256": "9ae7f04feb91207eec0726571314c64549fb0e6dee58aee8fe37e2e416a2cd93"
+    },
+    {
+      "path": "packages/shopping-contracts/src/terms.test.ts",
+      "bytes": 8637,
+      "sha256": "0104b648344637f7103a54f946608a198e08aa2e32a3124551d3e91a7eeb091e"
+    },
+    {
+      "path": "packages/shopping-contracts/src/terms.ts",
+      "bytes": 2974,
+      "sha256": "06ce01fb47dcd8a8cdaac81549544b9ef6548f45fb5ca93a39b3a51fdb2f4892"
+    },
+    {
+      "path": "packages/shopping-contracts/src/version.ts",
+      "bytes": 1439,
+      "sha256": "34e68a230487cddf6698c5856c0e9ba333d09c039b76839d8aa9ba931380d96e"
+    },
+    {
+      "path": "packages/shopping-contracts/src/views.ts",
+      "bytes": 11761,
+      "sha256": "f452db066587e8a4b01e1275c2694a3039274b7c4c3748eb0c041ae259bb760a"
+    },
+    {
+      "path": "packages/shopping-contracts/tsconfig.json",
+      "bytes": 117,
+      "sha256": "23d733457a28de40e6caf45df2f2689763a2603348e5da87f94c07d2b874a788"
+    },
+    {
+      "path": "packages/webmcp-adapter/package.json",
+      "bytes": 932,
+      "sha256": "740ee3e3eec475c5d2f4e2dc28d6015da5a6c61ec691bf22a20196f796358ddb"
+    },
+    {
+      "path": "packages/webmcp-adapter/src/adapter.test.ts",
+      "bytes": 3179,
+      "sha256": "4f8766e14444a7762e414d721a0869622ce709abefafaa3fb214e682e973cfc2"
+    },
+    {
+      "path": "packages/webmcp-adapter/src/adapter.ts",
+      "bytes": 3981,
+      "sha256": "47d7f942ed7322727a881a62717a0b699d05b5ae0617bee9f58b8b01bcb2f1eb"
+    },
+    {
+      "path": "packages/webmcp-adapter/src/index.ts",
+      "bytes": 223,
+      "sha256": "c451bec6e948acc1c62df54cc478383bfef95fa9ab29f6a86f1ef30a5e080540"
+    },
+    {
+      "path": "packages/webmcp-adapter/src/types.ts",
+      "bytes": 808,
+      "sha256": "7915d2119672c7ee0af65158f51173918e4416fd47e0ec6d383e9a26d3c55af8"
+    },
+    {
+      "path": "packages/webmcp-adapter/tsconfig.json",
+      "bytes": 137,
+      "sha256": "a9723a25777f762c4c1dceaecd047e3b7a31b0e467b73ff0f80c590d33fd748c"
+    },
+    {
+      "path": "plugins/ocp-catalog/.claude-plugin/plugin.json",
+      "bytes": 579,
+      "sha256": "a1e612f4483a0acac25530f8c40c445bfa927a133b957445394640f827629244"
+    },
+    {
+      "path": "plugins/ocp-catalog/README.md",
+      "bytes": 1117,
+      "sha256": "ecbd8579cfb80e059e99ad9406d2d1a58386e0bee9d2040d731ba1e99d17bf7e"
+    },
+    {
+      "path": "plugins/ocp-catalog/skills/ocp-catalog/SKILL.md",
+      "bytes": 3743,
+      "sha256": "540fe1d39ddba06635175ed5b23924cca58940742d2a71696b84159440545567"
+    },
+    {
+      "path": "plugins/ocp-catalog/skills/ocp-catalog/agents/openai.yaml",
+      "bytes": 284,
+      "sha256": "d12846cd23656a1ab8d65f76730831eb4f0bd83a0685b3b97c1f764541c2146c"
+    },
+    {
+      "path": "plugins/ocp-catalog/skills/ocp-catalog/references/cli-usage.md",
+      "bytes": 6405,
+      "sha256": "05fa8a15256d8dfb0857fc2bac82055382bd39eb84ea7662bd741b49c4c4831d"
+    },
+    {
+      "path": "plugins/ocp-catalog/skills/ocp-catalog/references/protocol-boundaries.md",
+      "bytes": 793,
+      "sha256": "65c09ccc9d124371ddc8a503056d0213a4f934abff4e4f1eaf6f77062c3b54bb"
+    },
+    {
+      "path": "plugins/ocp-catalog/skills/ocp-catalog/references/query-workflow.md",
+      "bytes": 601,
+      "sha256": "96e570dc177caf4036551623aa5b2a993ad2bc29b665b21846b3b1efd8a7687d"
+    },
+    {
+      "path": "plugins/ocp-catalog/skills/ocp-catalog/scripts/ocp-skill-runner.ts",
+      "bytes": 5860,
+      "sha256": "6eb1af5863361ac0069a4596b9a8def3e2627b5875d7d066322b4505cc97f5cd"
+    },
+    {
+      "path": "scripts/build-ocp-cli.ts",
+      "bytes": 1565,
+      "sha256": "c2d54e591b78cc33fcbcc605ac59fb217d8d380615f0d2ff445c9d88e0a9d42e"
+    },
+    {
+      "path": "scripts/build-protocol-package.ts",
+      "bytes": 2144,
+      "sha256": "613a4daa9ed780912de1cc8ee2768586f8c04bcc0515877faa470269254b8b05"
+    },
+    {
+      "path": "scripts/check-dependency-audit.ts",
+      "bytes": 1601,
+      "sha256": "bbafd6dc0e847570480d22d00632c47bcf256a273340914925700e14a99e0fd9"
+    },
+    {
+      "path": "scripts/check-docs-integrity.ts",
+      "bytes": 10880,
+      "sha256": "3510988e191f672f3970ec3050f865a019e09b89f056c9e948063de8264c5891"
+    },
+    {
+      "path": "scripts/check-engineering-inputs.ts",
+      "bytes": 8238,
+      "sha256": "2501ca95c7254aec19c2873f0ec1cc4aedb7f8e0e1cc34847bb29366106902c7"
+    },
+    {
+      "path": "scripts/check-runtime.ts",
+      "bytes": 513,
+      "sha256": "0249174de23e06346804109afed03c6a7db4b2c6534674cec82dba473344b27e"
+    },
+    {
+      "path": "scripts/dependency-audit-exceptions.json",
+      "bytes": 943,
+      "sha256": "8883a4ca999456a401c1636929e99681ecd590e2e344ee5be41001b16fa04b55"
+    },
+    {
+      "path": "scripts/export-ocp-skill.ts",
+      "bytes": 4625,
+      "sha256": "ce1322131c5719d9da19a7260ac25c2e43ccb770ded4f108bce62faf006bbe60"
+    },
+    {
+      "path": "scripts/lib/dependency-audit.ts",
+      "bytes": 1788,
+      "sha256": "9c1c7f484993bf4faaa1b1eb9c89ee263390ab9b6b92dee2eb14a1a192a9c8ea"
+    },
+    {
+      "path": "scripts/luckin-inspect.ts",
+      "bytes": 746,
+      "sha256": "775c79ddbad093492d75a7acfa08b81f8ba2bf5b047023579de99299405da58f"
+    },
+    {
+      "path": "scripts/shopping-demo.ts",
+      "bytes": 12186,
+      "sha256": "a86250d847b941251869c0b34485bd6cdc3e111389add6b468b45225a0286f00"
+    },
+    {
+      "path": "scripts/shopping-preview.ts",
+      "bytes": 5275,
+      "sha256": "c5a991478fbae6e8594e4fff5f5d72c3d216a3a1f03ec083097535f31a835774"
+    },
+    {
+      "path": "scripts/sync-skill-copies.ts",
+      "bytes": 3964,
+      "sha256": "2f6c8f860a68587a209e74bd7b51562e5c3ff3a12b57e0d7550bf5ddaf57748f"
+    },
+    {
+      "path": "shared/skill-installer-core.d.mts",
+      "bytes": 954,
+      "sha256": "26dbc822a537bc64d1becf488fd1f1f878e40fd06c4267feed92f46ef0977cb0"
+    },
+    {
+      "path": "shared/skill-installer-core.mjs",
+      "bytes": 6025,
+      "sha256": "dda4302351f5478777cadff7d88d1c269b3cf0f2c5ac98813660fc1cb38e826c"
+    },
+    {
+      "path": "skills/ocp-catalog/SKILL.md",
+      "bytes": 3743,
+      "sha256": "540fe1d39ddba06635175ed5b23924cca58940742d2a71696b84159440545567"
+    },
+    {
+      "path": "skills/ocp-catalog/agents/openai.yaml",
+      "bytes": 284,
+      "sha256": "d12846cd23656a1ab8d65f76730831eb4f0bd83a0685b3b97c1f764541c2146c"
+    },
+    {
+      "path": "skills/ocp-catalog/references/cli-usage.md",
+      "bytes": 6405,
+      "sha256": "05fa8a15256d8dfb0857fc2bac82055382bd39eb84ea7662bd741b49c4c4831d"
+    },
+    {
+      "path": "skills/ocp-catalog/references/protocol-boundaries.md",
+      "bytes": 793,
+      "sha256": "65c09ccc9d124371ddc8a503056d0213a4f934abff4e4f1eaf6f77062c3b54bb"
+    },
+    {
+      "path": "skills/ocp-catalog/references/query-workflow.md",
+      "bytes": 601,
+      "sha256": "96e570dc177caf4036551623aa5b2a993ad2bc29b665b21846b3b1efd8a7687d"
+    },
+    {
+      "path": "skills/ocp-catalog/scripts/ocp-skill-runner.ts",
+      "bytes": 5860,
+      "sha256": "6eb1af5863361ac0069a4596b9a8def3e2627b5875d7d066322b4505cc97f5cd"
+    },
+    {
+      "path": "tests/luckin-e2e/browser-check.mjs",
+      "bytes": 8579,
+      "sha256": "ce15bfa52871dcb807641e747e58362d29f822fca4a62426f805714c2037d629"
+    },
+    {
+      "path": "tests/luckin-e2e/browser-server.ts",
+      "bytes": 3476,
+      "sha256": "08efb1e3cb90fc5190a3f0c16bc734f1ce93113f32790adf4a4fef67de537b7e"
+    },
+    {
+      "path": "tests/luckin-e2e/http.test.ts",
+      "bytes": 5546,
+      "sha256": "08073f81a9f2861b504ed5789cc7bc719f8e2bf3e02c05c9aa1436608267c691"
+    },
+    {
+      "path": "tests/luckin-e2e/live-checkout.test.ts",
+      "bytes": 12088,
+      "sha256": "0286cdbb0f2ef6989538a591b9a58caeb50b52df0db99c4b587f2a657a10a4ab"
+    },
+    {
+      "path": "tests/luckin-e2e/mall.test.ts",
+      "bytes": 4321,
+      "sha256": "b7d1c4e405aa7c75a35dbaae17d50cc3273d535635df6d8558f29eca4de26fa5"
+    },
+    {
+      "path": "tests/luckin-e2e/mcp-fixture.ts",
+      "bytes": 6145,
+      "sha256": "3f03b5d4ebaa12e6fef56d8957277901e7839596e578106b3d1c7589e308a101"
+    },
+    {
+      "path": "tests/luckin-e2e/mcp.test.ts",
+      "bytes": 4522,
+      "sha256": "c032a26f263ace6d84f5998fc2db92e4e50b4be5ca2f4b1fb553df6d09ad9983"
+    },
+    {
+      "path": "tests/luckin-e2e/tsconfig.json",
+      "bytes": 201,
+      "sha256": "4cc8e41da17bc17f5e3ccb83ff6af437f12dd0ba66ad145f5fe779168e966e6b"
+    },
+    {
+      "path": "tests/luckin-e2e/workflow.test.ts",
+      "bytes": 10131,
+      "sha256": "af31df0fc58507f06b6a826afb50a3f675f79b905abecc2f85ca918cc730f55f"
+    },
+    {
+      "path": "tests/security/dependency-audit.test.ts",
+      "bytes": 1724,
+      "sha256": "46b35549419b9c2e4fd24a77f2f677365c3ef5e36341468b949e5169a659f1cc"
+    },
+    {
+      "path": "tests/shopping-e2e/agent-http.test.ts",
+      "bytes": 13041,
+      "sha256": "578f3bc9e3d879d4618a52c7d2c29c740d348bde7393b1191cb8ebd2b357ee9f"
+    },
+    {
+      "path": "tests/shopping-e2e/browser-basket-check.mjs",
+      "bytes": 9215,
+      "sha256": "5f01f29257e4a37022d8b4239ba6bc30cc1d5caf25d466a5c12b48e5a9a952d7"
+    },
+    {
+      "path": "tests/shopping-e2e/browser-check.mjs",
+      "bytes": 7745,
+      "sha256": "3bee7731ac2727d5a089c8c41d5928852b9113ced02b6f194863cc5fe21cf777"
+    },
+    {
+      "path": "tests/shopping-e2e/browser-http-check.mjs",
+      "bytes": 8093,
+      "sha256": "7fded64d298d0fe63ff6952d91203ab0d1b527b52e453296c7e2054d0d24d64c"
+    },
+    {
+      "path": "tests/shopping-e2e/browser-http-server.ts",
+      "bytes": 5965,
+      "sha256": "c38485dc6e24aeab8445908c34ce94a9b31ff01a20a346b377303cb32f968883"
+    },
+    {
+      "path": "tests/shopping-e2e/browser-merchant-check.mjs",
+      "bytes": 21213,
+      "sha256": "de1e0e428e660bf44a5943c552b9bfd91ab58dd6ae7b49af12e6d6ebd0561ec8"
+    },
+    {
+      "path": "tests/shopping-e2e/browser-resilience-check.mjs",
+      "bytes": 20410,
+      "sha256": "2598e7dad0e2481964372e2a801769e6f20a7a8aef5100991e879b6a7713be74"
+    },
+    {
+      "path": "tests/shopping-e2e/browser-support.mjs",
+      "bytes": 1712,
+      "sha256": "18da6d5cca7b89dd4c59f1c9751b8bd9b5a77ef67e6a06b50079bb78d7be9bbd"
+    },
+    {
+      "path": "tests/shopping-e2e/config.test.ts",
+      "bytes": 2390,
+      "sha256": "0e7414f039f3815666fa0865e386f6b3a77c956128dbc52c99c19690ececc7d5"
+    },
+    {
+      "path": "tests/shopping-e2e/demo.test.ts",
+      "bytes": 11638,
+      "sha256": "243d7878820c0894758fb5b65cdd3fe2dc86259be96284b69aa58b8d56e00ced"
+    },
+    {
+      "path": "tests/shopping-e2e/flow.test.ts",
+      "bytes": 7167,
+      "sha256": "724db090925bb0e322917821c2403b2e2d2d3ce6a1640c44542fd613341f8ab2"
+    },
+    {
+      "path": "tests/shopping-e2e/http-flow.test.ts",
+      "bytes": 41659,
+      "sha256": "1653f2149f4e8b7ed6ca748da4c006a85e7676692d18264b484c0374d440e426"
+    },
+    {
+      "path": "tests/shopping-e2e/merchant-browser-runtime.ts",
+      "bytes": 1228,
+      "sha256": "e1cccf337edd123c85a9409a8ebdb18dcf4e383b8e851c042760b02e96358339"
+    },
+    {
+      "path": "tests/shopping-e2e/merchant-browser-server.ts",
+      "bytes": 4273,
+      "sha256": "32a90a8b48cbca9d0164c6a0619a3a0ff2456405aa38a0de067f955f4ab218ae"
+    },
+    {
+      "path": "tests/shopping-e2e/merchant-presentation-check.mjs",
+      "bytes": 10477,
+      "sha256": "d97fc4cf49bc199d4cc91f09ef54fe8ff89d40cace38ab9075e3496edf71c484"
+    },
+    {
+      "path": "tests/shopping-e2e/merchant-view.test.ts",
+      "bytes": 11927,
+      "sha256": "c1d1ab76499fe78dfccc0e71bcf79857541c347b597b0e75c0e0e17220f0c577"
+    },
+    {
+      "path": "tests/shopping-e2e/model-settings-browser-server.ts",
+      "bytes": 2246,
+      "sha256": "5c7749d2653971f3b5f6dd15fb174b6994cf6e731a4dd85889d4951e8ac13ef2"
+    },
+    {
+      "path": "tests/shopping-e2e/model-settings-http-browser-check.mjs",
+      "bytes": 16854,
+      "sha256": "9552c31937a5bb06498dcd380e6f73e201eaefe186c852978aabf50a9fdecdf4"
+    },
+    {
+      "path": "tests/shopping-e2e/model-settings.test.ts",
+      "bytes": 10094,
+      "sha256": "444e3aa2238bfbcc25c7cefea74851a254b9a7c93d0dfa88b5e00253f2bba6ca"
+    },
+    {
+      "path": "tests/shopping-e2e/portal-entry-browser-check.mjs",
+      "bytes": 36121,
+      "sha256": "f2b3977f1a5e6b6b54d3936eeefd47654b10389643ce56ba9b24056f32a9c08d"
+    },
+    {
+      "path": "tests/shopping-e2e/preview.test.ts",
+      "bytes": 9385,
+      "sha256": "d3140f7a79df19f158de552ff942d1d80767be3268b6bb9678f27eba30d72c78"
+    },
+    {
+      "path": "tests/shopping-e2e/static-assets.test.ts",
+      "bytes": 995,
+      "sha256": "35d400e605b25183b7578be10ea709402fed67b1b2a32db8697b67b7900c6ad0"
+    },
+    {
+      "path": "tests/shopping-e2e/tsconfig.json",
+      "bytes": 166,
+      "sha256": "892809c846559d157ef1aa05b9dd693613f5e236cd237e85b85c5174d74ee80f"
+    },
+    {
+      "path": "tsconfig.base.json",
+      "bytes": 349,
+      "sha256": "64beb8306cf3d335ab5cc580cc3762eff9a5106163096fcefaf4b733b95956c8"
+    },
+    {
+      "path": "turbo.json",
+      "bytes": 1323,
+      "sha256": "ba2624345ea2eb7cf2bf033ef547b4e0c5ff5bc14997e556f2070922169aabff"
+    }
+  ]
+}

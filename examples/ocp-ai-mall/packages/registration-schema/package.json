@@ -1,0 +1,39 @@
+{
+  "name": "@ocp-catalog/registration-schema",
+  "version": "0.2.1",
+  "description": "Zod schemas and TypeScript types for ocp.catalog.registration.v1.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Open-Commerce-Protocol/OCP-Catalog.git",
+    "directory": "packages/registration-schema"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "bun": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/index.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "bun ../../scripts/build-protocol-package.ts",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "bun test --pass-with-no-tests"
+  },
+  "dependencies": {
+    "zod": "^4.1.12"
+  }
+}

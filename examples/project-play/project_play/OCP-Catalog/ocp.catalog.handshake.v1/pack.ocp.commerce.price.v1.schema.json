@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.handshake.v1/pack.ocp.commerce.price.v1.schema.json",
+  "type": "object",
+  "required": ["currency", "amount"],
+  "properties": {
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "list_amount": {
+      "type": "number"
+    },
+    "price_type": {
+      "type": "string",
+      "enum": ["fixed", "range"]
+    }
+  },
+  "additionalProperties": false
+}

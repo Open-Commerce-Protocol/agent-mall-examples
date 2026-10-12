@@ -1,0 +1,11 @@
+{
+  "name": "ai-native-commerce-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.mjs",
+    "dev": "node --watch --disable-warning=ExperimentalWarning server.mjs",
+    "assets": "node scripts/generate-assets.mjs"
+  }
+}

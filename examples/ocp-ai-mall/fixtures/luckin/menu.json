@@ -1,0 +1,21 @@
+{
+  "notice": "SYNTHETIC TEST DATA. These IDs, prices and schemas are not official Luckin MCP samples.",
+  "stores": [
+    { "store_id": "fixture-east", "name": "测试东门店（合成）", "address": "离线测试地址 A", "open": true },
+    { "store_id": "fixture-west", "name": "测试西门店（合成）", "address": "离线测试地址 B", "open": true },
+    { "store_id": "fixture-closed", "name": "测试暂停营业店（合成）", "address": "离线测试地址 C", "open": false }
+  ],
+  "products": [
+    { "product_id": "fixture-latte", "title": "测试拿铁（合成）", "available": true, "reference_minor": 2500,
+      "skus": [{ "sku_id": "regular", "label": "标准杯" }, { "sku_id": "large", "label": "大杯" }],
+      "options": [
+        { "option_id": "temperature", "label": "温度", "values": [{ "value_id": "iced", "label": "冰" }, { "value_id": "hot", "label": "热" }] },
+        { "option_id": "sugar", "label": "糖度", "values": [{ "value_id": "none", "label": "无糖" }, { "value_id": "standard", "label": "标准糖" }] }
+      ]
+    },
+    { "product_id": "fixture-unknown-price", "title": "测试限定咖啡（参考价未知）", "available": true, "reference_minor": null,
+      "skus": [{ "sku_id": "regular", "label": "标准杯" }], "options": [] },
+    { "product_id": "fixture-soldout", "title": "测试售罄咖啡", "available": false, "reference_minor": 1800,
+      "skus": [{ "sku_id": "regular", "label": "标准杯" }], "options": [] }
+  ]
+}

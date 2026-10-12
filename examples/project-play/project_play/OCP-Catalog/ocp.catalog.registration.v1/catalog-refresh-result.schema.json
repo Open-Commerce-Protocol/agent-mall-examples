@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.registration.v1/catalog-refresh-result.schema.json",
+  "type": "object",
+  "required": [
+    "ocp_version",
+    "kind",
+    "id",
+    "registration_id",
+    "catalog_id",
+    "status",
+    "health_status",
+    "indexed",
+    "warnings",
+    "refreshed_at"
+  ],
+  "properties": {
+    "ocp_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "kind": {
+      "type": "string",
+      "const": "CatalogRefreshResult"
+    },
+    "id": {
+      "type": "string"
+    },
+    "registration_id": {
+      "type": "string"
+    },
+    "catalog_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["refreshed", "rejected"]
+    },
+    "snapshot_id": {
+      "type": "string"
+    },
+    "health_status": {
+      "type": "string"
+    },
+    "indexed": {
+      "type": "boolean"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "refreshed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>寇豆码 · OCP Catalog Agent 演示</title>
+<style>
+  :root {
+    --bg: #f5f7fa; --card: #ffffff; --border: #e4e9f0; --text: #1f2d3d;
+    --muted: #7a8ba3; --primary: #2f6fed; --primary-soft: #eaf1fe;
+    --ok: #16a34a; --warn: #d97706; --bad: #dc2626; --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  header {
+    background: var(--card); border-bottom: 1px solid var(--border);
+    padding: 14px 24px; display: flex; align-items: center; gap: 12px;
+  }
+  header .logo {
+    width: 34px; height: 34px; border-radius: 9px; background: var(--primary);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px;
+  }
+  header h1 { font-size: 17px; font-weight: 600; }
+  header .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  main { flex: 1; max-width: 860px; width: 100%; margin: 0 auto; padding: 20px 16px 90px; }
+  #chat { display: flex; flex-direction: column; gap: 14px; }
+
+  /* ---------- 商家 MCP 状态条 ---------- */
+  #mcp-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  #mcp-bar .mcp-title { font-size: 13px; color: var(--muted); }
+  .mcp-badge {
+    font-size: 12px; padding: 4px 12px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--card); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .mcp-badge:hover { border-color: var(--primary); }
+  .mcp-badge .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .mcp-badge.ok .dot { background: var(--ok); }
+  .mcp-badge.missing .dot { background: var(--bad); }
+  .mcp-badge.off { cursor: default; opacity: .6; }
+
+  .examples { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .examples button {
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer;
+  }
+  .examples button:hover { border-color: var(--primary); color: var(--primary); }
+
+  .msg { display: flex; flex-direction: column; gap: 8px; }
+  .msg .who { font-size: 12px; color: var(--muted); }
+  .bubble { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+  .msg.user { align-items: flex-end; }
+  .msg.user .bubble { background: var(--primary); border-color: var(--primary); color: #fff; max-width: 75%; }
+
+  .intent-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .tag { font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--primary-soft); color: var(--primary); }
+  .tag.gray { background: #eef1f5; color: var(--muted); }
+  .tag.real { background: #fdeaea; color: var(--bad); }
+  .hint { font-size: 13px; color: var(--warn); background: #fdf3e3; border-radius: 8px; padding: 10px 12px; }
+  .hint.error {
+    color: var(--bad); background: #fdeaea; border: 1px solid #f3b8b8;
+    font-weight: 600; white-space: pre-wrap; word-break: break-all;
+  }
+
+  .cards { display: flex; flex-direction: column; gap: 10px; }
+  .card {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 14px; background: var(--card); position: relative;
+  }
+  .card.recommended { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .card.real { border-color: #f3b8b8; }
+  .rec-badge {
+    position: absolute; top: -10px; right: 12px; background: var(--primary); color: #fff;
+    font-size: 12px; padding: 2px 10px; border-radius: 999px;
+  }
+  .real-badge {
+    position: absolute; top: -10px; left: 12px; background: var(--bad); color: #fff;
+    font-size: 12px; padding: 2px 10px; border-radius: 999px;
+  }
+  .card h3 { font-size: 15px; margin-bottom: 6px; }
+  .card .meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .price { color: #c2410c; font-weight: 700; font-size: 16px; }
+  .explain { font-size: 12px; color: var(--muted); background: #f7f9fc; border-radius: 8px; padding: 6px 10px; margin-bottom: 10px; }
+  .stock { font-size: 12px; padding: 2px 8px; border-radius: 999px; }
+  .stock.in_stock { background: #e7f6ec; color: var(--ok); }
+  .stock.low_stock { background: #fdf3e3; color: var(--warn); }
+  .stock.out_of_stock { background: #fdeaea; color: var(--bad); }
+  .card .actions { display: flex; gap: 8px; align-items: center; }
+  .btn {
+    border: none; border-radius: 9px; padding: 8px 16px; font-size: 13px; cursor: pointer;
+    background: var(--primary); color: #fff;
+  }
+  .btn:disabled { background: #b9c6dc; cursor: not-allowed; }
+  .btn.ghost { background: #eef1f5; color: var(--text); }
+  .btn.real { background: var(--bad); }
+  .binding {
+    display: none; margin-top: 10px; font-size: 12px; background: #f7f9fc;
+    border: 1px dashed var(--border); border-radius: 8px; padding: 10px;
+    font-family: Consolas, monospace; word-break: break-all; white-space: pre-wrap;
+  }
+  .binding.show { display: block; }
+  .binding b { color: var(--primary); }
+
+  .empty { text-align: center; color: var(--muted); font-size: 14px; padding: 60px 0; }
+
+  /* ---------- Token 输入弹窗 ---------- */
+  .modal-mask {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, .4);
+    display: flex; align-items: center; justify-content: center; z-index: 50;
+  }
+  .modal { background: var(--card); border-radius: 12px; padding: 20px; width: 340px; }
+  .modal h4 { font-size: 15px; margin-bottom: 8px; }
+  .modal p { font-size: 12px; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
+  .modal input {
+    width: 100%; border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; font-size: 13px; margin-bottom: 12px; outline: none; font-family: inherit;
+  }
+  .modal input:focus { border-color: var(--primary); }
+  .modal .row { display: flex; gap: 8px; justify-content: flex-end; }
+
+  footer {
+    position: fixed; bottom: 0; left: 0; right: 0; background: var(--card);
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner { max-width: 860px; margin: 0 auto; padding: 10px 16px; }
+  #orders-summary { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  #orders-summary b { color: var(--ok); }
+  .input-row { display: flex; gap: 10px; }
+  #text-input {
+    flex: 1; border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px;
+    font-size: 14px; outline: none; font-family: inherit;
+  }
+  #text-input:focus { border-color: var(--primary); }
+  #send-btn { border: none; border-radius: 10px; padding: 11px 22px; background: var(--primary); color: #fff; font-size: 14px; cursor: pointer; }
+  #send-btn:disabled { background: #b9c6dc; cursor: not-allowed; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">寇</div>
+  <div>
+    <h1>寇豆码 · OCP Catalog Agent 演示</h1>
+    <div class="sub">Agent 通过 OCP 协议三阶段（query → resolve → action）完成商品检索与自助下单；商家 MCP 可真实下单</div>
+  </div>
+</header>
+
+<main>
+  <div id="mcp-bar">
+    <span class="mcp-title">商家 MCP：</span>
+    <span id="mcp-status"><span class="mcp-badge off">加载中…</span></span>
+  </div>
+  <div class="examples" id="examples"></div>
+  <div id="chat"><div class="empty">在下方输入你的需求，例如「1000元以内的无线降噪耳机」或「来杯瑞幸生椰拿铁」</div></div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div id="orders-summary">历史订单：0 笔</div>
+    <div class="input-row">
+      <input id="text-input" type="text" placeholder="描述你的购买需求，或直接点一杯咖啡…" />
+      <button id="send-btn">发送</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var EXAMPLES = [
+    '1000元以内的无线降噪耳机',
+    '300-800元的蓝牙音箱',
+    '预算500买个机械键盘',
+    '来杯瑞幸生椰拿铁'
+  ];
+  var chat = document.getElementById('chat');
+  var input = document.getElementById('text-input');
+  var sendBtn = document.getElementById('send-btn');
+  var ordersSummary = document.getElementById('orders-summary');
+  var mcpStatusWrap = document.getElementById('mcp-status');
+
+  // 示例问题按钮
+  var exWrap = document.getElementById('examples');
+  EXAMPLES.forEach(function (q) {
+    var b = document.createElement('button');
+    b.textContent = q;
+    b.addEventListener('click', function () {
+      input.value = q;
+      send();
+    });
+    exWrap.appendChild(b);
+  });
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function money(n) { return '¥' + n; }
+
+  function stockLabel(s) {
+    return { in_stock: '有货', low_stock: '库存紧张', out_of_stock: '缺货' }[s] || s;
+  }
+
+  function refreshOrderCount() {
+    fetch('/api/orders').then(function (r) { return r.json(); }).then(function (data) {
+      ordersSummary.innerHTML = '历史订单：<b>' + data.count + '</b> 笔';
+    }).catch(function () {});
+  }
+
+  // ---------- 商家 MCP 状态条 ----------
+  function loadMcpStatus() {
+    fetch('/api/mcp/status').then(function (r) { return r.json(); }).then(function (data) {
+      mcpStatusWrap.innerHTML = '';
+      (data.merchants || []).forEach(function (m) {
+        var badge = el('span', 'mcp-badge ' + (m.token_present ? 'ok' : 'missing'));
+        badge.appendChild(el('span', 'dot'));
+        badge.appendChild(document.createTextNode(m.name + '·' + (m.token_present ? '已连接' : '未配置')));
+        badge.title = m.token_present
+          ? '点击可更新 Token'
+          : '点击设置 Token（env ' + (m.token_env || '-') + ' 或在此输入）';
+        badge.addEventListener('click', function () { openTokenModal(m); });
+        mcpStatusWrap.appendChild(badge);
+      });
+      if (!mcpStatusWrap.childNodes.length) {
+        mcpStatusWrap.appendChild(el('span', 'mcp-badge off', '无注册商家'));
+      }
+    }).catch(function () {
+      mcpStatusWrap.innerHTML = '';
+      mcpStatusWrap.appendChild(el('span', 'mcp-badge off', '状态加载失败'));
+    });
+  }
+
+  function openTokenModal(merchant) {
+    var mask = el('div', 'modal-mask');
+    var modal = el('div', 'modal');
+    modal.appendChild(el('h4', null, '设置 ' + merchant.name + ' 的访问 Token'));
+    modal.appendChild(el('p', null,
+      'Token 获取：打开商家 App/小程序登录后复制用户 Token。也可通过环境变量 ' +
+      (merchant.token_env || '-') + ' 设置。Token 仅保存在服务端内存（重启失效），不会写入磁盘。'));
+    var inputEl = el('input');
+    inputEl.type = 'text';
+    inputEl.placeholder = 'Bearer 后面的 Token 内容';
+    modal.appendChild(inputEl);
+    var row = el('div', 'row');
+    var cancelBtn = el('button', 'btn ghost', '取消');
+    var saveBtn = el('button', 'btn', '保存');
+    row.appendChild(cancelBtn);
+    row.appendChild(saveBtn);
+    modal.appendChild(row);
+    mask.appendChild(modal);
+    document.body.appendChild(mask);
+
+    cancelBtn.addEventListener('click', function () { document.body.removeChild(mask); });
+    mask.addEventListener('click', function (e) { if (e.target === mask) document.body.removeChild(mask); });
+    saveBtn.addEventListener('click', function () {
+      var token = inputEl.value.trim();
+      if (!token) { inputEl.focus(); return; }
+      saveBtn.disabled = true;
+      saveBtn.textContent = '保存中…';
+      fetch('/api/mcp/token', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ merchant_id: merchant.id, token: token })
+      }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          document.body.removeChild(mask);
+          loadMcpStatus();
+          if (!res.ok) {
+            var errMsg = res.d && res.d.error ? res.d.error.message : JSON.stringify(res.d);
+            window.alert('❌ Token 验证失败（已保存但未连接）\n\n' + errMsg + '\n\n请检查 Token 是否正确（401 = Token 无效或已过期）。');
+            return;
+          }
+          var toolCount = res.d.tool_count;
+          window.alert('✅ Token 验证成功：已连接商家 MCP' +
+            (toolCount != null ? '（可用工具 ' + toolCount + ' 个）' : '') +
+            '。现在可以真实检索与下单了。');
+        })
+        .catch(function () {
+          saveBtn.disabled = false;
+          saveBtn.textContent = '保存';
+          window.alert('Token 保存失败，请重试。');
+        });
+    });
+    inputEl.focus();
+  }
+
+  function addUserMsg(text) {
+    var wrap = el('div', 'msg user');
+    wrap.appendChild(el('div', 'who', '我'));
+    wrap.appendChild(el('div', 'bubble', text));
+    chat.appendChild(wrap);
+  }
+
+  function addAgentMsg(label) {
+    var wrap = el('div', 'msg');
+    wrap.appendChild(el('div', 'who', label || '寇豆码 Agent（经 OCP 协议 query → resolve → action）'));
+    var bubble = el('div', 'bubble');
+    wrap.appendChild(bubble);
+    chat.appendChild(wrap);
+    return bubble;
+  }
+
+  function renderIntent(bubble, intent, result) {
+    var tags = el('div', 'intent-tags');
+    function tag(label, cls) { tags.appendChild(el('span', 'tag' + (cls ? ' ' + cls : ''), label)); }
+    if (result && result.merchant) tag('商家：' + result.merchant.name + '（MCP 实时检索）', 'real');
+    if (intent.category) tag('品类：' + intent.category);
+    if (intent.brand) tag('品牌：' + intent.brand);
+    if (intent.budget_min !== null && intent.budget_max !== null) tag('预算：' + intent.budget_min + '-' + intent.budget_max + '元');
+    else if (intent.budget_max !== null) tag('预算：≤' + intent.budget_max + '元');
+    else if (intent.budget_min !== null) tag('预算：≥' + intent.budget_min + '元');
+    if (intent.quantity > 1) tag('数量：' + intent.quantity);
+    if (!tags.childNodes.length) tag('未识别结构化意图，按关键词检索', 'gray');
+    bubble.appendChild(tags);
+  }
+
+  function renderCards(bubble, candidates, recommendedId, intent) {
+    if (!candidates.length) {
+      bubble.appendChild(el('div', '', '没有找到符合条件的有货商品，换个说法试试？'));
+      return null;
+    }
+    var cards = el('div', 'cards');
+    candidates.forEach(function (entry) {
+      var attrs = entry.attributes || {};
+      var isMcp = !!entry.mcpRef;
+      var isRec = entry.entry_id === recommendedId;
+      var card = el('div', 'card' + (isRec ? ' recommended' : '') + (isMcp ? ' real' : ''));
+      if (isRec) card.appendChild(el('div', 'rec-badge', '推荐'));
+      if (isMcp) card.appendChild(el('div', 'real-badge', '真实下单'));
+
+      card.appendChild(el('h3', null, entry.title));
+      var meta = el('div', 'meta');
+      meta.appendChild(el('span', 'price',
+        attrs.price && attrs.price.amount != null ? money(attrs.price.amount) : '价格以预览为准'));
+      meta.appendChild(el('span', null, '品牌：' + (attrs.brand || '-')));
+      meta.appendChild(el('span', null, '品类：' + (attrs.category || '-')));
+      if (attrs.inventory && attrs.inventory.availability_status) {
+        meta.appendChild(el('span', 'stock ' + attrs.inventory.availability_status,
+          stockLabel(attrs.inventory.availability_status)));
+      }
+      card.appendChild(meta);
+      card.appendChild(el('div', null, entry.summary || ''));
+
+      var explainWrap = el('div', 'explain');
+      explainWrap.textContent = '匹配解释：' + (entry.explain || []).join('；');
+      card.appendChild(explainWrap);
+
+      var actions = el('div', 'actions');
+      var qty = intent.quantity || 1;
+      var confirmBtn = el('button', 'btn' + (isMcp ? ' real' : ''),
+        isMcp ? '真实下单（' + qty + ' 件）' : '确认下单（' + qty + ' 件）');
+      var detailBtn = el('button', 'btn ghost', '查看 Action Binding');
+      var binding = el('div', 'binding');
+      card.appendChild(actions);
+      card.appendChild(binding);
+
+      detailBtn.addEventListener('click', function () {
+        if (binding.classList.contains('show')) { binding.classList.remove('show'); return; }
+        binding.classList.add('show');
+        if (isMcp) {
+          // MCP 来源：binding 在候选中直接携带（resolve 层投影）
+          binding.innerHTML = '<b>action_binding（商家 MCP）</b>\n' + JSON.stringify(entry.action_binding, null, 2);
+          return;
+        }
+        binding.innerHTML = '正在通过 <b>POST /ocp/resolve</b> 获取…';
+        fetch('/api/agent/resolve', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ entry_id: entry.entry_id })
+        }).then(function (r) { return r.json(); }).then(function (ref) {
+          var lines = (ref.action_bindings || []).map(function (ab) {
+            if (ab.action_type === 'api') {
+              return 'action_id: ' + ab.action_id + '（' + ab.label + '）\n  ' + ab.method + ' ' + ab.url + '\n  input_schema: ' + ab.input_schema;
+            }
+            return 'action_id: ' + ab.action_id + '（' + ab.label + '）\n  ' + ab.entrypoint.method + ' ' + ab.entrypoint.url;
+          });
+          binding.innerHTML = '<b>resolve</b> → ' + ref.kind + '（' + ref.id + '）\n' + lines.join('\n');
+        }).catch(function () {
+          binding.textContent = 'resolve 调用失败';
+        });
+      });
+
+      confirmBtn.addEventListener('click', function () {
+        if (isMcp && !window.confirm('将向商家真实下单并可能产生费用，是否继续？')) {
+          return;
+        }
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = '下单中…';
+        fetch('/api/agent/confirm', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ entry_id: entry.entry_id, quantity: qty })
+        }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+          .then(function (res) {
+            if (!res.ok) {
+              confirmBtn.textContent = '下单失败';
+              var err = el('div', 'explain');
+              err.style.background = '#fdeaea';
+              err.textContent = '错误：' + (res.d.error ? res.d.error.message : JSON.stringify(res.d));
+              card.appendChild(err);
+              return;
+            }
+            confirmBtn.textContent = '已下单 ✓';
+            renderOrderReceipt(card, res.d);
+            refreshOrderCount();
+          })
+          .catch(function () {
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = isMcp ? '真实下单' : '确认下单';
+          });
+      });
+
+      actions.appendChild(confirmBtn);
+      actions.appendChild(detailBtn);
+      cards.appendChild(card);
+    });
+    bubble.appendChild(cards);
+    return cards;
+  }
+
+  function renderOrderReceipt(card, data) {
+    var o = data.order, ref = data.reference;
+    var receipt = el('div', 'explain');
+    receipt.style.background = '#e7f6ec';
+    receipt.style.marginTop = '10px';
+    receipt.style.whiteSpace = 'pre-wrap';
+    var lines;
+    if (data.mode === 'mcp') {
+      // 真实下单回执：区分商家 / 门店 / 订单号
+      var itemsText = (o.items || []).map(function (it) {
+        return (it.name || '-') + ' × ' + it.quantity;
+      }).join('、');
+      lines = [
+        '✅ 真实下单成功（经 resolve 的商家 MCP binding 执行）',
+        '商家：' + (o.merchant ? o.merchant.name : '-') +
+          (o.merchant && o.merchant.dept_name ? '（门店：' + o.merchant.dept_name + '）' : ''),
+        '订单号：' + o.order_id,
+        '商品：' + (itemsText || '-'),
+        '预估总额：' + (o.total_amount != null ? money(o.total_amount) + ' ' + (o.currency || 'CNY') : '以商家账单为准'),
+        '⚠️ 真实订单：可到商家 App 中查看 / 取消'
+      ];
+    } else {
+      lines = [
+        '✅ 下单成功（演示订单，经 resolve 的 buy_now action binding 执行）',
+        '订单号：' + o.order_id,
+        '状态：' + o.status + '｜数量：' + o.quantity + '｜总额：' + money(o.total_amount) + ' ' + o.currency,
+        'resolve 引用：' + ref.kind + '（' + ref.id + '）',
+        '商品页：' + (ref.action_bindings || []).filter(function (b) { return b.action_id === 'view'; })
+          .map(function (b) { return b.entrypoint.url; }).join('') || '-'
+      ];
+    }
+    receipt.textContent = lines.join('\n');
+    card.appendChild(receipt);
+  }
+
+  function send() {
+    var text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    sendBtn.disabled = true;
+    addUserMsg(text);
+
+    fetch('/api/agent', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ text: text })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (result) {
+        var isMcp = result.source === 'mcp';
+        var bubble = addAgentMsg(isMcp
+          ? '寇豆码 Agent（商家 ' + (result.merchant ? result.merchant.name : '') + ' MCP 实时检索）'
+          : undefined);
+        renderIntent(bubble, result.intent || {}, result);
+        if (result.merchant_unconfigured || result.merchant_error) {
+          // 未配置 token / 商家调用失败：醒目红色错误卡展示完整 message，绝不回退本地商品
+          var errCard = el('div', 'hint' + (result.merchant_error ? ' error' : ''));
+          errCard.textContent =
+            (result.merchant_error ? '⚠️ 商家实时检索失败（以下为错误详情，非本地数据）：\n' : '') +
+            (result.message || '');
+          bubble.appendChild(errCard);
+          loadMcpStatus();
+          return;
+        }
+        renderCards(bubble, result.candidates || [], result.recommended_entry_id, result.intent || {});
+        if (result.source === 'mcp' && (!result.candidates || !result.candidates.length)) {
+          // 商家实时检索成功但无候选：明确提示，不显示本地兜底数据
+          bubble.appendChild(el('div', 'hint error',
+            '⚠️ 商家未返回任何候选商品（非本地演示数据）。请换个说法或稍后重试。'));
+        }
+      })
+      .catch(function () {
+        var bubble = addAgentMsg();
+        bubble.appendChild(el('div', '', 'Agent 调用失败，请稍后重试。'));
+      })
+      .finally(function () { sendBtn.disabled = false; });
+  }
+
+  sendBtn.addEventListener('click', send);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') send();
+  });
+  refreshOrderCount();
+  loadMcpStatus();
+})();
+</script>
+</body>
+</html>

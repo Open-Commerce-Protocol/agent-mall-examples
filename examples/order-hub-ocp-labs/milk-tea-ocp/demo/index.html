@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>奶茶 OCP 演示面板 · 用协议点一杯</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #0f1216; --panel: #171c22; --panel2: #1e242c; --line: #2b333d;
+    --text: #e6edf3; --dim: #8b98a5; --accent: #d98a4b; --accent2: #6cb6ff;
+    --ok: #4ec9a0; --bad: #f2777a; --warn: #e0b341;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 14.5px/1.6 -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 30px 22px 80px; }
+  h1 { font-size: 25px; margin: 0 0 6px; }
+  h1 small { font-weight: 400; color: var(--dim); font-size: 14px; }
+  .lead { color: var(--dim); margin: 0 0 26px; }
+  .lead code { color: var(--accent2); }
+  .step { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+          padding: 18px 20px; margin-bottom: 14px; }
+  .step.done { border-color: #37513f; }
+  .step h2 { font-size: 16px; margin: 0 0 4px; display: flex; align-items: center; gap: 10px; }
+  .num { display: inline-flex; width: 24px; height: 24px; border-radius: 50%; background: var(--accent);
+         color: #14181d; font-weight: 700; font-size: 13px; align-items: center; justify-content: center; }
+  .step p { color: var(--dim); margin: 6px 0 12px; }
+  .step p code { color: var(--accent2); }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  input[type=text], select { background: var(--panel2); border: 1px solid var(--line); color: var(--text);
+         padding: 8px 11px; border-radius: 7px; font-size: 14px; min-width: 190px; }
+  button { background: var(--accent); color: #14181d; border: 0; padding: 8px 16px; border-radius: 7px;
+           font-size: 14px; font-weight: 650; cursor: pointer; }
+  button.ghost { background: transparent; border: 1px solid var(--line); color: var(--text); font-weight: 500; }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  .result { margin-top: 13px; }
+  .kv { display: grid; grid-template-columns: 180px 1fr; gap: 3px 14px; font-size: 13.5px; }
+  .kv div:nth-child(odd) { color: var(--dim); }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--dim); font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em; }
+  tr.pick { cursor: pointer; }
+  tr.pick:hover td { background: var(--panel2); }
+  .pill { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .pill.ok { background: #1c3a30; color: var(--ok); }
+  .pill.bad { background: #3d2124; color: var(--bad); }
+  .pill.warn { background: #3a3320; color: var(--warn); }
+  .pill.info { background: #1d2f42; color: var(--accent2); }
+  pre { background: #0b0e12; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+        overflow: auto; max-height: 330px; font-size: 12.5px; line-height: 1.5; margin: 10px 0 0; }
+  details { margin-top: 10px; }
+  summary { cursor: pointer; color: var(--dim); font-size: 13px; }
+  .bind { background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; padding: 11px 13px; margin-top: 9px; }
+  .bind strong { color: var(--accent); }
+  .mono { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; }
+  .note { background: #2a2418; border-left: 3px solid var(--warn); padding: 9px 13px; border-radius: 0 7px 7px 0;
+          margin-top: 12px; font-size: 13px; }
+  .warnline { color: var(--warn); }
+  .err { color: var(--bad); }
+  .foot { color: var(--dim); font-size: 12.5px; margin-top: 26px; line-height: 1.9; }
+  .foot code { color: var(--accent2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>奶茶 OCP 演示面板 <small>用协议点一杯，不靠魔法</small></h1>
+  <p class="lead">
+    本页面只硬编码了一个地址：发现层 <code>http://127.0.0.1:4500</code>。
+    有哪些奶茶铺、它们的查询地址在哪、声明了哪些 query pack —— 全部由协议本身告诉页面。
+    这就是 OCP 存在的意义：<strong>跨独立目录发现</strong>。
+  </p>
+
+  <div class="step" id="step1">
+    <h2><span class="num">1</span>发现：谁在卖奶茶</h2>
+    <p>先读 Registration 节点的发现文档，再读它的 manifest，最后按关键字检索已注册的 Catalog。
+       注意这三步都只跟发现层打交道，<strong>不涉及任何商品</strong>。</p>
+    <div class="controls">
+      <input type="text" id="q" value="珍珠" placeholder="想喝什么">
+      <button id="btn1">运行第 1 步</button>
+    </div>
+    <div class="result" id="r1"></div>
+  </div>
+
+  <div class="step" id="step2">
+    <h2><span class="num">2</span>选定一家，读它的 manifest</h2>
+    <p>manifest 是 Catalog 的能力声明：端点在哪、声明了哪些 query pack 与过滤字段。
+       后续查询<strong>只能用它声明过的 pack</strong>。</p>
+    <div class="result" id="r2"></div>
+  </div>
+
+  <div class="step" id="step3">
+    <h2><span class="num">3</span>查询：按声明的 pack 检索商品</h2>
+    <p>用 manifest 里宣告的 <code>pack_id</code> 查询。附带一个负例按钮：故意用一个<strong>未声明</strong>的 pack，
+       看节点是否会拒绝。</p>
+    <div class="controls">
+      <input type="text" id="q3" value="珍珠" placeholder="关键字">
+      <button id="btn3">查询</button>
+      <button id="btn3bad" class="ghost">负例：未声明的 pack</button>
+      <button id="btn3bad2" class="ghost">负例：未知字段</button>
+    </div>
+    <div class="result" id="r3"></div>
+  </div>
+
+  <div class="step" id="step4">
+    <h2><span class="num">4</span>解析：拿到点单入口（purpose=checkout）</h2>
+    <p>对选中的条目做 resolve。协议在这里给出的是<strong>可执行入口</strong>，不是成交——
+       每个下单绑定都标了 <code>requires_user_confirmation</code>。售罄商品拿不到下单入口，可以点下面的按钮试。</p>
+    <div class="controls">
+      <button id="btn4">解析（选中的那杯）</button>
+      <button id="btn4sold" class="ghost">解析售罄款</button>
+    </div>
+    <div class="result" id="r4"></div>
+  </div>
+
+  <div class="step" id="step5">
+    <h2><span class="num">5</span>下单：走商户侧的入口</h2>
+    <p>这一步已经完全离开 OCP 协议面了——付款发生在商户侧。
+       本演示用 <code>checkout_api</code> 绑定直接 POST 一个 JSON 订单，观察返回单号。</p>
+    <div class="controls">
+      <button id="btn5">用 checkout_api 下单（模拟）</button>
+      <button id="btn5html" class="ghost">打开 checkout_page 网页下单页</button>
+    </div>
+    <div class="result" id="r5"></div>
+  </div>
+
+  <div class="foot">
+    协议层证据：<code>node scripts/selfcheck.ts</code> —— 34 个真实响应逐条过 JSON Schema（12 条官方 schema，22 条派生副本）。<br>
+    行为证据：<code>node scripts/probe.ts shanhai</code> / <code>node scripts/probe-registration.ts</code>。<br>
+    本演示<strong>不接任何支付通道</strong>：所有订单都带 <code>payment: "simulated_not_charged"</code>。
+  </div>
+</div>
+
+<script>
+const REG = 'http://127.0.0.1:4500';
+const state = { registration: null, registrationManifest: null, catalogs: [], shop: null, manifest: null, entryId: null, entryTitle: null, entrySku: null, soldOutEntryId: null, bindings: [] };
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const json = (v) => `<details><summary>查看原始 JSON</summary><pre>${esc(JSON.stringify(v, null, 2))}</pre></details>`;
+
+async function call(url, body) {
+  const res = await fetch(url, body === undefined ? undefined : {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
+  });
+  let data;
+  try { data = await res.json(); } catch { data = { error: { code: 'bad_json', message: '响应不是 JSON' } }; }
+  return { status: res.status, data, url };
+}
+
+function statusPill(status) {
+  const cls = status === 200 || status === 201 ? 'ok' : 'bad';
+  return `<span class="pill ${cls}">HTTP ${status}</span>`;
+}
+
+function healthPill(h) {
+  const cls = h === 'healthy' ? 'ok' : h === 'unhealthy' ? 'bad' : 'warn';
+  return `<span class="pill ${cls}">${esc(h)}</span>`;
+}
+
+/* ---------------------------------------------------------------- 第 1 步 */
+$('btn1').onclick = async () => {
+  const out = $('r1');
+  out.innerHTML = '<p class="mono">查询中…</p>';
+  const parts = [];
+
+  const disc = await call(REG + '/.well-known/ocp-registration');
+  parts.push(`<div class="kv"><div>发现层</div><div>${esc(disc.data.registration_name)} <span class="mono">(${esc(disc.data.registration_id)})</span></div>
+    <div>协议</div><div class="mono">${esc(disc.data.registration_protocol)} v${esc(disc.data.registration_protocol_version)}</div></div>`);
+
+  const rm = await call(disc.data.manifest_url);
+  state.registrationManifest = rm.data;
+
+  const search = await call(rm.data.endpoints.catalog_search, { query: $('q').value });
+  state.catalogs = search.data.items || [];
+
+  const rows = state.catalogs.map((c) => `
+    <tr class="pick" data-id="${esc(c.catalog_id)}">
+      <td><strong>${esc(c.catalog_name)}</strong><br><span class="mono" style="color:var(--dim)">${esc(c.catalog_id)}</span></td>
+      <td>${esc(c.description || '')}</td>
+      <td>${healthPill(c.health_status)}</td>
+      <td><span class="pill info">${esc(c.trust_tier)}</span></td>
+      <td class="mono">${esc((c.matched_query_packs || []).join(', '))}</td>
+      <td>${c.score}</td>
+    </tr>`).join('');
+
+  out.innerHTML = parts.join('') +
+    `<p style="margin-top:14px">检索「${esc($('q').value)}」命中 <strong>${search.data.result_count}</strong> 个 Catalog ${statusPill(search.status)}。点一行选定它：</p>
+     <table><thead><tr><th>目录</th><th>简介</th><th>健康</th><th>信任</th><th>声明的 query pack</th><th>得分</th></tr></thead>
+     <tbody>${rows}</tbody></table>` + json({ discovery: disc.data, manifest: rm.data, search: search.data });
+
+  out.querySelectorAll('tr.pick').forEach((tr) => {
+    tr.onclick = () => selectCatalog(tr.dataset.id);
+  });
+  if (state.catalogs.length > 0) await selectCatalog(state.catalogs[0].catalog_id);
+};
+
+/* ---------------------------------------------------------------- 第 2 步 */
+async function selectCatalog(catalogId) {
+  const route = await call(REG + '/ocp/catalogs/resolve', { catalog_id: catalogId });
+  state.shop = route.data;
+  const m = await call(route.data.manifest_url);
+  state.manifest = m.data;
+
+  const eps = Object.entries(m.data.endpoints).map(([k, v]) =>
+    `<tr><td class="mono">${esc(k)}</td><td class="mono">${esc(v.method)}</td><td class="mono">${esc(v.url)}</td></tr>`).join('');
+  const caps = (m.data.query_capabilities || []).map((cap) => `
+    <div class="bind"><strong>${esc(cap.capability_id)}</strong> — ${esc(cap.name || '')}
+      <div style="color:var(--dim);margin-top:4px">${esc(cap.description || '')}</div>
+      <div style="margin-top:6px">声明 pack：${(cap.query_packs || []).map((p) =>
+        `<code>${esc(p.pack_id)}</code>（模式 ${esc((p.query_modes || []).join('/'))}）`).join(' ')}</div>
+    </div>`).join('');
+
+  $('r2').innerHTML = `
+    <p>已选定 <strong>${esc(m.data.catalog_name)}</strong>（经发现层 resolve 得到路由提示，再拉 manifest）。</p>
+    <div class="kv">
+      <div>manifest</div><div class="mono">${esc(route.data.manifest_url)}</div>
+      <div>query 端点</div><div class="mono">${esc(m.data.endpoints.query.url)}</div>
+      <div>resolve 端点</div><div class="mono">${esc(m.data.endpoints.resolve.url)}</div>
+      <div>可见性</div><div>${esc(m.data.registry_visibility)}</div>
+      <div>对象契约</div><div>${(m.data.object_contracts || []).length} 条（只读节点为空）</div>
+    </div>
+    <table><thead><tr><th>端点</th><th>方法</th><th>URL</th></tr></thead><tbody>${eps}</tbody></table>
+    <p style="margin-top:14px">能力声明：</p>${caps}` + json(m.data);
+
+  $('step2').classList.add('done');
+  await runQuery();
+}
+
+/* ---------------------------------------------------------------- 第 3 步 */
+async function runQuery() {
+  const pack = state.manifest.query_capabilities[0].query_packs[0].pack_id;
+  const res = await call(state.manifest.endpoints.query.url, {
+    ocp_version: '1.0', query_pack: pack, query_mode: 'keyword', query: $('q3').value,
+  });
+
+  if (res.status !== 200) {
+    $('r3').innerHTML = `<p class="err">查询被拒 ${statusPill(res.status)}：${esc(res.data.error.message)}</p>` + json(res.data);
+    return;
+  }
+
+  const entries = res.data.entries || [];
+  state.soldOutEntryId = null;
+  const rows = entries.map((e) => {
+    const a = e.entry.attributes;
+    const inv = a.inventory.availability_status;
+    const cls = inv === 'in_stock' ? 'ok' : inv === 'out_of_stock' ? 'bad' : 'warn';
+    if (inv === 'out_of_stock' && !state.soldOutEntryId) state.soldOutEntryId = e.entry.entry_id;
+    return `<tr class="pick" data-entry="${esc(e.entry.entry_id)}" data-title="${esc(e.entry.title)}" data-sku="${esc(a.sku)}">
+      <td><strong>${esc(e.entry.title)}</strong><br><span class="mono" style="color:var(--dim)">${esc(e.entry.entry_id)}</span></td>
+      <td>${esc(a.base)} / ${esc(a.category)}</td>
+      <td>¥${a.price.amount}</td>
+      <td><span class="pill ${cls}">${esc(inv)}</span></td>
+      <td>${e.score}</td>
+      <td style="color:var(--dim)">${esc((e.explain || []).join(' '))}</td>
+    </tr>`;
+  }).join('');
+
+  const ps = res.data.policy_summary;
+  $('r3').innerHTML = `
+    <p>在 <strong>${esc(state.manifest.catalog_name)}</strong> 命中 <strong>${res.data.result_count}</strong> 款 ${statusPill(res.status)}。
+       点一行选定它。查询用 <span class="mono">${esc(res.data.query_pack)}</span> / ${esc(res.data.query_mode)}。</p>
+    <div class="kv"><div>policy_summary</div><div class="mono">接受的过滤字段 [${esc((ps.accepted_filters || []).join(', '))}] ·
+      拒绝的过滤字段 [${esc((ps.rejected_filters || []).join(', '))}]</div></div>
+    <table><thead><tr><th>饮品</th><th>茶底/分类</th><th>价格</th><th>库存</th><th>得分</th><th>explain</th></tr></thead>
+    <tbody>${rows}</tbody></table>` + json(res.data);
+
+  $('step3').classList.add('done');
+  const first = entries.find((e) => e.entry.attributes.inventory.availability_status === 'in_stock') || entries[0];
+  if (first) await selectEntry(first.entry.entry_id, first.entry.title, first.entry.attributes.sku);
+  $('r3').querySelectorAll('tr.pick').forEach((tr) => {
+    tr.onclick = () => selectEntry(tr.dataset.entry, tr.dataset.title, tr.dataset.sku);
+  });
+}
+
+$('btn3').onclick = runQuery;
+
+$('btn3bad').onclick = async () => {
+  const res = await call(state.manifest.endpoints.query.url, {
+    ocp_version: '1.0', query_pack: 'ocp.query.semantic.v9', query: '珍珠',
+  });
+  $('r3').innerHTML = `<p class="err">节点拒绝了未声明的 query pack ${statusPill(res.status)}——
+    这正是"只能按 manifest 声明查询"的含义。</p>
+    <div class="kv"><div>error.code</div><div class="mono">${esc(res.data.error.code)}</div>
+    <div>error.message</div><div>${esc(res.data.error.message)}</div></div>` + json(res.data);
+};
+
+$('btn3bad2').onclick = async () => {
+  const res = await call(state.manifest.endpoints.query.url, { query: '珍珠', sort_by: 'price' });
+  $('r3').innerHTML = `<p class="err">节点拒绝了未知字段 ${statusPill(res.status)}——
+    因为查询请求的 schema 是 .strict()，静默丢弃会让调用方误判成功。</p>
+    <div class="kv"><div>error.code</div><div class="mono">${esc(res.data.error.code)}</div>
+    <div>error.message</div><div>${esc(res.data.error.message)}</div></div>` + json(res.data);
+};
+
+/* ---------------------------------------------------------------- 第 4 步 */
+function selectEntry(entryId, title) {
+  state.entryId = entryId;
+  state.entryTitle = title;
+}
+
+async function doResolve(entryId, purpose) {
+  const res = await call(state.manifest.endpoints.resolve.url, { entry_id: entryId, purpose, live_check: true });
+  if (res.status !== 200) {
+    $('r4').innerHTML = `<p class="err">resolve 失败 ${statusPill(res.status)}：${esc(res.data.error.message)}</p>` + json(res.data);
+    return;
+  }
+  const d = res.data;
+  state.bindings = d.action_bindings || [];
+  const live = (d.live_checks || []).map((c) => {
+    const cls = c.status === 'passed' ? 'ok' : c.status === 'failed' ? 'bad' : 'warn';
+    return `<span class="pill ${cls}">live_check ${esc(c.check_id)}: ${esc(c.status)}</span> ${esc(c.summary || '')}`;
+  }).join('<br>');
+
+  const binds = state.bindings.length === 0
+    ? '<p class="warnline">没有任何 action binding —— 售罄商品拿不到下单入口。这是节点主动不给，不是缺省。</p>'
+    : state.bindings.map((b) => `
+      <div class="bind">
+        <strong>${esc(b.action_id)}</strong> <span class="pill info">${esc(b.action_type)}</span>
+        ${b.requires_user_confirmation ? '<span class="pill warn">需要用户确认</span>' : ''}
+        <div style="margin-top:5px">${esc(b.label)} — ${esc(b.description || '')}</div>
+        <div class="mono" style="margin-top:5px;color:var(--accent2)">${esc(b.entrypoint.method)} ${esc(b.entrypoint.url)}</div>
+        ${b.input_schema ? `<details><summary>input_schema（商户会按它校验）</summary><pre>${esc(JSON.stringify(b.input_schema, null, 2))}</pre></details>` : ''}
+      </div>`).join('');
+
+  $('r4').innerHTML = `
+    <p>解析 <strong>${esc(d.title)}</strong>，purpose=<span class="mono">${esc(purpose)}</span> ${statusPill(res.status)}。
+       permission_state = <span class="mono">${esc(d.access.permission_state)}</span></p>
+    <p style="margin:8px 0">${live}</p>
+    <div class="kv">${(d.access.policy_notes || []).map((n) => `<div>policy_note</div><div>${esc(n)}</div>`).join('')}</div>
+    <p style="margin-top:12px">action_bindings（${state.bindings.length} 条）：</p>${binds}` + json(d);
+  $('step4').classList.add('done');
+}
+
+$('btn4').onclick = () => state.entryId && doResolve(state.entryId, 'checkout');
+$('btn4sold').onclick = () => {
+  if (state.soldOutEntryId) doResolve(state.soldOutEntryId, 'checkout');
+  else $('r4').innerHTML = '<p class="warnline">这家店的菜单里没有售罄款，换另一家试试。</p>';
+};
+
+/* ---------------------------------------------------------------- 第 5 步 */
+$('btn5').onclick = async () => {
+  const b = state.bindings.find((x) => x.action_id === 'checkout_api');
+  if (!b) { $('r5').innerHTML = '<p class="warnline">当前没有 checkout_api 绑定，先完成第 4 步。</p>'; return; }
+  const item = state.manifest && state.entryId ? state.entryId.split('_').pop() : null;
+  const res = await call(b.entrypoint.url, {
+    sku: item, size: 'large', sugar: '五分糖', temperature: '少冰', quantity: 1,
+  });
+  const cls = res.status === 201 ? 'ok' : 'bad';
+  $('r5').innerHTML = `
+    <p>POST 到商户侧 <span class="mono">${esc(b.entrypoint.url)}</span> ${statusPill(res.status)}</p>
+    ${res.status === 201 ? `
+      <div class="bind">
+        <div class="kv" style="grid-template-columns:150px 1fr">
+          <div>订单号</div><div class="mono">${esc(res.data.order_id)}</div>
+          <div>门店</div><div>${esc(res.data.store)} · ${esc(res.data.store_address)}</div>
+          <div>合计</div><div>¥${res.data.total.amount}</div>
+          <div>payment</div><div class="mono warnline">${esc(res.data.payment)}</div>
+        </div>
+        <div class="note">${esc(res.data.note)}</div>
+      </div>` : `<p class="err">${esc(res.data.error.message)}</p>`}` + json(res.data);
+  $('step5').classList.add('done');
+};
+
+$('btn5html').onclick = () => {
+  const b = state.bindings.find((x) => x.action_id === 'checkout_page');
+  if (b) window.open(b.entrypoint.url, '_blank');
+  else $('r5').innerHTML = '<p class="warnline">当前没有 checkout_page 绑定，先完成第 4 步。</p>';
+};
+</script>
+</body>
+</html>

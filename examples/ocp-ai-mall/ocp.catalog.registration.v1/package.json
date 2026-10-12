@@ -1,0 +1,10 @@
+{
+  "name": "ocp.catalog.registration.v1",
+  "version": "0.1.0",
+  "description": "OCP Catalog Registration v1 schema package for Catalog Node registration and discovery.",
+  "type": "module",
+  "files": [
+    "*.schema.json",
+    "README.md"
+  ]
+}

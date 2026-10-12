@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.handshake.v1/pack.ocp.commerce.inventory.v1.schema.json",
+  "type": "object",
+  "required": ["availability_status"],
+  "properties": {
+    "availability_status": {
+      "type": "string",
+      "enum": ["in_stock", "low_stock", "out_of_stock", "preorder", "unknown"]
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

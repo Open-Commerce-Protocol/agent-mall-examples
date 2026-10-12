@@ -1,0 +1,5 @@
+Mode: built-in image_gen; edit; transparent_background=true
+Use case: background-extraction
+Asset type: CampusNow web app assistant character transparent PNG
+Input images: Image 1 is the edit target, the supplied blue-haired chibi fish maid.
+Primary request: Create a clean transparent-background cutout of the supplied character for use in a campus AI assistant app. Preserve the entire character's identity, pose, expression, colors, linework, white maid headpiece and apron, blue eyes, blue gradient hair, fish fins and tail. Keep all tips and edges fully visible with modest transparent padding. Remove only the flat white backdrop; white clothing remains opaque. No new objects or text. Genuine transparent alpha background.

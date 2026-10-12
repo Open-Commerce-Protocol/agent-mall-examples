@@ -1,0 +1,84 @@
+import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { mkdir } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { browserRuntime } from '../shopping-e2e/browser-support.mjs';
+const output = resolve('.codex-tmp/luckin-browser'); await mkdir(output, { recursive: true });
+const child = spawn('bun', ['tests/luckin-e2e/browser-server.ts'], { cwd: process.cwd(), windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] });
+let browser;
+try {
+  const locations = await new Promise((done, reject) => {
+    let text = ''; const timer = setTimeout(() => reject(new Error('Browser fixture startup timed out')), 20000);
+    child.stdout.on('data', chunk => { text += chunk; for (const line of text.split('\n')) { try { const data = JSON.parse(line); if (data.mall) { clearTimeout(timer); done(data); return; } } catch {} } });
+    child.stderr.on('data', chunk => process.stderr.write(chunk));
+    child.once('exit', code => { clearTimeout(timer); reject(new Error(`Browser fixture exited: ${code}`)); });
+  });
+  const runtime = browserRuntime(); browser = await runtime.chromium.launch(runtime.launchOptions);
+  const page = await browser.newPage({ viewport: { width: 1440, height: 960 } }); const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.route('**/*', route => new URL(route.request().url()).origin === locations.mall ? route.continue() : route.abort());
+  await page.goto(locations.mall); await page.waitForSelector('#preview-products .product-card');
+  assert.match(await page.title(), /逛逛/); assert.equal(await page.locator('a[href="/merchant"]').count(), 0);
+  assert.match(await page.locator('#store-label').innerText(), /合成门店/); assert.match(await page.locator('#preview-products').innerText(), /10.90/);
+  await page.screenshot({ path: resolve(output, 'mall-desktop.png'), fullPage: true });
+  await page.locator('[data-prompt]').first().click(); await page.waitForSelector('.message-assistant .product-card');
+  assert.match(await page.locator('.message-assistant').innerText(), /预估/);
+  await page.locator('.message-assistant .product-card').first().click(); await page.waitForSelector('#product-detail .option-value');
+  assert.match(await page.locator('#product-detail').innerText(), /热 · 当前/);
+  await page.getByRole('button', { name: '冰', exact: true }).click(); await page.getByRole('button', { name: '冰 · 当前', exact: true }).waitFor();
+  await page.getByRole('button', { name: '少甜', exact: true }).click(); await page.getByRole('button', { name: '少甜 · 当前', exact: true }).waitFor();
+  assert.equal(await page.getByRole('button', { name: '冰 · 当前', exact: true }).count(), 1);
+  await page.locator('#purchase-quantity').fill('2'); await page.locator('#preview-order').click(); await page.locator('#confirm-order').waitFor();
+  assert.match(await page.locator('#product-detail').innerText(), /21.80/); assert.match(await page.locator('#product-detail').innerText(), /大杯\/冰/);
+  assert.match(await page.locator('#product-detail').innerText(), /少甜/);
+  await page.locator('#confirm-order').click(); await page.locator('.payment-qr').waitFor();
+  assert.equal(await page.locator('.payment-qr').evaluate(image => image.complete && image.naturalWidth === 300), true);
+  assert.match(await page.locator('.order-number').innerText(), /7639308439653908490/);
+  await page.screenshot({ path: resolve(output, 'payment-desktop.png'), fullPage: true });
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  await page.screenshot({ path: resolve(output, 'payment-mobile.png'), fullPage: true });
+  await page.locator('#product-close').click(); await page.reload(); await page.locator('#my-orders').click();
+  await page.locator('#product-detail .store-option').first().click(); await page.locator('.payment-qr').waitFor();
+  await page.locator('#product-close').click(); await page.setViewportSize({ width: 1440, height: 960 });
+  await page.waitForSelector('#preview-products .product-card');
+  // A failed option request replaces the prior error rather than stacking messages.
+  await page.route('**/api/mall/switch', route => route.fulfill({ status: 404, contentType: 'application/json', body: JSON.stringify({ error: { code: 'not_found', message: '商场接口不存在。' } }) }));
+  await page.locator('#preview-products .product-card').first().click();
+  await page.getByRole('button', { name: '少甜', exact: true }).click(); await page.locator('.checkout-error').waitFor();
+  await page.getByRole('button', { name: '少甜', exact: true }).click(); await page.locator('.checkout-error').waitFor();
+  assert.equal(await page.locator('.checkout-error').count(), 1); assert.match(await page.locator('.checkout-error').innerText(), /重启商场服务/);
+  await page.unroute('**/api/mall/switch'); await page.locator('#product-close').click();
+  // A frontend served by an older running backend must not offer unsupported editing.
+  await page.route('**/api/mall/bootstrap', async route => {
+    const response = await route.fetch(); const body = await response.json(); delete body.specification_editing;
+    await route.fulfill({ response, json: body });
+  });
+  await page.reload(); await page.waitForSelector('#preview-products .product-card'); await page.locator('#preview-products .product-card').first().click();
+  await page.locator('#product-detail .option-value').first().waitFor();
+  assert.equal(await page.getByRole('button', { name: '少甜', exact: true }).isDisabled(), true);
+  assert.match(await page.locator('#product-detail').innerText(), /重启商场服务/);
+  await page.unroute('**/api/mall/bootstrap'); await page.reload(); await page.waitForSelector('#preview-products .product-card');
+  await page.locator('#store-trigger').click(); assert.match(await page.locator('#store-dialog').innerText(), /30.25°N，120.15°E/);
+  assert.equal(await page.locator('.auto-location').isDisabled(), true); await page.locator('#store-close').click();
+  await page.locator('#new-chat').click(); assert.equal(await page.locator('.message').count(), 0);
+  await page.setViewportSize({ width: 390, height: 844 }); assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  await page.screenshot({ path: resolve(output, 'mall-mobile.png'), fullPage: true });
+  await page.locator('#chat-input').fill('拿铁'); await page.locator('#send').click(); await page.waitForSelector('.message-assistant .product-card');
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true); assert.deepEqual(errors, []); await page.close();
+  console.log('AI mall browser passed: desktop/mobile/chat/detail/fixed location and real HTTP routes with MCP/model fixtures');
+  const fixturePage = await browser.newPage(); fixturePage.on('pageerror', error => errors.push(error.message));
+  await fixturePage.goto(locations.fixture); await fixturePage.waitForFunction(() => document.querySelector('#product')?.options.length > 0);
+  await fixturePage.locator('#add').click(); await fixturePage.locator('[data-option="temperature"]').selectOption('hot'); await fixturePage.locator('#add').click();
+  assert.equal(await fixturePage.locator('#basket .line').count(), 2);
+  await fixturePage.locator('#quote').click(); await fixturePage.waitForSelector('#quote-panel:not([hidden])');
+  await fixturePage.locator('#confirm').click(); await fixturePage.waitForSelector('#orders .line'); assert.match(await fixturePage.locator('#orders').innerText(), /待支付/);
+  await fixturePage.getByRole('button', { name: '模拟支付，不会扣款' }).click(); await fixturePage.getByRole('button', { name: '模拟制作完成' }).waitFor();
+  await fixturePage.getByRole('button', { name: '模拟制作完成' }).click(); await fixturePage.getByRole('button', { name: '模拟取餐' }).waitFor();
+  await fixturePage.reload(); await fixturePage.waitForSelector('#orders .line strong'); assert.match(await fixturePage.locator('#orders').innerText(), /FIXTURE-001/);
+  assert.deepEqual(errors, []); console.log('Offline browser passed: distinct variants, quote, confirmation, payment, pickup and reload recovery');
+} finally {
+  await browser?.close(); child.stdin.end();
+  await Promise.race([new Promise(done => child.once('exit', done)), new Promise(done => setTimeout(done, 3000))]);
+  if (child.exitCode === null) child.kill();
+}

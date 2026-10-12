@@ -1,0 +1,40 @@
+{
+  "name": "@ocp-catalog/skill",
+  "version": "0.1.0",
+  "description": "One-command installer for the OCP Catalog agent skill. Run `npx @ocp-catalog/skill` to add it to Claude Code, Codex, or any agent that reads a skills directory.",
+  "license": "MIT",
+  "homepage": "https://github.com/Open-Commerce-Protocol/OCP-Catalog#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Open-Commerce-Protocol/OCP-Catalog.git",
+    "directory": "packages/ocp-skill"
+  },
+  "keywords": [
+    "ocp",
+    "open-commerce-protocol",
+    "catalog",
+    "agent",
+    "skill",
+    "claude-code",
+    "codex"
+  ],
+  "type": "module",
+  "bin": {
+    "ocp-skill": "./bin/ocp-skill.mjs"
+  },
+  "files": [
+    "bin",
+    "skill"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepack": "bun ../../scripts/sync-skill-copies.ts",
+    "prepublishOnly": "bun ../../scripts/sync-skill-copies.ts",
+    "build": "bun ../../scripts/sync-skill-copies.ts",
+    "typecheck": "node --check bin/ocp-skill.mjs",
+    "lint": "node --check bin/ocp-skill.mjs",
+    "test": "bun test --pass-with-no-tests"
+  }
+}

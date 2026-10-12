@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.registration.v1/catalog-verification.schema.json",
+  "type": "object",
+  "properties": {
+    "ocp_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "kind": {
+      "type": "string",
+      "const": "CatalogVerificationRequest"
+    },
+    "challenge_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

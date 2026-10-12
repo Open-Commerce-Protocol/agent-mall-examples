@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.handshake.v1/registration-result.schema.json",
+  "type": "object",
+  "required": ["ocp_version", "kind", "id", "status", "catalog_id"],
+  "properties": {
+    "ocp_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "kind": {
+      "type": "string",
+      "const": "RegistrationResult"
+    },
+    "id": {
+      "type": "string"
+    },
+    "catalog_id": {
+      "type": "string"
+    },
+    "provider_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["accepted_full", "accepted_limited", "rejected", "pending_verification"]
+    },
+    "matched_object_contract_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "effective_registration_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "selected_sync_capability": {
+      "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/SelectedSyncCapability"
+    },
+    "missing_required_fields": {
+      "type": "array",
+      "items": {
+        "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/FieldRef"
+      },
+      "uniqueItems": true
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

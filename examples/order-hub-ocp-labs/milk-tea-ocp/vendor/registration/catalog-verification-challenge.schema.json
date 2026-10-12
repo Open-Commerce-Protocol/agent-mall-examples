@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.registration.v1/catalog-verification-challenge.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "challenge_id",
+        "challenge_type",
+        "domain",
+        "name",
+        "value",
+        "expires_at"
+      ],
+      "properties": {
+        "challenge_id": { "type": "string", "minLength": 1 },
+        "challenge_type": { "type": "string", "const": "dns_txt" },
+        "domain": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "minLength": 1 },
+        "expires_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "challenge_id",
+        "challenge_type",
+        "domain",
+        "url",
+        "token",
+        "expires_at"
+      ],
+      "properties": {
+        "challenge_id": { "type": "string", "minLength": 1 },
+        "challenge_type": { "type": "string", "const": "https_well_known" },
+        "domain": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" },
+        "token": { "type": "string", "minLength": 1 },
+        "expires_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.registration.v1/catalog-search-result.schema.json",
+  "type": "object",
+  "required": [
+    "ocp_version",
+    "kind",
+    "id",
+    "registration_id",
+    "result_count",
+    "items",
+    "explain"
+  ],
+  "properties": {
+    "ocp_version": { "type": "string", "const": "1.0" },
+    "kind": { "type": "string", "const": "CatalogSearchResult" },
+    "id": { "type": "string", "minLength": 1 },
+    "registration_id": { "type": "string", "minLength": 1 },
+    "result_count": { "type": "integer", "minimum": 0 },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "catalog_id",
+          "catalog_name",
+          "score",
+          "matched_query_packs",
+          "verification_status",
+          "trust_tier",
+          "health_status",
+          "route_hint",
+          "explain"
+        ],
+        "properties": {
+          "catalog_id": { "type": "string", "minLength": 1 },
+          "catalog_name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "score": { "type": "number" },
+          "matched_query_packs": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "verification_status": { "type": "string" },
+          "trust_tier": { "type": "string" },
+          "health_status": { "type": "string" },
+          "route_hint": {
+            "$ref": "https://ocp.dev/schema/ocp.catalog.registration.v1/catalog-route-hint.schema.json"
+          },
+          "explain": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "explain": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

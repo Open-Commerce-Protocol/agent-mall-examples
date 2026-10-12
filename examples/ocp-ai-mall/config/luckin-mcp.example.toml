@@ -1,0 +1,7 @@
+# Public connection template only; contains no account credential.
+# Optional: copy to .codex/config.toml, then set your own environment variable.
+# Do not insert a token into this file or commit a configured copy.
+[mcp_servers.my-coffee]
+url = "https://gwmcp.lkcoffee.com/order/user/mcp"
+enabled = true
+bearer_token_env_var = "LUCKIN_MCP_TOKEN"

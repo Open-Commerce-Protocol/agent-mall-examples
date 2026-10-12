@@ -1,0 +1,4 @@
+interface:
+  display_name: "OCP Catalog"
+  short_description: "Use OCP Catalog protocols through the shared CLI and client."
+  default_prompt: "Use the OCP Catalog skill to discover catalogs, inspect capabilities, query catalog entries, resolve results, and inspect activity events."

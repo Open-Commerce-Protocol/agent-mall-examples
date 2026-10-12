@@ -1,0 +1,16 @@
+{
+  "name": "milk-tea-ocp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "奶茶 OCP 二次应用演示：两家独立奶茶铺 Catalog 节点 + Registration 发现节点 + 可视化面板",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "dependencies": {},
+  "scripts": {
+    "start": "node src/start-all.ts",
+    "selfcheck": "node scripts/selfcheck.ts",
+    "demo": "node demo/agent-demo.ts"
+  }
+}

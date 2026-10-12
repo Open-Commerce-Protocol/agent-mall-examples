@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.registration.v1/registration-discovery.schema.json",
+  "type": "object",
+  "required": [
+    "ocp_version",
+    "kind",
+    "registration_id",
+    "registration_name",
+    "registration_protocol",
+    "registration_protocol_version",
+    "manifest_url",
+    "catalog_registration_url",
+    "catalog_search_url"
+  ],
+  "properties": {
+    "ocp_version": { "type": "string", "const": "1.0" },
+    "kind": { "type": "string", "const": "RegistrationDiscovery" },
+    "registration_id": { "type": "string", "minLength": 1 },
+    "registration_name": { "type": "string", "minLength": 1 },
+    "registration_protocol": { "type": "string", "const": "ocp.catalog.registration.v1" },
+    "registration_protocol_version": { "type": "string", "minLength": 1 },
+    "manifest_url": { "type": "string", "format": "uri" },
+    "catalog_registration_url": { "type": "string", "format": "uri" },
+    "catalog_search_url": { "type": "string", "format": "uri" }
+  },
+  "additionalProperties": false
+}

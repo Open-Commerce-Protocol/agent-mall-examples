@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "created_date": "2026-10-11",
+  "source_files": 589,
+  "excluded_candidate_files": 0,
+  "policy": {
+    "selection": "current tracked and non-ignored untracked source files; explicit source-root allowlist",
+    "excludes": [
+      ".git",
+      ".codex",
+      ".agents",
+      ".aws",
+      ".ssh",
+      ".claude",
+      ".codex-tmp",
+      ".codex-remote-work",
+      "node_modules",
+      "dist",
+      ".turbo",
+      ".next",
+      "coverage",
+      "reports",
+      "screenshots",
+      "__pycache__",
+      ".playwright-cli",
+      ".workspace",
+      ".codegraph",
+      ".tmp",
+      "secrets"
+    ],
+    "excluded_files": [
+      "real .env",
+      ".npmrc",
+      "private keys",
+      "SQLite/databases",
+      "logs",
+      "jsonl",
+      "compiled maps",
+      "archives",
+      "tsbuildinfo"
+    ],
+    "luckin_configuration": "new public endpoint + bearer_token_env_var template; original config never copied",
+    "generated_contracts_included": false
+  },
+  "checks": {
+    "exact_local_secret_matches": 0,
+    "secret_and_personal_path_findings": [],
+    "credential_literal_candidates": [],
+    "sanitized_personal_path_files": [],
+    "sanitized_location_files": [
+      "README.md",
+      "apps/shopping-agent-api/src/mall.ts",
+      "apps/shopping-agent-web/public/mall.html",
+      "docs/shopping-agent/LUCKIN-MVP.md",
+      "docs/shopping-agent/README.md",
+      "tests/luckin-e2e/browser-check.mjs",
+      "tests/luckin-e2e/live-checkout.test.ts",
+      "tests/luckin-e2e/mall.test.ts"
+    ],
+    "reviewed_synthetic_credential_literals": 12
+  }
+}

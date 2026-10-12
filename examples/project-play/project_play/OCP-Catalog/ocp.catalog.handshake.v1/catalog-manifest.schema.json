@@ -1,0 +1,368 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.handshake.v1/catalog-manifest.schema.json",
+  "type": "object",
+  "required": [
+    "ocp_version",
+    "kind",
+    "id",
+    "catalog_id",
+    "catalog_name",
+    "endpoints",
+    "query_capabilities",
+    "object_contracts"
+  ],
+  "properties": {
+    "ocp_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "kind": {
+      "type": "string",
+      "const": "CatalogManifest"
+    },
+    "id": {
+      "type": "string"
+    },
+    "catalog_id": {
+      "type": "string"
+    },
+    "catalog_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "registry_visibility": {
+      "type": "string",
+      "enum": ["public", "partner", "private"],
+      "default": "public"
+    },
+    "endpoints": {
+      "type": "object",
+      "required": ["query", "resolve"],
+      "properties": {
+        "health": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/Endpoint"
+        },
+        "query": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/Endpoint"
+        },
+        "resolve": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/Endpoint"
+        },
+        "provider_registration": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/Endpoint"
+        },
+        "contracts": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/Endpoint"
+        },
+        "object_sync": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/Endpoint"
+        },
+        "object_sync_stream": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/Endpoint"
+        },
+        "object_sync_run": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/Endpoint"
+        },
+        "object_sync_run_complete": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/Endpoint"
+        }
+      },
+      "additionalProperties": false
+    },
+    "query_capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["capability_id"],
+        "properties": {
+          "capability_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "query_packs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["pack_id"],
+              "properties": {
+                "pack_id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "query_modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["keyword", "filter", "semantic", "hybrid"]
+                  },
+                  "uniqueItems": true
+                },
+                "request_schema_uri": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "metadata": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              },
+              "additionalProperties": false
+            },
+            "default": []
+          },
+          "searchable_field_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/FieldRef"
+            },
+            "uniqueItems": true
+          },
+          "filterable_field_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/FieldRef"
+            },
+            "uniqueItems": true
+          },
+          "sortable_field_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/FieldRef"
+            },
+            "uniqueItems": true
+          },
+          "input_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/QueryInputField"
+            }
+          },
+          "supports_explain": {
+            "type": "boolean",
+            "default": true
+          },
+          "supports_resolve": {
+            "type": "boolean",
+            "default": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "data_profile": {
+      "type": "object",
+      "required": ["catalog_entry_count"],
+      "properties": {
+        "catalog_entry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of active catalog entries physically stored by this catalog. Omit data_profile when the catalog only forwards live requests or cannot declare an authoritative stored count."
+        },
+        "object_counts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["object_type", "count"],
+            "properties": {
+              "object_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "counted_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provider_contract": {
+      "type": "object",
+      "required": ["field_rules", "sync_capabilities"],
+      "properties": {
+        "field_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/FieldRule"
+          }
+        },
+        "sync_capabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/SyncCapability"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "object_contracts": {
+      "type": "array",
+      "items": {
+        "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/object-contract.schema.json"
+      }
+    },
+    "federation": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["disabled", "profile_only", "summary_exchange", "remote_routing"],
+          "default": "disabled"
+        },
+        "node_role": {
+          "type": "string",
+          "enum": ["source_catalog", "registration_node", "federation_peer"],
+          "default": "source_catalog"
+        },
+        "peer_policy": {
+          "type": "object",
+          "properties": {
+            "accepts_peers": { "type": "boolean", "default": false },
+            "requires_verification": { "type": "boolean", "default": true },
+            "allowed_peer_ids": {
+              "type": "array",
+              "items": { "type": "string" },
+              "default": []
+            }
+          },
+          "additionalProperties": false
+        },
+        "supported_protocols": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "remote_query": {
+          "type": "object",
+          "properties": {
+            "supported": { "type": "boolean", "default": false },
+            "routing_modes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["route_hint", "summary_cache", "live_forward"]
+              },
+              "default": []
+            },
+            "accepted_query_packs": {
+              "type": "array",
+              "items": { "type": "string" },
+              "default": []
+            },
+            "max_fanout": { "type": "integer", "minimum": 1 },
+            "timeout_ms": { "type": "integer", "minimum": 1 },
+            "requires_trust_tier": {
+              "type": "string",
+              "enum": ["unknown", "unverified", "verified", "trusted"],
+              "default": "verified"
+            },
+            "returns_authoritative_results": { "type": "boolean", "default": false }
+          },
+          "additionalProperties": false
+        },
+        "remote_resolve": {
+          "type": "object",
+          "properties": {
+            "supported": { "type": "boolean", "default": false },
+            "allowed_reference_types": {
+              "type": "array",
+              "items": { "type": "string" },
+              "default": ["commercial_object"]
+            },
+            "requires_live_check": { "type": "boolean", "default": true },
+            "cache_policy": {
+              "type": "string",
+              "enum": ["no_cache", "short_ttl", "source_ttl"],
+              "default": "source_ttl"
+            },
+            "auth_context_required": { "type": "boolean", "default": true },
+            "requires_trust_tier": {
+              "type": "string",
+              "enum": ["unknown", "unverified", "verified", "trusted"],
+              "default": "verified"
+            }
+          },
+          "additionalProperties": false
+        },
+        "summary_cache": {
+          "type": "object",
+          "properties": {
+            "supported": { "type": "boolean", "default": false },
+            "summary_types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["profile", "contract", "availability", "catalog_entry"]
+              },
+              "default": []
+            },
+            "ttl_seconds": { "type": "integer", "minimum": 1 },
+            "includes_object_payloads": { "type": "boolean", "default": false }
+          },
+          "additionalProperties": false
+        },
+        "mutation_log": {
+          "type": "object",
+          "properties": {
+            "supported": { "type": "boolean", "default": false },
+            "event_types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["snapshot_created", "entry_upserted", "entry_deleted", "trust_changed"]
+              },
+              "default": []
+            },
+            "cursor_required": { "type": "boolean", "default": true },
+            "includes_tombstones": { "type": "boolean", "default": true }
+          },
+          "additionalProperties": false
+        },
+        "trust_strategy": {
+          "type": "object",
+          "properties": {
+            "trust_tier": {
+              "type": "string",
+              "enum": ["unknown", "unverified", "verified", "trusted"],
+              "default": "unknown"
+            },
+            "domain_verified": { "type": "boolean", "default": false },
+            "manifest_signed": { "type": "boolean", "default": false },
+            "signature_algorithms": {
+              "type": "array",
+              "items": { "type": "string" },
+              "default": []
+            },
+            "downgrade_invalidates_cache": { "type": "boolean", "default": true }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

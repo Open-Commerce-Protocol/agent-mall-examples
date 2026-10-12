@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.handshake.v1/object-contract.schema.json",
+  "type": "object",
+  "required": ["required_fields"],
+  "properties": {
+    "required_fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/FieldRequirement"
+      },
+      "uniqueItems": true
+    },
+    "optional_fields": {
+      "type": "array",
+      "items": {
+        "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/FieldRef"
+      },
+      "uniqueItems": true
+    },
+    "additional_fields_policy": {
+      "type": "string",
+      "enum": ["allow", "ignore", "reject"],
+      "default": "allow"
+    },
+    "field_usage_policy": {
+      "type": "array",
+      "items": {
+        "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/FieldRule"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "identity_policy": {
+      "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/IdentityPolicy"
+    },
+    "resolve_policy": {
+      "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/ResolvePolicy"
+    },
+    "provenance_requirements": {
+      "type": "object",
+      "properties": {
+        "accepted_authority_types": {
+          "type": "array",
+          "items": {
+            "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/AuthorityType"
+          },
+          "uniqueItems": true
+        },
+        "requires_verification": {
+          "type": "boolean",
+          "default": false
+        },
+        "minimum_trust_tier": {
+          "$ref": "https://ocp.dev/schema/ocp.catalog.handshake.v1/common.schema.json#/$defs/TrustTier"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,26 @@
+{
+  "name": "ocp-agent-x-ray-bundle",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "bun@1.3.14",
+  "workspaces": [
+    "packages/*",
+    "examples/typescript",
+    "apps/agent-x-ray"
+  ],
+  "scripts": {
+    "start": "bun run --cwd apps/agent-x-ray start",
+    "xray:dev": "bun run --cwd apps/agent-x-ray dev",
+    "xray:ui": "bun run --cwd apps/agent-x-ray ui",
+    "xray:build": "bun run --cwd apps/agent-x-ray build",
+    "typecheck": "bun run --cwd apps/agent-x-ray typecheck",
+    "test": "bun test",
+    "catalog:start": "bun examples/typescript/src/server.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.1",
+    "typescript": "^5.9.3"
+  }
+}

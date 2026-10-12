@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>逛逛 · API 配置</title>
+  <meta name="theme-color" content="#f8f9fc">
+  <link rel="stylesheet" href="/mall.css"><link rel="stylesheet" href="/model-settings.css">
+  <script src="/model-settings.js" type="module"></script>
+</head>
+<body class="mall-settings-page" data-view="configuration">
+  <div class="page">
+    <header><a class="mall-brand" href="/" aria-label="返回 AI 对话"><span class="brand-mark" aria-hidden="true">g<span>·</span></span><span>逛逛<small>YOUR AI MALL</small></span></a><div class="demo-header-actions"><a id="model-return-shopping" class="demo-config-link" href="/">返回对话</a><span class="mode">API 配置</span></div></header>
+    <main class="demo-main">
+      <p id="demo-loading" class="demo-loading" role="status">正在读取本机配置…</p>
+      <section id="api-configuration" class="model-settings" aria-labelledby="api-configuration-heading" hidden>
+        <div class="model-settings-heading"><div><p class="eyebrow">YOUR MODEL. YOUR CHOICE.</p><h2 id="api-configuration-heading" tabindex="-1">连接你的 AI 助手</h2><p>填写或修改自己的 API。保存后直接返回 AI 对话，下次启动会沿用你的配置。</p></div><div class="model-settings-heading-actions"><button id="model-back-to-entry" class="model-text-button" type="button" hidden>返回对话 ↗</button><span id="model-settings-status" class="model-status" role="status">正在读取配置</span></div></div>
+        <div id="model-first-run" class="model-first-run" hidden><span class="model-first-run-icon" aria-hidden="true">✦</span><div><strong>首次使用，先接上你的模型</strong><p>填写服务地址、模型名称与密钥，保存后即可与自己的 AI 一起逛商场。</p></div><a id="model-first-run-link" href="#model-provider">开始配置 <span aria-hidden="true">↓</span></a></div>
+        <form id="model-settings-form" autocomplete="off">
+          <fieldset id="model-settings-fields" disabled>
+            <legend class="model-sr-only">模型 API 配置</legend>
+            <div class="model-settings-grid">
+              <label for="model-provider">API 服务<select id="model-provider"><option value="deepseek">DeepSeek</option><option value="openai">OpenAI</option><option value="anthropic">Anthropic / Claude</option><option value="gemini">Google / Gemini</option><option value="custom">其他 / 自定义 API</option></select></label>
+              <label for="model-protocol">接口协议<select id="model-protocol" aria-describedby="model-protocol-note"><option value="openai">OpenAI 兼容</option><option value="anthropic">Anthropic Messages</option><option value="gemini">Google Gemini</option></select></label>
+              <label class="model-field-wide" for="model-base-url">API 服务地址<input id="model-base-url" type="url" maxlength="2048" placeholder="https://api.deepseek.com" required spellcheck="false" aria-describedby="model-base-note"><small id="model-base-note">填写服务的基础地址，不包含 /chat/completions、/messages 等请求路径。第三方服务请按其文档填写。</small></label>
+              <label for="model-name">模型名称<input id="model-name" type="text" maxlength="200" placeholder="deepseek-flash" required spellcheck="false" aria-describedby="model-name-note"><small id="model-name-note">使用服务商提供的模型 ID；示例可以修改。所选模型需要支持工具调用。</small></label>
+              <label for="model-timeout">请求超时（秒）<input id="model-timeout" type="number" min="0.1" max="60" step="0.1" value="30" required aria-describedby="model-timeout-note"><small id="model-timeout-note">0.1–60 秒，通常保留 30 秒即可。</small></label>
+              <label class="model-field-wide" for="model-api-key">API 密钥<div class="model-key-field"><input id="model-api-key" type="password" maxlength="4096" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="粘贴你的 API 密钥" required aria-describedby="model-key-note"><button id="model-key-toggle" class="model-key-toggle" type="button" aria-pressed="false" aria-label="显示 API 密钥">显示</button></div><small id="model-key-note">密钥只提交给本机服务，不写入浏览器存储；保存后输入框会清空。</small></label>
+            </div>
+            <p id="model-protocol-note" class="model-protocol-note">支持 OpenAI 兼容、Anthropic 与 Gemini 三种接口。密钥、地址和模型必须来自同一服务，兼容程度以连接测试为准。</p>
+            <div class="model-settings-actions"><button id="model-save" class="primary" type="submit">保存本机配置 <span aria-hidden="true">↗</span></button><button id="model-test" class="secondary" type="button">测试连接与工具调用</button><button id="model-clear" class="model-text-button" type="button" disabled>清除本机配置</button></div>
+          </fieldset>
+        </form>
+        <div class="model-settings-bottom"><p>配置保存在本机服务的数据目录中。测试会向所填服务发送一条简短请求，可能消耗少量额度；测试成功后仍需点击保存。</p><button id="model-reload" class="model-text-button" type="button">重新读取</button></div>
+        <div id="model-clear-confirmation" class="model-clear-confirmation" hidden><p>清除后，Agent 需要重新填写 API 才能使用。确定清除当前本机配置？</p><div><button id="model-clear-confirm" class="secondary" type="button">确定清除</button><button id="model-clear-cancel" class="model-text-button" type="button">保留配置</button></div></div>
+        <p id="model-settings-feedback" class="model-settings-feedback" role="status" aria-live="polite" hidden></p>
+      </section>
+      <noscript><p class="model-settings-feedback error">请启用浏览器 JavaScript，以读取和保存 API 配置。</p></noscript>
+    </main>
+    <div class="page-footer"><span>OCP CATALOG / AI MALL</span><span>你的模型 · 你的 AI 助手</span></div>
+  </div>
+</body>
+</html>
+

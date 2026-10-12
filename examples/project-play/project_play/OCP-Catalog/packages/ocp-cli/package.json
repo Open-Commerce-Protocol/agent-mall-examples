@@ -1,0 +1,46 @@
+{
+  "name": "@ocp-catalog/ocp-cli",
+  "version": "0.1.3",
+  "description": "CLI and agent skill tooling for the Open Commerce Protocol Catalog workflow.",
+  "private": false,
+  "type": "module",
+  "homepage": "https://github.com/Open-Commerce-Protocol/OCP-Catalog#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Open-Commerce-Protocol/OCP-Catalog.git",
+    "directory": "packages/ocp-cli"
+  },
+  "keywords": [
+    "ocp",
+    "open-commerce-protocol",
+    "catalog",
+    "agent",
+    "cli",
+    "skill"
+  ],
+  "bin": {
+    "ocp": "dist/index.js"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepack": "bun ../../scripts/build-ocp-cli.ts",
+    "prepublishOnly": "bun ../../scripts/build-ocp-cli.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "bun ../../scripts/build-ocp-cli.ts",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "bun test --pass-with-no-tests"
+  },
+  "devDependencies": {
+    "@ocp-catalog/ocp-client": "workspace:*",
+    "@ocp-catalog/ocp-schema": "workspace:*",
+    "@ocp-catalog/registration-schema": "workspace:*"
+  }
+}

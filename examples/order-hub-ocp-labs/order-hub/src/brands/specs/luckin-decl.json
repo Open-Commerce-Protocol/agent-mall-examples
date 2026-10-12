@@ -1,0 +1,73 @@
+{
+  "id": "luckin-decl",
+  "name": "瑞幸咖啡（声明式）",
+  "tagline": "用声明式引擎复现手写适配器的瑞幸链路——用于验证引擎本身",
+  "mcpUrl": "https://gwmcp.lkcoffee.com/order/user/mcp",
+  "tokenHint": "手机号登录 https://open.lkcoffee.com 领取个人访问 Token。",
+  "requiresLocation": true,
+  "defaultLocation": { "longitude": 120.1551, "latitude": 30.2741 },
+  "orderNeedsLocation": true,
+  "specNote": "这是引擎的自证 spec：同一套字段路径跑真实瑞幸 MCP，结果应与手写适配器一致。configure（换规格）需要多次调用，声明式引擎不表达，因此本 spec 只用默认 sku。",
+  "hidden": true,
+  "ops": {
+    "listStores": { "tool": "queryShopList", "args": { "longitude": "{{lng}}", "latitude": "{{lat}}" } },
+    "searchProducts": { "tool": "searchProductForMcp", "args": { "deptId": "{{storeId}}", "query": "{{query}}" } },
+    "productOptions": { "tool": "queryProductDetailInfo", "args": { "deptId": "{{storeId}}", "productId": "{{productId}}" } },
+    "preview": { "tool": "previewOrder", "args": { "deptId": "{{storeId}}", "productList": "{{lines}}" } },
+    "createOrder": {
+      "tool": "createOrder",
+      "args": {
+        "deptId": "{{storeId}}",
+        "productList": "{{lines}}",
+        "longitude": "{{lng}}",
+        "latitude": "{{lat}}",
+        "couponCodeList": "{{coupons}}",
+        "remark": "{{remark}}"
+      }
+    }
+  },
+  "shapes": {
+    "stores": {
+      "list": "",
+      "id": "deptId",
+      "name": "deptName",
+      "address": "address",
+      "lat": "latitude",
+      "lng": "longitude",
+      "hoursStart": "workTimeStart",
+      "hoursEnd": "workTimeEnd",
+      "status": "workStatus",
+      "distance": "distance"
+    },
+    "products": {
+      "list": "",
+      "id": "productId",
+      "name": "productName",
+      "price": "initialPrice",
+      "sku": "skuCode",
+      "image": "pictureUrl"
+    },
+    "options": {
+      "list": "productAttrs",
+      "id": "attributeId",
+      "name": "attributeName",
+      "choices": "productSubAttrs",
+      "choiceId": "attributeId",
+      "choiceName": "attributeName",
+      "choicePrice": "price"
+    },
+    "preview": {
+      "payable": "discountPrice",
+      "initial": "totalInitialPrice",
+      "privilege": "privilegeMoney",
+      "pickup": "aboutTime",
+      "coupons": "couponCodeList",
+      "lines": "productInfoList",
+      "lineName": "name",
+      "lineSku": "skuCode",
+      "lineAmount": "amount",
+      "lineSpecs": "additionDesc"
+    },
+    "order": { "id": "orderId", "payable": "payAmount" }
+  }
+}

@@ -1,0 +1,77 @@
+# Enforce LF line endings repo-wide. Avoid the
+# "LF will be replaced by CRLF the next time Git touches it" noise on Windows.
+
+# Default: auto-detect text vs binary; for text files, normalize to LF on commit.
+* text=auto eol=lf
+
+# ----------------------------------------------------------------------
+# Explicit overrides for common source / config / docs files (defensive).
+# ----------------------------------------------------------------------
+
+# Source code
+*.ts        text eol=lf
+*.tsx       text eol=lf
+*.js        text eol=lf
+*.jsx       text eol=lf
+*.mjs       text eol=lf
+*.cjs       text eol=lf
+
+# Config / data
+*.json      text eol=lf
+*.yaml      text eol=lf
+*.yml       text eol=lf
+*.toml      text eol=lf
+*.xml       text eol=lf
+
+# Docs / templates
+*.md        text eol=lf
+*.txt       text eol=lf
+*.html      text eol=lf
+*.css       text eol=lf
+*.scss      text eol=lf
+
+# Shell / scripts
+*.sh        text eol=lf
+*.bash      text eol=lf
+*.env       text eol=lf
+*.env.*     text eol=lf
+.gitignore  text eol=lf
+.gitattributes text eol=lf
+
+# Lockfiles - keep LF
+bun.lock    text eol=lf
+package.json text eol=lf
+package-lock.json text eol=lf
+yarn.lock   text eol=lf
+pnpm-lock.yaml text eol=lf
+
+# Windows-only files (if any) keep CRLF
+*.bat       text eol=crlf
+*.cmd       text eol=crlf
+*.ps1       text eol=crlf
+
+# ----------------------------------------------------------------------
+# Binary - never touch line endings.
+# ----------------------------------------------------------------------
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.webp      binary
+*.ico       binary
+*.svg       text eol=lf
+*.pdf       binary
+*.zip       binary
+*.gz        binary
+*.tar       binary
+*.tgz       binary
+*.woff      binary
+*.woff2     binary
+*.ttf       binary
+*.eot       binary
+
+# Allow GitHub's "Generated" / "Vendored" detection to skip these for diff/blame
+bun.lock                          linguist-generated
+package-lock.json                 linguist-generated
+yarn.lock                         linguist-generated
+pnpm-lock.yaml                    linguist-generated

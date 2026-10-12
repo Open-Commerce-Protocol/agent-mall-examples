@@ -1,0 +1,49 @@
+{
+  "order_id": "CN05884248",
+  "catalog": "瑞幸咖啡铺(浙大紫金港店)",
+  "lines": [
+    {
+      "object_id": "p_5025",
+      "title": "小黄油拿铁（原创）",
+      "amount": 9.9,
+      "qty": 1,
+      "product_id": 5025,
+      "sku_code": "SP3445-01420"
+    },
+    {
+      "object_id": "p_1262",
+      "title": "生椰拿铁（原创） ×2",
+      "amount": 19.8,
+      "qty": 2,
+      "product_id": 1262,
+      "sku_code": "SP2077-01134"
+    },
+    {
+      "object_id": "p_4929",
+      "title": "橙C冰茶 ×2",
+      "amount": 19.8,
+      "qty": 2,
+      "product_id": 4929,
+      "sku_code": "SP3349-00009"
+    },
+    {
+      "object_id": "p_5025",
+      "title": "小黄油拿铁（原创）",
+      "amount": 9.9,
+      "qty": 1,
+      "product_id": 5025,
+      "sku_code": "SP3445-01420"
+    }
+  ],
+  "total": 59.4,
+  "purpose": "课题组报销",
+  "people_total": 6,
+  "invoice": {
+    "id": "SIMINV-05884248",
+    "title": "浙江大学",
+    "email": "lab-zjg@test.edu.cn",
+    "status": "本地模拟收据(回退)"
+  },
+  "archived_at": "2026-10-11T08:04:47.755Z",
+  "note": "CampusNow 演示数据;发票文件为测试文件,非正式税务凭证。"
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.registration.v1/registration-manifest.schema.json",
+  "type": "object",
+  "required": [
+    "ocp_version",
+    "kind",
+    "registration_id",
+    "registration_name",
+    "supported_protocols",
+    "endpoints",
+    "catalog_registration",
+    "catalog_search_capabilities"
+  ],
+  "properties": {
+    "ocp_version": { "type": "string", "const": "1.0" },
+    "kind": { "type": "string", "const": "RegistrationManifest" },
+    "registration_id": { "type": "string", "minLength": 1 },
+    "registration_name": { "type": "string", "minLength": 1 },
+    "supported_protocols": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "endpoints": {
+      "type": "object",
+      "required": [
+        "catalog_registration",
+        "catalog_search",
+        "catalog_resolve",
+        "catalog_verify",
+        "catalog_refresh",
+        "catalog_token_rotate"
+      ],
+      "properties": {
+        "catalog_registration": { "type": "string", "format": "uri" },
+        "catalog_search": { "type": "string", "format": "uri" },
+        "catalog_resolve": { "type": "string", "format": "uri" },
+        "catalog_verify": { "type": "string", "format": "uri" },
+        "catalog_refresh": { "type": "string", "format": "uri" },
+        "catalog_token_rotate": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    },
+    "catalog_registration": {
+      "type": "object",
+      "required": [
+        "registration_modes",
+        "default_status",
+        "requires_domain_verification",
+        "requires_https"
+      ],
+      "properties": {
+        "registration_modes": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["open_intake", "invite_only"] },
+          "minItems": 1
+        },
+        "default_status": {
+          "type": "string",
+          "enum": ["pending_verification", "accepted_indexed"]
+        },
+        "requires_domain_verification": { "type": "boolean" },
+        "requires_https": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "catalog_search_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

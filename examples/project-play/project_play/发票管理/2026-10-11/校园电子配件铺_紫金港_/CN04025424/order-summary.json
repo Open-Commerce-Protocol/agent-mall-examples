@@ -1,0 +1,30 @@
+{
+  "order_id": "CN04025424",
+  "catalog": "校园电子配件铺(紫金港)",
+  "lines": [
+    {
+      "object_id": "e-001",
+      "title": "面包板套装(830孔×3)",
+      "amount": 12
+    },
+    {
+      "object_id": "e-002",
+      "title": "杜邦线(120根混装)",
+      "amount": 9.9
+    },
+    {
+      "object_id": "e-003",
+      "title": "电阻电容常用值套装",
+      "amount": 25
+    }
+  ],
+  "total": 46.9,
+  "invoice": {
+    "id": "TESTINV-04062745",
+    "title": "浙江大学",
+    "email": "lab-zjg@test.edu.cn",
+    "status": "emailed(测试)"
+  },
+  "archived_at": "2026-10-11T07:34:29.057Z",
+  "note": "CampusNow 演示数据;发票文件为测试文件,非正式税务凭证。"
+}

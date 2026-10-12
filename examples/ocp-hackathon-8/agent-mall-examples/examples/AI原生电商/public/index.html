@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexa AI 商城</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="shopper-page">
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Nexa AI 商城首页">
+      <span class="brand-mark">N</span>
+      <span><strong>Nexa</strong><small>AI 原生商城</small></span>
+    </a>
+    <nav class="topnav" aria-label="主导航">
+      <a class="active" href="/">智能选购</a>
+      <a href="/merchant">商家控制台</a>
+    </nav>
+    <div class="system-status"><span></span> 本地 AI 商城在线</div>
+  </header>
+
+  <main class="shop-layout">
+    <section class="conversation" aria-label="AI 选购对话">
+      <div class="conversation-heading">
+        <p class="eyebrow">SHOPPING AGENT</p>
+        <h1>说出需求，直接找到合适的电脑</h1>
+        <p>描述用途、预算和偏好。AI 会理解条件，同时检索商品语义与关键字段。</p>
+      </div>
+
+      <div class="quick-prompts" aria-label="示例需求">
+        <button data-prompt="预算 6000 元以内，想要轻薄、续航长，平时通勤办公">通勤办公</button>
+        <button data-prompt="想玩 3A 游戏，至少 32GB 内存，预算 9000 元">游戏性能</button>
+        <button data-prompt="大学生写论文和编程，性价比高，预算 5000 元以内">学生学习</button>
+        <button data-prompt="视频剪辑和设计，需要好屏幕和 32GB 内存">设计创作</button>
+      </div>
+
+      <div id="messages" class="messages" aria-live="polite">
+        <article class="message agent-message">
+          <div class="avatar">AI</div>
+          <div>
+            <strong>Nexa 选购助手</strong>
+            <p>你好，我已经读取商品的规格、场景标签和语义向量。告诉我你准备用电脑做什么。</p>
+          </div>
+        </article>
+      </div>
+
+      <form id="chat-form" class="composer">
+        <textarea id="message-input" rows="2" maxlength="300" placeholder="例如：预算 7000，出差办公，要轻薄和 32GB 内存" required></textarea>
+        <div class="composer-footer">
+          <span>关键词 + 向量 + 约束混合检索</span>
+          <button id="send-button" class="primary-button" type="submit">发送需求 <span aria-hidden="true">↑</span></button>
+        </div>
+      </form>
+    </section>
+
+    <section class="results-panel" aria-label="推荐商品">
+      <div class="results-header">
+        <div>
+          <p class="eyebrow">LIVE RESULTS</p>
+          <h2 id="result-title">为你展示热门笔记本</h2>
+        </div>
+        <div id="result-count" class="result-count">读取中</div>
+      </div>
+      <div id="intent-panel" class="intent-panel hidden"></div>
+      <div id="product-grid" class="product-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <dialog id="order-dialog" class="order-dialog">
+    <form id="order-form" method="dialog">
+      <button class="dialog-close" value="cancel" aria-label="关闭">×</button>
+      <p class="eyebrow">DEMO ORDER</p>
+      <h2>确认演示订单</h2>
+      <div id="order-product" class="order-product"></div>
+      <label>数量<input id="order-quantity" type="number" min="1" value="1"></label>
+      <p class="dialog-note">这是本地演示订单，不涉及付款或真实履约。</p>
+      <button id="confirm-order" class="primary-button wide" value="default">确认创建订单</button>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="/shopper.js"></script>
+</body>
+</html>

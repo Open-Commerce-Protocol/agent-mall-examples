@@ -1,0 +1,56 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "shared/skill-installer-core.mjs",
+    "shared/skill-installer-core.d.mts",
+    "scripts/build-protocol-package.ts",
+    "scripts/build-ocp-cli.ts",
+    "scripts/sync-skill-copies.ts",
+    "skills/ocp-catalog/**"
+  ],
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "skill/**"]
+    },
+    "@ocp-catalog/shopping-agent-web#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "public/contracts.js"]
+    },
+    "@ocp-catalog/agent-runtime#build": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@ocp-catalog/shopping-agent-api#build": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@ocp-catalog/luckin-adapter#build": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@ocp-catalog/luckin-integration#build": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@ocp-catalog/luckin-merchant-api#build": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "lint": {}
+  }
+}

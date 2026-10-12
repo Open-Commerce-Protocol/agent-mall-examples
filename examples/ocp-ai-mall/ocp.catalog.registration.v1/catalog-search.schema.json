@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.registration.v1/catalog-search.schema.json",
+  "type": "object",
+  "required": ["query"],
+  "properties": {
+    "ocp_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "kind": {
+      "type": "string",
+      "const": "CatalogSearchRequest"
+    },
+    "query": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "filters": {
+      "type": "object",
+      "properties": {
+        "query_mode": { "type": "string" },
+        "query_pack": { "type": "string" },
+        "supports_resolve": { "type": "boolean" },
+        "verification_status": { "type": "string" },
+        "trust_tier": { "type": "string" },
+        "health_status": { "type": "string" },
+        "domain": { "type": "string" },
+        "tag": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 20
+    },
+    "explain": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "additionalProperties": false
+}

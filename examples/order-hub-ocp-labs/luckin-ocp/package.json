@@ -1,0 +1,19 @@
+{
+  "name": "luckin-ocp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "用 OCP 协议接入瑞幸官方 MCP：OCP 负责发现与协商，MCP 负责执行",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "dependencies": {},
+  "scripts": {
+    "start": "node src/start-all.ts",
+    "order": "node scripts/order.ts",
+    "demo": "node demo/agent-demo.ts",
+    "probe:mcp": "node scripts/mcp-probe.ts",
+    "probe:core": "node scripts/probe-core.ts",
+    "selfcheck": "node scripts/selfcheck.ts"
+  }
+}

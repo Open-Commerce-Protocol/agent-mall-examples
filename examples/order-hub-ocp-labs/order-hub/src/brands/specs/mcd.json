@@ -1,0 +1,13 @@
+{
+  "id": "mcd",
+  "name": "麦当劳中国",
+  "tagline": "麦乐送 / 到店取餐 / 团餐 / 积分兑券",
+  "mcpUrl": "https://mcp.mcd.cn",
+  "tokenHint": "手机号登录麦当劳 MCP 开放平台 https://open.mcd.cn/mcp ，进「控制台」点激活后一键复制 MCP Token（每 token 每分钟限 600 次请求）。",
+  "requiresLocation": true,
+  "defaultLocation": { "longitude": 120.1551, "latitude": 30.2741 },
+  "orderNeedsLocation": true,
+  "specNote": "端点已验证存活（未授权访问返回 403 {\"code\":\"0001\"}），但官方只公布了接入地址与认证方式、未公布工具清单，因此 ops 与 shapes 留空。填入麦当劳 token 后运行 `node scripts/onboard.ts --url https://mcp.mcd.cn --token <token> --id mcd --write` 即可自动生成工具映射草稿，再补齐字段路径就接通了。",
+  "ops": {},
+  "shapes": {}
+}

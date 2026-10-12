@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ocp.dev/schema/ocp.catalog.handshake.v1/catalog-health.schema.json",
+  "type": "object",
+  "required": ["ocp_version", "kind", "catalog_id", "status", "ready", "checked_at"],
+  "properties": {
+    "ocp_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "kind": {
+      "type": "string",
+      "const": "CatalogHealth"
+    },
+    "catalog_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["healthy", "degraded", "unhealthy"]
+    },
+    "ready": {
+      "type": "boolean"
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "manifest_version": {
+      "type": "string"
+    },
+    "details": {
+      "type": "object",
+      "additionalProperties": true,
+      "default": {}
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": ["healthy", "degraded", "unhealthy"]
+          },
+          "latency_ms": {
+            "type": "number",
+            "minimum": 0
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "default": []
+    }
+  },
+  "additionalProperties": false
+}

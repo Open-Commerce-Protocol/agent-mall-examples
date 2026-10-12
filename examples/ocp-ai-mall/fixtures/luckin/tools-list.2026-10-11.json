@@ -1,0 +1,289 @@
+{
+  "tools": [
+    {
+      "name": "queryShopList",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deptName": {
+            "type": "string",
+            "description": "门店名称"
+          },
+          "longitude": {
+            "type": "number",
+            "description": "经度"
+          },
+          "latitude": {
+            "type": "number",
+            "description": "纬度"
+          }
+        },
+        "required": [
+          "longitude",
+          "latitude"
+        ],
+        "additionalProperties": false,
+        "returnDirect": false
+      }
+    },
+    {
+      "name": "searchProductForMcp",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deptId": {
+            "type": "integer",
+            "description": "门店ID"
+          },
+          "query": {
+            "type": "string",
+            "description": "用户原始查询文本"
+          }
+        },
+        "required": [
+          "deptId",
+          "query"
+        ],
+        "additionalProperties": false,
+        "returnDirect": false
+      }
+    },
+    {
+      "name": "switchProduct",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deptId": {
+            "type": "integer",
+            "description": "门店ID"
+          },
+          "productId": {
+            "type": "integer",
+            "description": "商品ID"
+          },
+          "skuCode": {
+            "type": "string",
+            "description": "商品SKU编码"
+          },
+          "attrOperationParam": {
+            "type": "object",
+            "properties": {
+              "attributeId": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "subAttr": {
+                "type": "object",
+                "properties": {
+                  "attributeId": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "operation": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                },
+                "required": [
+                  "attributeId",
+                  "operation"
+                ]
+              }
+            },
+            "required": [
+              "attributeId",
+              "subAttr"
+            ],
+            "description": "商品属性切换参数"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "商品数量"
+          }
+        },
+        "required": [
+          "deptId",
+          "productId",
+          "skuCode",
+          "attrOperationParam",
+          "amount"
+        ],
+        "additionalProperties": false,
+        "returnDirect": false
+      }
+    },
+    {
+      "name": "queryProductDetailInfo",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deptId": {
+            "type": "integer",
+            "description": "门店ID"
+          },
+          "productId": {
+            "type": "integer",
+            "description": "商品ID"
+          }
+        },
+        "required": [
+          "deptId",
+          "productId"
+        ],
+        "additionalProperties": false,
+        "returnDirect": false
+      }
+    },
+    {
+      "name": "previewOrder",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deptId": {
+            "type": "integer",
+            "description": "门店ID"
+          },
+          "productList": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "productId": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "skuCode": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "productId",
+                "skuCode"
+              ]
+            },
+            "description": "订单商品列表"
+          }
+        },
+        "required": [
+          "deptId",
+          "productList"
+        ],
+        "additionalProperties": false,
+        "returnDirect": false
+      }
+    },
+    {
+      "name": "createOrder",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deptId": {
+            "type": "integer",
+            "description": "门店id"
+          },
+          "productList": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "productId": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "skuCode": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "productId",
+                "skuCode"
+              ]
+            },
+            "description": "订单商品列表"
+          },
+          "longitude": {
+            "type": "number",
+            "description": "经度"
+          },
+          "latitude": {
+            "type": "number",
+            "description": "纬度"
+          },
+          "couponCodeList": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "优惠券列表，此参数来自 `previewOrder` 的返回字段 `couponCodeList`"
+          },
+          "remark": {
+            "type": "string",
+            "description": "订单备注"
+          }
+        },
+        "required": [
+          "deptId",
+          "productList",
+          "longitude",
+          "latitude"
+        ],
+        "additionalProperties": false,
+        "returnDirect": false
+      }
+    },
+    {
+      "name": "queryOrderDetailInfo",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "description": "订单ID"
+          }
+        },
+        "required": [
+          "orderId"
+        ],
+        "additionalProperties": false,
+        "returnDirect": false
+      }
+    },
+    {
+      "name": "cancelOrder",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "description": "订单ID"
+          }
+        },
+        "required": [
+          "orderId"
+        ],
+        "additionalProperties": false,
+        "returnDirect": false
+      }
+    }
+  ],
+  "fingerprints": {
+    "queryShopList": "23f54311fa74f9abfae6e67dd7fbd754df50dfc107952b8cb756831eb3163a3c",
+    "searchProductForMcp": "ef9ce7087b3b8e4c6e6689ab261a7674d830eaa27264ff33149ac6f6e3db3637",
+    "switchProduct": "a008c8b50392e859a9b2cdd6b77f9f8a0524e99ae296507f8a09778d7e7f4d6b",
+    "queryProductDetailInfo": "3581f7ba6b2bc3664a9ef96f6459f56453447ad8f13984fc4dad01769f8a4f99",
+    "previewOrder": "ddecff044611ad5062fe1664602409f614aaace31c3a0224153972e1c5afbffc",
+    "createOrder": "8ddcb8f566d5d657c8613e230dcd389a882a15615098d5c27ec5bf8afe4e45f9",
+    "queryOrderDetailInfo": "0568e8ab8a8010e3673eccbfc7051d322d9e1e5ca519906733a2e0c465a7fbd2",
+    "cancelOrder": "bdf795cb298f033f2506248a3119b50afd063bf993cd965cde7b486b9e8693a1"
+  }
+}

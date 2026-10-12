@@ -1,0 +1,24 @@
+# Deploy this Blueprint only after connecting your Render account.
+# A single process is required: browser credentials and write guards are in memory.
+services:
+  - type: web
+    name: agent-mall-one
+    runtime: docker
+    plan: free
+    numInstances: 1
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    autoDeployTrigger: "off"
+    envVars:
+      - key: CLOUD_MODE
+        value: "1"
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: "10000"
+# Render supplies RENDER_EXTERNAL_URL, used as the trusted HTTPS origin.
+# Set PUBLIC_ORIGIN and TRUSTED_ORIGINS in Render when using a custom domain.
+# OAuth provider credentials are optional secrets entered in Render, never here.
+# Free services can sleep/restart. This clears credentials and idempotency records;
+# reconnect and query official orders before deciding whether to submit again.
